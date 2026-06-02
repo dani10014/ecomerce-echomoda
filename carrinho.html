@@ -53,11 +53,30 @@
             
             <div class="card-body">
                 <form>
+                    <!-- Linha de Nome e Email -->
+                    <div class="row py-2">
+                        <div class="col-12 d-flex flex-column">
+                            <label for="nome">Nome Completo *</label>
+                            <input type="text" id="nome" class="form-control" placeholder="Seu nome" required>
+                        </div>
+                    </div>
+
+                    <div class="row py-2">
+                        <div class="col-8 d-flex flex-column">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" class="form-control" placeholder="seu@email.com" required>
+                        </div>
+                        <div class="col-4 d-flex flex-column">
+                            <label for="cpf">CPF *</label>
+                            <input type="text" id="cpf" class="form-control" placeholder="000.000.000-00" required>
+                        </div>
+                    </div>
+
                     <!-- Linha do CEP -->
                     <div class="row align-items-end py-2">
                         <div class="col-8 d-flex flex-column">
-                            <label for="cep">CEP</label>
-                            <input type="text" id="cep" class="form-control" placeholder="00000000">
+                            <label for="cep">CEP *</label>
+                            <input type="text" id="cep" class="form-control" placeholder="00000-000" required>
                         </div>
                         <div class="col-4">
                             <button type="button" class="btn btn-primary w-100" id="btn-buscar-cep">Buscar</button>
@@ -67,23 +86,23 @@
                     <!-- Linha de Endereço e Número -->
                     <div class="row py-2">
                         <div class="col-8 d-flex flex-column">
-                            <label for="cidade">Cidade</label>
+                            <label for="cidade">Cidade *</label>
                             <input type="text" id="cidade" class="form-control" placeholder="Campo Grande exemplo" disabled>
                         </div>
                         <div class="col-4 d-flex flex-column">
-                            <label for="numero">Número</label>
-                            <input type="number" id="numero" class="form-control" placeholder="000">
+                            <label for="numero">Número *</label>
+                            <input type="text" id="numero" class="form-control" placeholder="000" required>
                         </div>
                     </div>
 
                     <!-- Linha de Complemento e UF -->
                     <div class="row py-2">
                         <div class="col-8 d-flex flex-column">
-                            <label for="complemento">Complemento</label>
-                            <input type="text" id="complemento" class="form-control" placeholder="Casa, Ap, Bloco">
+                            <label for="complemento">Complemento *</label>
+                            <input type="text" id="complemento" class="form-control" placeholder="Casa, Ap, Bloco" required>
                         </div>
                         <div class="col-4 d-flex flex-column">
-                            <label for="uf">UF</label>
+                            <label for="uf">UF *</label>
                             <input type="text" id="uf" class="form-control" placeholder="SP" maxlength="2" disabled>
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 {
   "name": "projeto_e-commerce",
   "version": "1.0.0",
-  "type":"module",
+  "type": "module",
   "description": "",
   "homepage": "https://github.com/dani10014/Projeto_e-comerce#readme",
   "bugs": {
@@ -93,6 +93,7 @@
     "events-universal": "^1.0.1",
     "expand-tilde": "^2.0.2",
     "express": "^5.2.1",
+    "express-rate-limit": "^8.5.2",
     "extend": "^3.0.2",
     "extend-shallow": "^3.0.2",
     "fancy-log": "^1.3.3",

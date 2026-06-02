@@ -6,6 +6,8 @@
     border-radius: 10px;
     box-shadow: 5px 5px 10px black;
     position: fixed;
+    height: 500px;
+    overflow: scroll;
     top: 150%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -42,8 +44,9 @@
                 }
                 &.botao-ativo-pagamento{
                     background-color: black;
+                }
         }
-        }
+
         &.menu-ativo{
             top:45%;
         }
