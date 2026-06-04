@@ -798,10 +798,10 @@ header .cabecalho h1 {
 
 main .produtos-favoritados {
   display: flex;
-  justify-content: center;
-  gap: 1rem;
   flex-wrap: wrap;
   margin-top: 2rem;
+  justify-content: space-evenly;
+  width: 100%;
 }
 main .produtos-favoritados .card {
   height: 100%;
@@ -1122,6 +1122,104 @@ main .produtos-favoritados .card-body h3::before {
 }
 #container-finalizar.menu-ativo {
   top: 45%;
+}
+
+.secao-sobre-nos__nome-loja {
+  display: flex;
+  justify-content: end;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  margin: 0 0.75rem;
+}
+.secao-sobre-nos__titulo {
+  color: #fff;
+  margin-bottom: 2rem;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+}
+.secao-sobre-nos__container-descricao {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.secao-sobre-nos__container-descricao__descricao {
+  color: #fff;
+  margin-bottom: 2rem;
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  text-align: center;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+  font-size: 0.75rem;
+  margin-bottom: 0;
+  text-align: justify;
+  width: 90%;
+}
+.secao-sobre-nos__container-fotos .row {
+  gap: 0.5rem;
+}
+.secao-sobre-nos__container-fotos .row .card {
+  height: 150px;
+  border: none !important;
+  position: relative;
+}
+.secao-sobre-nos__container-fotos .row .card img {
+  height: 100%;
+  filter: brightness(0.4);
+  border-radius: 5px;
+}
+.secao-sobre-nos__container-fotos .row .card .texto-card {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  top: 0;
+  z-index: 100;
+  text-align: center;
+  margin-top: 30%;
+}
+.secao-sobre-nos__container-fotos .row .card .texto-card h5 {
+  color: #fff;
+  font-size: 0.85rem;
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  text-align: center;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+  margin-bottom: 0;
+  width: 70%;
+}
+.secao-sobre-nos__container-fotos .slick-dots {
+  display: flex !important;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin-top: 20px; /* Distância entre os cards e as linhas */
+  gap: 8px; /* Espaço entre as linhas */
+}
+.secao-sobre-nos__container-fotos .slick-dots li {
+  width: 20% !important; /* Largura da linha */
+  height: 4px !important; /* Espessura da linha */
+  background-color: rgba(179, 179, 179, 0.7058823529); /* Cor da linha desativada */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Efeito suave ao mudar de card */
+  border-radius: 2px;
+}
+.secao-sobre-nos__container-fotos .slick-dots li button {
+  display: none !important; /* Esconde o texto/botão padrão do Slick */
+}
+.secao-sobre-nos__container-fotos .slick-dots li {
+  /* Arredondado bem de leve (opcional) */
+}
+.secao-sobre-nos__container-fotos .slick-dots li.slick-active {
+  background-color: #ffffff; /* Cor da linha ativa (ex: preto) */
+  width: 10% !important; /* Se quiser, a linha ativa fica um pouco maior */
 }
 
 body {

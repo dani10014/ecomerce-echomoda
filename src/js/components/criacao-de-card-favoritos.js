@@ -11,14 +11,13 @@ export async function criarCardFavoritos() { // Adicionei 'async' aqui
 
     let produtosFavoritadosObjeto = JSON.parse(produtosFavoritados) || [];
 
-    // 1. Limpa o container antes de começar
+    
     containerCardsFavritos.innerHTML = "";
 
     if (produtosFavoritadosObjeto.length < 1) {
         containerCardsFavritos.innerHTML = `<p class="text-light text-center nenhum-favorito mb-0">Nenhum produto favoritado</p>`;
     }
 
-    // Movi a função buscar para fora ou mantenha aqui, mas chame corretamente
     async function buscarEFiltrarProdutos(id) {
         try {
             const resposta = await fetch('./../produtos.json');
