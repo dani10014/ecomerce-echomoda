@@ -1,7 +1,7 @@
 import { indicarProdutosNoCarrinhoEFavoritos } from "./indicador-notificacao.js";
 
 export function IniciarMenuVertical(){
-    const cardClicavel = document.querySelectorAll(".card");
+    const cardClicavel = document.querySelectorAll(".container-base-card .card");
     const botoesFavoritos = document.querySelectorAll(".botao-favoritos i");
     const setasDeMudancaDeFoto = document.querySelectorAll(".carousel-control-prev, .carousel-control-next");
 

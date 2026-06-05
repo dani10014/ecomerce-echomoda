@@ -54,7 +54,7 @@ export function inicarRenderizacaoProdutosCarrinhos() {
     let somaDosValores = 0;
 
     cardExistentes.forEach(card => {
-        const valor = card.querySelector(".card-body valor").innerText;
+        const valor = card.querySelector(".card-body .valor").innerText;
         const quantidade = card.querySelector(".card-body .quantidade").innerText;
 
         const valorEmFloat = parseFloat(valor.replace("R$ ", ""));
