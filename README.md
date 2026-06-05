@@ -1,6 +1,6 @@
 # [EchoModa 🛍️](https://projeto-e-comerce.vercel.app/)
 
-O **EchoModa** é um ecossistema de e-commerce completo, projetado e desenvolvido para escalar desde pequenos negócios locais até operações de alto capital no setor de moda. 
+O **EchoModa** é um ecossistema de e-commerce completo, projetado em desenvolvimento para escalar desde pequenos negócios locais até operações de alto capital no setor de moda. 
 
 O foco principal do projeto foi unir uma interface de alta conversão visual com uma arquitetura de código robusta, performática e segura.
 
