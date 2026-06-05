@@ -14,6 +14,7 @@
         color: #fff;
         margin-bottom: variaveis.$spacing-xl;
         @include fontes.fontePrincipal;
+        border-bottom: 2px solid #fff;
     }
     &__container-descricao{
         width: 100%;
@@ -30,6 +31,16 @@
         }
     }
     &__container-fotos{
+        #carrosel-sobre-nos {
+            .slick-list {
+                margin: 0 -10px;
+            }
+            .slick-slide {
+                padding: 0 10px;
+                box-sizing: border-box;
+            }
+        }
+
         .row{
             gap: variaveis.$spacing-xs;
             .card{

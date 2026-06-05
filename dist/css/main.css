@@ -1139,6 +1139,7 @@ main .produtos-favoritados .card-body h3::before {
   font-optical-sizing: auto;
   font-weight: normal;
   font-style: normal;
+  border-bottom: 2px solid #fff;
 }
 .secao-sobre-nos__container-descricao {
   width: 100%;
@@ -1159,6 +1160,13 @@ main .produtos-favoritados .card-body h3::before {
   margin-bottom: 0;
   text-align: justify;
   width: 90%;
+}
+.secao-sobre-nos__container-fotos #carrosel-sobre-nos .slick-list {
+  margin: 0 -10px;
+}
+.secao-sobre-nos__container-fotos #carrosel-sobre-nos .slick-slide {
+  padding: 0 10px;
+  box-sizing: border-box;
 }
 .secao-sobre-nos__container-fotos .row {
   gap: 0.5rem;
