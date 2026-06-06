@@ -34,6 +34,9 @@ export function iniciarCarroselSlick(){
         slidesToShow: 3,
         dots:true,
         autoplay:true,
+        autoplaySpeed: 1000,
+        arrows:false,
+
             responsive: [
         {
             breakpoint: 768,
@@ -43,6 +46,9 @@ export function iniciarCarroselSlick(){
                     centerPadding: '40px',
                     slidesToShow: 3,
                     dots:true,
+                    autoplay:true,
+                    autoplaySpeed: 1000,
+                    arrows:false,
                 }
         },
         {
@@ -55,6 +61,7 @@ export function iniciarCarroselSlick(){
                     dots:true,
                     autoplay:true,
                     autoplaySpeed: 1000,
+                    arrows:true,
                 }
         }
             ]

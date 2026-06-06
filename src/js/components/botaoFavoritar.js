@@ -22,7 +22,7 @@ export function ouvinteBotaoFavoritar(){
                 botao.style.color = "gold";
 
                 const alertaAdicao = document.querySelector(".confirmacao-adicao-carrinho");
-                alertaAdicao.querySelector(".container h5").innerHTML = "Produto adicionado aos favoritos";
+                alertaAdicao.querySelector(".container h5").innerHTML = `<i class="fas fa-check-circle me-2" style="color: #28a745;"></i>Produto adicionado aos favoritos`;
                     
                     alertaAdicao.style.display = "flex";
 
@@ -42,7 +42,7 @@ export function ouvinteBotaoFavoritar(){
                 botao.style.color = "inherit";
 
                     const alertaAdicao = document.querySelector(".confirmacao-adicao-carrinho");
-                    alertaAdicao.querySelector(".container h5").innerHTML = "Produto removido dos favoritos";
+                    alertaAdicao.querySelector(".container h5").innerHTML = `<i class="fas fa-times-circle me-2" style="color: #dc3545;"></i>Produto removido dos favoritos`;
 
                     alertaAdicao.style.display = "flex";
 

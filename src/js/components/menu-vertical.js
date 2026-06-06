@@ -235,7 +235,7 @@ export function IniciarMenuVertical(){
 
         /**Logica de aviso de adicao */
             const alertaAdicao = document.querySelector(".confirmacao-adicao-carrinho");
-
+            
             alertaAdicao.style.display = "flex";
 
             setTimeout(function(){

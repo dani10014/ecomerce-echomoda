@@ -46,11 +46,19 @@
             .card{
                 height: 150px;
                 border: none !important;
+                margin: 10px 0;
                 position: relative;
+                box-shadow: 0 0px 10px black;
+                @media(min-width:750px){
+                    height: 200px;
+                }
                 img{
                     height: 100%;
                     filter: brightness(0.4);
                     border-radius: 5px;
+                    @media(min-width:750px){
+                        object-fit: cover;
+                    }
                 }
                 .texto-card{
                     display: flex;
@@ -59,13 +67,20 @@
                     top:0;
                     z-index: 100;
                     text-align: center;
-                    margin-top: 30%;
+                    margin-top: 35%;
+                    @media(min-width:750px){
+                        width: 100%;
+                        margin-top: 25%;
+                    }
                     h5{
                         color: #fff;
                         font-size: variaveis.$font-sm;
                         @include fontes.fonteNomeProdutos;
                         margin-bottom: 0;
                         width: 70%;
+                        @media(min-width:750px){
+                            font-size: variaveis.$font-md;
+                        }
                     }
                 }
             }

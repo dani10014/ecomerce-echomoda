@@ -743,6 +743,11 @@ header .cabecalho__carrinho:hover {
   text-align: center;
   margin: 0;
 }
+@media (min-width: 750px) {
+  .confirmacao-adicao-carrinho .container h5 {
+    padding-top: 0.5rem;
+  }
+}
 
 .carousel-caption {
   backdrop-filter: brightness(0.2) blur(1px);
@@ -1174,12 +1179,24 @@ main .produtos-favoritados .card-body h3::before {
 .secao-sobre-nos__container-fotos .row .card {
   height: 150px;
   border: none !important;
+  margin: 10px 0;
   position: relative;
+  box-shadow: 0 0px 10px black;
+}
+@media (min-width: 750px) {
+  .secao-sobre-nos__container-fotos .row .card {
+    height: 200px;
+  }
 }
 .secao-sobre-nos__container-fotos .row .card img {
   height: 100%;
   filter: brightness(0.4);
   border-radius: 5px;
+}
+@media (min-width: 750px) {
+  .secao-sobre-nos__container-fotos .row .card img {
+    object-fit: cover;
+  }
 }
 .secao-sobre-nos__container-fotos .row .card .texto-card {
   display: flex;
@@ -1188,7 +1205,13 @@ main .produtos-favoritados .card-body h3::before {
   top: 0;
   z-index: 100;
   text-align: center;
-  margin-top: 30%;
+  margin-top: 35%;
+}
+@media (min-width: 750px) {
+  .secao-sobre-nos__container-fotos .row .card .texto-card {
+    width: 100%;
+    margin-top: 25%;
+  }
 }
 .secao-sobre-nos__container-fotos .row .card .texto-card h5 {
   color: #fff;
@@ -1202,6 +1225,11 @@ main .produtos-favoritados .card-body h3::before {
   font-variation-settings: "wdth" 100;
   margin-bottom: 0;
   width: 70%;
+}
+@media (min-width: 750px) {
+  .secao-sobre-nos__container-fotos .row .card .texto-card h5 {
+    font-size: 1rem;
+  }
 }
 .secao-sobre-nos__container-fotos .slick-dots {
   display: flex !important;
