@@ -1161,7 +1161,7 @@ main .produtos-favoritados .card-body h3::before {
   font-size: 0.75rem;
   font-style: normal;
   font-variation-settings: "wdth" 100;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   margin-bottom: 0;
   text-align: justify;
   width: 90%;
@@ -1297,8 +1297,8 @@ main .produtos-favoritados .card-body h3::before {
   display: flex;
   position: absolute;
   top: 0;
-  right: 0;
-  font-size: 0.85rem;
+  right: 5px;
+  font-size: 0.75rem;
 }
 .oque-dizem .card .descricao-e-estrela {
   display: block;
