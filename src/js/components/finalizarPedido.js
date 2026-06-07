@@ -190,11 +190,6 @@ export function ouvinteFinalizarPedido(){
             return false;
         }
 
-        if(espacoCPF.value.replace(/\D/g, '').length !== 11) {
-            mostrarErro("CPF deve ter 11 dígitos");
-            return false;
-        }
-
         if(!espacoCep.value || !espacoCidade.value || !espacoNumeroCasa.value || !espacoComplemento.value || !formaSelecionada) {
             mostrarErro("Preencha todos os campos obrigatórios");
             return false;
@@ -207,29 +202,5 @@ export function ouvinteFinalizarPedido(){
         return produtosCarrinho.reduce((total, item) => {
             return total + (item.preco * item.quantidade);
         }, 0);
-    }
-
-    function mostrarErro(mensagem) {
-        const container = document.querySelector(".mensagem-status") || criarMensagemStatus();
-        container.textContent = mensagem;
-        container.className = "mensagem-status erro";
-        container.style.display = "block";
-        setTimeout(() => {
-            container.style.display = "none";
-        }, 4000);
-    }
-
-    function mostrarSucesso(mensagem, qrCode) {
-        const container = document.querySelector(".mensagem-status") || criarMensagemStatus();
-        container.innerHTML = `<p>${mensagem}</p><p style="font-family: monospace; word-break: break-all;">${qrCode}</p>`;
-        container.className = "mensagem-status sucesso";
-        container.style.display = "block";
-    }
-
-    function criarMensagemStatus() {
-        const container = document.createElement("div");
-        container.className = "mensagem-status";
-        menuFinalizacaoPagamento.insertBefore(container, menuFinalizacaoPagamento.firstChild);
-        return container;
     }
 }

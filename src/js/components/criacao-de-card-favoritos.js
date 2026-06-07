@@ -1,5 +1,3 @@
-import {IniciarMenuVertical} from "./menu-vertical.js";
-
 function sanitizarHTML(texto) {
     const div = document.createElement('div');
     div.textContent = texto;
@@ -15,7 +13,7 @@ export async function criarCardFavoritos() { // Adicionei 'async' aqui
     containerCardsFavritos.innerHTML = "";
 
     if (produtosFavoritadosObjeto.length < 1) {
-        containerCardsFavritos.innerHTML = `<p class="text-light text-center nenhum-favorito mb-0">Nenhum produto favoritado</p>`;
+        containerCardsFavritos.innerHTML = (`<p class="text-light text-center nenhum-favorito mb-0">Nenhum produto favoritado</p>`);
     }
 
     async function buscarEFiltrarProdutos(id) {
@@ -87,5 +85,4 @@ export async function criarCardFavoritos() { // Adicionei 'async' aqui
         setaVoltarHome.addEventListener("click", () => {
             window.location.href = "index.html";
         });
-        IniciarMenuVertical()
 }

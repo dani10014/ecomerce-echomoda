@@ -1,0 +1,33 @@
+@use "./fontes";
+@use "./variaveis";
+
+.oque-dizem{
+    &__titulo{
+        @include fontes.fontePrincipal;
+        color: #fff;
+        text-align: center;
+    }
+    .card{
+        .foto-e-nome{
+            display: block;
+            flex-direction: column;
+            h5{
+                text-align: center;
+                font-size: variaveis.$font-xs;
+            }
+            img{
+                width: 100%;
+                height: 100px;
+                object-fit: scale-down;
+            }
+        }
+        .descricao-e-estrela{
+            display: block;
+            flex-direction: column;
+            margin-top: variaveis.$spacing-sm;
+            h4{
+                text-align: center;
+            }
+        }    
+    }
+}

@@ -17,7 +17,6 @@ export function IniciarMenuVertical(){
         
         return produtoSelecionado
 
-
     } catch (erro) {
         console.error("Erro ao filtrar dados:", erro);
     }
@@ -211,8 +210,6 @@ export function IniciarMenuVertical(){
                 const tamanhoSelecionado = document.querySelector(".botoes-selecao-tamanho.active");
                 let quantidadeSelecionada = parseInt(quantidade.innerText);
                 
-
-
                 if((corSelecionada === null) || (tamanhoSelecionado === null)){
                     return;
                 } 
@@ -228,8 +225,8 @@ export function IniciarMenuVertical(){
 
                     produtosExistentesNaMemoria.push(produtoEscolhido);
 
-                
                 }
+
                 localStorage.setItem("produtosCarrinho",JSON.stringify(produtosExistentesNaMemoria));
                 indicarProdutosNoCarrinhoEFavoritos()
 

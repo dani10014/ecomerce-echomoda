@@ -61,7 +61,6 @@ export function iniciarCarroselSlick(){
                     dots:true,
                     autoplay:true,
                     autoplaySpeed: 1000,
-                    arrows:true,
                 }
         }
             ]
