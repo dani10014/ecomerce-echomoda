@@ -1,3 +1,5 @@
+import { iniciarCarroselSlick } from "./carrosel-slick.js";
+
 function sanitizarHTML(texto) {
     const div = document.createElement('div');
     div.textContent = String(texto); // Garante que aceita números sem quebrar
@@ -115,7 +117,7 @@ export function filtrarProdutos(){
             containerFiltrar.style.transform = "scale(0)";
             fundoBorrado.style.display = "none";
         }
-    });
+    }); 
 
     botaoFiltrar.addEventListener("click", function(){
         containerFiltrar.style.transform = "scale(1)";
