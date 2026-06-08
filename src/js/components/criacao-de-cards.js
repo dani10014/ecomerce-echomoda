@@ -60,7 +60,7 @@ class CriarProduto{
                                 const containerTenis = document.querySelector(".produtos-tenis .container-base-card");
                                 containerTenis.appendChild(cardProduto);
                             }
-}
+    }
 }
 export async function buscarProdutos() {
     try {
@@ -68,17 +68,15 @@ export async function buscarProdutos() {
         
         if (!resposta.ok) throw new Error('Erro ao carregar JSON');
         
+        /**Coleta de dados do banco */
         const produtos = await resposta.json();
-
-        /** Aqui onde filtrei o tipo de produto por cada secao */
 
         console.log("Produtos da Echo Moda:", produtos);
 
-        /** Criamos os cards que filtramos dinamicamente, usando o innerHTML para criar a estrutura do card e depois adicionamos ele ao container */
+        /**Criação dos cards direto da classe CriarProduto */
         produtos.forEach(dado => {
             const card = new CriarProduto(dado.id,dado.nome,dado.imagem,dado.imagem2,dado.imagem3,dado.preco,dado.categoria);
             card.devolverCard();
-            console.log("produtos carregados com sucesso")
         })
 
     } catch (erro) {
