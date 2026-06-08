@@ -4,27 +4,34 @@ function sanitizarHTML(texto) {
     div.textContent = texto;
     return div.innerHTML;
 }
-export function criarCardProdutos(dado){
-    const containerCards = document.querySelector('.produtos-camisas .container-base-card');
-    const containerTenis = document.querySelector('.produtos-tenis .container-base-card');
-
+class CriarProduto{
+    constructor(id,nome,imagem,imagem2,imagem3,preco,categoria){
+        this.id = id;
+        this.nome = nome
+        this.imagem = imagem;
+        this.imagem2 = imagem2;
+        this.imagem3 = imagem3;
+        this.preco = preco;
+        this.categoria = categoria;
+    }
+    devolverCard(){
     const cardProduto = document.createElement('div');
 
             cardProduto.classList.add("base-card")
 
-            const idUnico = `${dado.id}`;
+            const idUnico = `${this.id}`;
 
             cardProduto.innerHTML = `<div class='card' data-id="${idUnico}">
                                         <div  id="${idUnico}" class="carousel slide" data-bs-ride="carousel">
                                             <div class="carousel-inner">
                                                 <div class="carousel-item active">
-                                                    <img class="d-block w-100" src="${dado.imagem}" alt="First slide">
+                                                    <img class="d-block w-100" src="${this.imagem}" alt="First slide">
                                                 </div>
                                                 <div class="carousel-item">
-                                                    <img class="d-block w-100" src="${dado.imagem2}" alt="Second slide">
+                                                    <img class="d-block w-100" src="${this.imagem2}" alt="Second slide">
                                                 </div>
                                                 <div class="carousel-item">
-                                                    <img class="d-block w-100" src="${dado.imagem3}" alt="Third slide">
+                                                    <img class="d-block w-100" src="${this.imagem3}" alt="Third slide">
                                                 </div>
                                             </div>
                                             <a class="carousel-control-prev" data-bs-target="#${idUnico}" role="button" data-bs-slide="prev">
@@ -37,21 +44,24 @@ export function criarCardProdutos(dado){
                                             </a> 
                                         </div>
                                     <div class='card-body'>
-                                        <h5 class='card-title'>${sanitizarHTML(dado.nome)}</h5>
-                                        <h3>${sanitizarHTML(dado.preco)}</h3>
+                                        <h5 class='card-title'>${sanitizarHTML(this.nome)}</h5>
+                                        <h3>${sanitizarHTML(this.preco)}</h3>
                                     </div>
                                     <div class="botao-favoritos">
                                         <i class="fa-solid fa-star"></i>
                                     </div>
                                 </div>`
-            if(dado.categoria === "tenis" && containerTenis){
-                containerTenis.appendChild(cardProduto);
-            }
-            if(dado.categoria === "blusa" && containerCards){
-                containerCards.appendChild(cardProduto);
-            }
-    }
-    
+
+                            if(this.categoria === "blusa"){
+                                const containerRoupas = document.querySelector(".produtos-camisas .container-base-card");   
+                                containerRoupas.appendChild(cardProduto);
+                            }
+                            if(this.categoria === "tenis"){
+                                const containerTenis = document.querySelector(".produtos-tenis .container-base-card");
+                                containerTenis.appendChild(cardProduto);
+                            }
+}
+}
 export async function buscarProdutos() {
     try {
         const resposta = await fetch('./../produtos.json');
@@ -61,19 +71,15 @@ export async function buscarProdutos() {
         const produtos = await resposta.json();
 
         /** Aqui onde filtrei o tipo de produto por cada secao */
-        const apenasBlusas = produtos.filter(item => item.categoria === "blusa");
-        const apenasTenis = produtos.filter(item => item.categoria === "tenis")
 
         console.log("Produtos da Echo Moda:", produtos);
 
         /** Criamos os cards que filtramos dinamicamente, usando o innerHTML para criar a estrutura do card e depois adicionamos ele ao container */
-        apenasBlusas.forEach(dado => {
-            criarCardProdutos(dado);
-        });
-
-        apenasTenis.forEach(dado => {
-            criarCardProdutos(dado);
-    })
+        produtos.forEach(dado => {
+            const card = new CriarProduto(dado.id,dado.nome,dado.imagem,dado.imagem2,dado.imagem3,dado.preco,dado.categoria);
+            card.devolverCard();
+            console.log("produtos carregados com sucesso")
+        })
 
     } catch (erro) {
         console.error("Falha no fetch:", erro);
