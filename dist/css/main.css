@@ -805,7 +805,8 @@ main .produtos-favoritados {
   display: flex;
   flex-wrap: wrap;
   margin-top: 2rem;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 1rem;
   width: 100%;
 }
 main .produtos-favoritados .card {

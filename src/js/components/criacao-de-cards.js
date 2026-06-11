@@ -71,8 +71,6 @@ export async function buscarProdutos() {
         /**Coleta de dados do banco */
         const produtos = await resposta.json();
 
-        console.log("Produtos da Echo Moda:", produtos);
-
         /**Criação dos cards direto da classe CriarProduto */
         produtos.forEach(dado => {
             const card = new CriarProduto(dado.id,dado.nome,dado.imagem,dado.imagem2,dado.imagem3,dado.preco,dado.categoria);

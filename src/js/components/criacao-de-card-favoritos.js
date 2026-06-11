@@ -3,6 +3,30 @@ function sanitizarHTML(texto) {
     div.textContent = texto;
     return div.innerHTML;
 }
+class criarProduto{
+    constructor(id,nome,preco,imagem){
+        this.id = id
+        this.nome = nome,
+        this.imagem = imagem,
+        this.preco = preco
+    }
+    devolverCard(){
+        const cardProduto = document.createElement('div');
+            cardProduto.innerHTML = ` <div class='card' data-id="${this.id}">
+                                            <img src='${this.imagem}'>
+                                            <div class='card-body'>
+                                                <h5 class='card-title'>${sanitizarHTML(this.nome)}</h5>
+                                                <h3>${sanitizarHTML(this.preco)}</h3>
+                                            </div>
+                                                <div class="botao-remover">
+                                                    <button class="botao-remover__botao">
+                                                        Remover
+                                                    </button>
+                                                </div>
+                                        </div>`
+            return cardProduto;
+    }
+} 
 export async function criarCardFavoritos() { // Adicionei 'async' aqui
     let produtosFavoritados = localStorage.getItem("meusFavoritos");
     const containerCardsFavritos = document.querySelector(".produtos-favoritados");
@@ -31,30 +55,15 @@ export async function criarCardFavoritos() { // Adicionei 'async' aqui
         }
     }
 
+    
+    for (const id of produtosFavoritadosObjeto){
 
-    for (const id of produtosFavoritadosObjeto) {
         const produtoSelecionado = await buscarEFiltrarProdutos(id);
+        const novoCard = new criarProduto(produtoSelecionado.id,produtoSelecionado.nome,produtoSelecionado.preco,produtoSelecionado.imagem);
+        const cardDevolvido = novoCard.devolverCard();
 
-        if (produtoSelecionado) {
-        
-            const cardProduto = document.createElement('div');
-            const idCarrossel = `carrossel-${produtoSelecionado.id}`;
-            
-            cardProduto.innerHTML = ` <div class='card' data-id="${produtoSelecionado.id}">
-                                            <img src='${produtoSelecionado.imagem}'>
-                                            <div class='card-body'>
-                                                <h5 class='card-title'>${sanitizarHTML(produtoSelecionado.nome)}</h5>
-                                                <h3>${sanitizarHTML(produtoSelecionado.preco)}</h3>
-                                            </div>
-                                                <div class="botao-remover">
-                                                    <button class="botao-remover__botao">
-                                                        Remover
-                                                    </button>
-                                                </div>
-                                        </div>`
-            containerCardsFavritos.appendChild(cardProduto);
-        }
-    }
+        containerCardsFavritos.appendChild(cardDevolvido);
+}
     const cardExistentes = document.querySelectorAll(".card");
 
     cardExistentes.forEach(card => {

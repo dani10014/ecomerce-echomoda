@@ -34,10 +34,10 @@ header{
 main{
     .produtos-favoritados{
         display: flex;
-        
         flex-wrap: wrap;
         margin-top: variaveis.$spacing-xl;
-        justify-content:space-evenly;
+        justify-content:center;
+        gap: variaveis.$spacing-md;
         width: 100%;
         .card{
             height: 100%;
