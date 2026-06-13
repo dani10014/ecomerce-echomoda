@@ -3,7 +3,6 @@ export function ouvinteFinalizarPedido(){
     const menuFinalizacaoPagamento = document.querySelector("#container-finalizar");
     const fundoBorrado = document.querySelector(".backdrop-glass");
     const containerBotaoFinaizar = document.querySelector(".botao-finalizar-compra");
-    const produtosCarrinho = JSON.parse(localStorage.getItem("produtosCarrinho")) || [];
 
     if(botaoFinalizarCompra){
         botaoFinalizarCompra.addEventListener("click", function(){
@@ -127,6 +126,15 @@ export function ouvinteFinalizarPedido(){
         
         if(!validarFormulario(formaPagamentoSelecionada)) return;
 
+        const totalCalculado = calcularPrecoTotal();
+        
+        console.log(totalCalculado);
+
+        if (totalCalculado <= 0) {
+            mostrarErro("Não é possível processar um carrinho vazio ou com valor zerado.");
+            return;
+        }
+
         const dados = {
             nome: espacoNome.value.trim(),
             email: espacoEmail.value.trim(),
@@ -170,13 +178,21 @@ export function ouvinteFinalizarPedido(){
             // Limpar carrinho APENAS após sucesso
             localStorage.removeItem("produtosCarrinho");
             limparCamposFormulario();
-            
+        
             setTimeout(fecharMenuPagamento, 3000);
 
         } catch(erro) {
             console.error("Erro ao finalizar pedido:", erro);
             mostrarErro("Erro ao processar seu pedido. Tente novamente.");
         }
+    }
+    function mostrarSucesso(mensagem, copiaECola) {
+        alert(mensagem);
+        window.prompt("Copie o código PIX abaixo para pagar:", copiaECola);
+    }
+
+    function mostrarErro(mensagem) {
+        alert("⚠️ Erro: " + mensagem);
     }
 
     function validarFormulario(formaSelecionada) {
@@ -199,8 +215,13 @@ export function ouvinteFinalizarPedido(){
     }
 
     function calcularPrecoTotal() {
-        return produtosCarrinho.reduce((total, item) => {
-            return total + (item.preco * item.quantidade);
-        }, 0);
+        const produtosCarrinho = JSON.parse(localStorage.getItem("produtosCarrinho")) || []
+        let precoTotal = 0;
+
+        produtosCarrinho.forEach(produto => {
+            precoTotal += parseFloat( produto.valor * produto.quantidade);
+        })
+
+        return precoTotal;
     }
-}
+} 

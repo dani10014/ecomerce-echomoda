@@ -1,5 +1,6 @@
 export function iniciarCarroselSlick(){
 
+    if(document.querySelector(".container-base-card")){
     $(".container-base-card").slick({
         slidesToShow: 2,
         slidesToScroll: 1,
@@ -22,12 +23,16 @@ export function iniciarCarroselSlick(){
             }
         ]
     })
-    $(".menu-vertical__imagens-produto").slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        dots:true,
-        arrows:false,
-    })
+}
+    if(document.querySelector(".menu-vertical__imagens-produto")){
+        $(".menu-vertical__imagens-produto").slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots:true,
+            arrows:false,
+        })
+    }
+    if(document.querySelector("#carrosel-sobre-nos")){
     $("#carrosel-sobre-nos").slick({
         centerMode: true,
         centerPadding: '60px',
@@ -65,4 +70,5 @@ export function iniciarCarroselSlick(){
         }
             ]
     })
+}
 }

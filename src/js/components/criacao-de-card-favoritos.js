@@ -1,3 +1,5 @@
+import { IniciarMenuVertical } from "./menu-vertical.js";
+
 function sanitizarHTML(texto) {
     const div = document.createElement('div');
     div.textContent = texto;
@@ -33,7 +35,6 @@ export async function criarCardFavoritos() { // Adicionei 'async' aqui
 
     let produtosFavoritadosObjeto = JSON.parse(produtosFavoritados) || [];
 
-    
     containerCardsFavritos.innerHTML = "";
 
     if (produtosFavoritadosObjeto.length < 1) {
@@ -89,7 +90,7 @@ export async function criarCardFavoritos() { // Adicionei 'async' aqui
             });
         
     });
-})
+})  
     const setaVoltarHome = document.querySelector("#seta-voltar-home");
         setaVoltarHome.addEventListener("click", () => {
             window.location.href = "index.html";
