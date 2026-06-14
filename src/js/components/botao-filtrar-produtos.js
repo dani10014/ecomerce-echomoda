@@ -7,6 +7,8 @@ function sanitizarHTML(texto) {
 }
 
 export function filtrarProdutos(){
+    new produtosFiltrar();
+}
 
 class criarCardFiltrado{
     constructor(id,nome,preco,imagem,imagem2,imagem3){
@@ -56,7 +58,7 @@ class criarCardFiltrado{
     return cardProduto;
     }
 }
-class filtrarProdutos{
+class produtosFiltrar{
     constructor(){
 
     this.containerFiltrar = document.querySelector(".container-filtrar");
@@ -68,6 +70,11 @@ class filtrarProdutos{
     this.containerTenis = document.querySelector(".produtos-tenis .container-base-card");
     this.valorMinimo = document.querySelector("#valor-minimo");
     this.valorMaximo = document.querySelector("#valor-maximo");
+
+    this.ouvinteBotaoFecharMenuFiltrar()
+    this.ouvinteBotaoFiltrar();
+    this.conFirmarFiltragem();
+    this.fecharMenuClicandoFora();
     }
 
     async filtrarDadosCliente(){
@@ -77,8 +84,8 @@ class filtrarProdutos{
             
             const produtos = await resposta.json();
             
-            const min = Number(this.valorMinimo.value);
-            const max = Number(this.valorMaximo.value);
+            const min = Number(this.valorMinimo.value) || 0;
+            const max = Number(this.valorMaximo.value) || Infinity;
 
             const produtosNaFaixa = produtos.filter(item => item.preco >= min && item.preco <= max);
             
@@ -95,7 +102,7 @@ class filtrarProdutos{
 }
     conFirmarFiltragem(){
 
-        btnConfirmarFiltragem.addEventListener("click", async (event)=> {
+        this.btnConfirmarFiltragem.addEventListener("click", async (event)=> {
         event.preventDefault(); 
 
         if(this.valorMaximo.value === "" && this.valorMinimo.value === ""){
@@ -153,18 +160,10 @@ class filtrarProdutos{
             this.containerFiltrar.style.transform = "scale(0)";
             this.valorMaximo.value = "";
             this.valorMinimo.value = "";
-            setTimeout(function(){
+            setTimeout(() => {
                 this.fundoBorrado.style.display = "none";
             });
         }
     });
     }
 }
-}
-    
-
-   
-
-    
-
-    
