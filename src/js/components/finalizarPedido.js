@@ -1,152 +1,215 @@
-export function ouvinteFinalizarPedido(){
-    const botaoFinalizarCompra = document.querySelector(".botao-carrinho");
-    const menuFinalizacaoPagamento = document.querySelector("#container-finalizar");
-    const fundoBorrado = document.querySelector(".backdrop-glass");
-    const containerBotaoFinaizar = document.querySelector(".botao-finalizar-compra");
-
-    if(botaoFinalizarCompra){
-        botaoFinalizarCompra.addEventListener("click", function(){
-            abrirMenuPagamento();
-        })
-    }
-
-    // Máscara de CEP usando jQuery
-    $("#cep").mask("00000-000");
-    $("#cpf").mask("000.000.000-00");
+export function ouvinteFinalizarPedido() {
     
-    let espacoCep = document.querySelector("#cep");
-    let btnBuscarCep = document.querySelector("#btn-buscar-cep");
-    let espacoCidade = document.querySelector("#cidade");
-    let espacoNumeroCasa = document.querySelector("#numero");
-    let espacoComplemento = document.querySelector("#complemento");
-    let espacoUf = document.querySelector("#uf");
-    let btnProsseguir = document.querySelector("#btn-prosseguir-pagamento");
-    let espacoNome = document.querySelector("#nome");
-    let espacoEmail = document.querySelector("#email");
-    let espacoCPF = document.querySelector("#cpf");
+    // Instancia (ativa) a classe para os ouvintes começarem a escutar a tela
+    new ProcessarPagamento();
+}
+
+class ProcessarPagamento {
+    constructor() {
+        this.botaoFinalizarCompra = document.querySelector(".botao-carrinho");
+        this.menuFinalizacaoPagamento = document.querySelector("#container-finalizar");
+        this.fundoBorrado = document.querySelector(".backdrop-glass");
+        this.containerBotaoFinalizar = document.querySelector(".botao-finalizar-compra");
+
+        this.espacoCep = document.querySelector("#cep");
+        this.btnBuscarCep = document.querySelector("#btn-buscar-cep");
+        this.espacoCidade = document.querySelector("#cidade");
+        this.espacoNumeroCasa = document.querySelector("#numero");
+        this.espacoComplemento = document.querySelector("#complemento");
+        this.espacoUf = document.querySelector("#uf");
+        this.btnProsseguir = document.querySelector("#btn-prosseguir-pagamento");
+        this.espacoNome = document.querySelector("#nome");
+        this.espacoEmail = document.querySelector("#email");
+        this.espacoCPF = document.querySelector("#cpf");
+        this.formasPagamento = document.querySelectorAll(".botao-opcao-pagamento");
+        this.botaoFecharMenu = document.querySelector(".btn.btn-close");
+
+        // Liga as configurações e os eventos assim que a classe nasce
+        this.inicializarConfiguracoes();
+        this.registrarEventos();
+    }
+
+    inicializarConfiguracoes() {
+        $("#cep").mask("00000-000");
+        $("#cpf").mask("000.000.000-00");
+        if (this.espacoUf && this.espacoCidade) {
+            this.espacoUf.readOnly = true;
+            this.espacoCidade.readOnly = true;
+        }
+    }
+
+    registrarEventos() {
+        this.selecaoPagamento();
+        this.abrirMenuPagamento();
     
-    espacoUf.readOnly = true;
-    espacoCidade.readOnly = true;
-
-    // Buscar CEP via ViaCEP
-    btnBuscarCep.addEventListener("click", buscarCEP);
-
-    // Selecionar forma de pagamento
-    const formasPagamento = document.querySelectorAll(".botao-opcao-pagamento");
-    formasPagamento.forEach(forma => {
-        forma.addEventListener("click", function(){
-            formasPagamento.forEach(botao => botao.classList.remove("botao-ativo-pagamento"));
-            forma.classList.add("botao-ativo-pagamento");
-        })
-    })
-
-    // Finalizar pedido e enviar para o backend
-    btnProsseguir.addEventListener("click", async function(event){
-        event.preventDefault();
-        await finalizarPedido();
-    });
-
-    // Fechar menu
-    const botaoFecharMenu = document.querySelector(".btn.btn-close");
-    botaoFecharMenu.addEventListener("click", fecharMenuPagamento);
-
-    function abrirMenuPagamento() {
-        const btnProsseguir = document.querySelector("#btn-prosseguir-pagamento");
-        menuFinalizacaoPagamento.style.display = "block";
-        setTimeout(function(){
-            menuFinalizacaoPagamento.classList.add("menu-ativo");
-        }, 200);
-        fundoBorrado.style.display = "flex";
-        containerBotaoFinaizar.style.transform = "translateY(120%)";
-        setTimeout(function(){
-            containerBotaoFinaizar.style.display = "none";
-        }, 200);
+        if (this.botaoFecharMenu) {
+            this.botaoFecharMenu.addEventListener("click", () => this.fecharMenuPagamento());
+        }
+        if (this.btnBuscarCep) {
+            this.btnBuscarCep.addEventListener("click", () => this.buscarCep());
+        }
+        if (this.btnProsseguir) {
+            this.btnProsseguir.addEventListener("click", async (event) => {
+                event.preventDefault();
+                await this.finalizarPedido();
+            });
+        }
     }
 
-    function fecharMenuPagamento() {
-        menuFinalizacaoPagamento.classList.remove("menu-ativo");
-        limparCamposFormulario();
-        fundoBorrado.style.display = "none";
-        containerBotaoFinaizar.style.display = "flex";
-        formasPagamento.forEach(botao => botao.classList.remove("botao-ativo-pagamento"));
-        setTimeout(function(){
-            menuFinalizacaoPagamento.style.display = "none";
-            containerBotaoFinaizar.style.transform = "translateY(0)";
+    selecaoPagamento() {
+        this.formasPagamento.forEach(forma => {
+            forma.addEventListener("click", () => {
+                this.formasPagamento.forEach(botao => botao.classList.remove("botao-ativo-pagamento"));
+                forma.classList.add("botao-ativo-pagamento");
+            });
+        });
+    }
+
+    fecharMenuPagamento() {
+        this.menuFinalizacaoPagamento.classList.remove("menu-ativo");
+        this.limparFormulario();
+
+        this.fundoBorrado.style.display = "none";
+        this.containerBotaoFinalizar.style.display = "flex";
+
+        this.formasPagamento.forEach(botao => botao.classList.remove("botao-ativo-pagamento"));
+
+        setTimeout(() => {
+            this.menuFinalizacaoPagamento.style.display = "none";
+            this.containerBotaoFinalizar.style.transform = "translateY(0)";
         }, 200);
     }
 
-    function limparCamposFormulario() {
-        espacoNome.value = "";
-        espacoEmail.value = "";
-        espacoCPF.value = "";
-        espacoCep.value = "";
-        espacoComplemento.value = "";
-        espacoCidade.value = "";
-        espacoNumeroCasa.value = "";
-        espacoUf.value = "";
+    abrirMenuPagamento() {
+        if (this.botaoFinalizarCompra) {
+            this.botaoFinalizarCompra.addEventListener("click", () => {
+                this.menuFinalizacaoPagamento.style.display = "block";
+
+                setTimeout(() => {
+                    this.menuFinalizacaoPagamento.classList.add("menu-ativo");
+                }, 200);
+
+                this.fundoBorrado.style.display = "flex";
+                this.containerBotaoFinalizar.style.transform = "translateY(120%)";
+
+                setTimeout(() => {
+                    this.containerBotaoFinalizar.style.display = "none";
+                }, 200);
+            });
+        }
     }
 
-    function buscarCEP() {
-        if(espacoCep.value.trim() === ""){
-            mostrarErro("Digite um CEP");
+    limparFormulario() {
+        this.espacoNome.value = "";
+        this.espacoEmail.value = "";
+        this.espacoCPF.value = "";
+        this.espacoCep.value = "";
+        this.espacoComplemento.value = "";
+        this.espacoCidade.value = "";
+        this.espacoNumeroCasa.value = "";
+        this.espacoUf.value = "";
+    }
+
+    buscarCep() {
+        if (this.espacoCep.value.trim() === "") {
+            this.mostrarErro("Digite um CEP");
             return;
         }
 
-        const endPoint = `https://viacep.com.br/ws/${espacoCep.value.trim()}/json/`;
-        
+        const endPoint = `https://viacep.com.br/ws/${this.espacoCep.value.trim()}/json/`;
+
         fetch(endPoint)
             .then(resposta => {
-                if(!resposta.ok) throw new Error("Erro ao buscar CEP");
+                if (!resposta.ok) throw new Error("Erro ao buscar CEP");
                 return resposta.json();
             })
             .then(resposta => {
-                if(resposta.erro){
-                    mostrarErro("CEP não encontrado");
-                    limparCamposCEP();
+                if (resposta.erro) {
+                    this.mostrarErro("CEP não encontrado");
+                    this.limparCep(); // CORRIGIDO: nome da função ajustado
                     return;
                 }
-                espacoCidade.value = resposta.localidade;
-                espacoUf.value = resposta.uf;
+                this.espacoCidade.value = resposta.localidade;
+                this.espacoUf.value = resposta.uf;
             })
             .catch(erro => {
                 console.error("Erro:", erro);
-                mostrarErro("Erro ao buscar CEP. Tente novamente.");
-                limparCamposCEP();
+                this.mostrarErro("Erro ao buscar CEP. Tente novamente.");
+                this.limparCep(); // CORRIGIDO: nome da função ajustado
             });
     }
 
-    function limparCamposCEP() {
-        espacoCep.value = "";
-        espacoCidade.value = "";
-        espacoUf.value = "";
+    limparCep() {
+        this.espacoCep.value = "";
+        this.espacoCidade.value = "";
+        this.espacoUf.value = "";
     }
 
-    async function finalizarPedido() {
-        const formaPagamentoSelecionada = document.querySelector(".botao-ativo-pagamento");
-        
-        if(!validarFormulario(formaPagamentoSelecionada)) return;
+    mostrarSucesso(mensagem, copiaECola) {
+        alert(mensagem);
+        window.prompt("Copie o código PIX abaixo para pagar:", copiaECola);
+    }
 
-        const totalCalculado = calcularPrecoTotal();
-        
+    mostrarErro(mensagem) {
+        alert("⚠️ Erro: " + mensagem);
+    }
+
+    validarFormulario(formaSelecionada) {   
+        if (!this.espacoNome.value.trim()) {
+            this.mostrarErro("Nome é obrigatório");
+            return false;
+        }
+
+        if (!this.espacoEmail.value.includes("@")) {
+            this.mostrarErro("Email inválido");
+            return false;
+        }
+
+        if (!this.espacoCep.value || !this.espacoCidade.value || !this.espacoNumeroCasa.value || !this.espacoComplemento.value || !formaSelecionada) {
+            this.mostrarErro("Preencha todos os campos obrigatórios"); // CORRIGIDO: Adicionado o "this."
+            return false;
+        }
+
+        return true;
+    }
+
+    calcularPrecoTotal() {
+        const produtosCarrinho = JSON.parse(localStorage.getItem("produtosCarrinho")) || [];
+        let precoTotal = 0;
+
+        produtosCarrinho.forEach(produto => {
+            precoTotal += parseFloat(produto.valor * produto.quantidade);
+        });
+
+        return precoTotal;
+    }
+
+    async finalizarPedido() {
+        const formaPagamentoSelecionada = document.querySelector(".botao-ativo-pagamento");
+
+        if (!this.validarFormulario(formaPagamentoSelecionada)) return;
+
+        const totalCalculado = this.calcularPrecoTotal();
+
         console.log(totalCalculado);
 
         if (totalCalculado <= 0) {
-            mostrarErro("Não é possível processar um carrinho vazio ou com valor zerado.");
+            this.mostrarErro("Não é possível processar um carrinho vazio ou com valor zerado.");
             return;
         }
 
         const dados = {
-            nome: espacoNome.value.trim(),
-            email: espacoEmail.value.trim(),
-            cpf: espacoCPF.value.replace(/\D/g, ''), // Remove máscara
+            nome: this.espacoNome.value.trim(),
+            email: this.espacoEmail.value.trim(),
+            cpf: this.espacoCPF.value.replace(/\D/g, ''), 
             endereco: {
-                cep: espacoCep.value,
-                cidade: espacoCidade.value,
-                uf: espacoUf.value,
-                numero: espacoNumeroCasa.value,
-                complemento: espacoComplemento.value
+                cep: this.espacoCep.value,
+                cidade: this.espacoCidade.value,
+                uf: this.espacoUf.value,
+                numero: this.espacoNumeroCasa.value,
+                complemento: this.espacoComplemento.value
             },
-            precoTotal: calcularPrecoTotal(),
+            precoTotal: totalCalculado,
             formaPagamento: formaPagamentoSelecionada.textContent
         };
 
@@ -166,62 +229,23 @@ export function ouvinteFinalizarPedido(){
 
             const resultado = await resposta.json();
 
-            if(!resposta.ok) {
+            if (!resposta.ok) {
                 const erros = resultado.erros || [resultado.erro];
-                mostrarErro(erros.join(", "));
+                this.mostrarErro(erros.join(", "));
                 return;
             }
 
-            // Sucesso: mostrar QR code do Pix
-            mostrarSucesso("Pedido criado! Escaneie o QR Code para pagar.", resultado.copiaECola);
-            
-            // Limpar carrinho APENAS após sucesso
+            this.mostrarSucesso("Pedido criado! Escaneie o QR Code para pagar.", resultado.copiaECola);
+
             localStorage.removeItem("produtosCarrinho");
-            limparCamposFormulario();
-        
-            setTimeout(fecharMenuPagamento, 3000);
+            this.limparFormulario();
 
-        } catch(erro) {
+            // CORRIGIDO: Adicionado os parênteses () para chamar o método de fato
+            setTimeout(() => this.fecharMenuPagamento(), 3000); 
+
+        } catch (erro) {
             console.error("Erro ao finalizar pedido:", erro);
-            mostrarErro("Erro ao processar seu pedido. Tente novamente.");
+            this.mostrarErro("Erro ao processar seu pedido. Tente novamente.");
         }
     }
-    function mostrarSucesso(mensagem, copiaECola) {
-        alert(mensagem);
-        window.prompt("Copie o código PIX abaixo para pagar:", copiaECola);
-    }
-
-    function mostrarErro(mensagem) {
-        alert("⚠️ Erro: " + mensagem);
-    }
-
-    function validarFormulario(formaSelecionada) {
-        if(!espacoNome.value.trim()) {
-            mostrarErro("Nome é obrigatório");
-            return false;
-        }
-
-        if(!espacoEmail.value.includes("@")) {
-            mostrarErro("Email inválido");
-            return false;
-        }
-
-        if(!espacoCep.value || !espacoCidade.value || !espacoNumeroCasa.value || !espacoComplemento.value || !formaSelecionada) {
-            mostrarErro("Preencha todos os campos obrigatórios");
-            return false;
-        }
-
-        return true;
-    }
-
-    function calcularPrecoTotal() {
-        const produtosCarrinho = JSON.parse(localStorage.getItem("produtosCarrinho")) || []
-        let precoTotal = 0;
-
-        produtosCarrinho.forEach(produto => {
-            precoTotal += parseFloat( produto.valor * produto.quantidade);
-        })
-
-        return precoTotal;
-    }
-} 
+}
