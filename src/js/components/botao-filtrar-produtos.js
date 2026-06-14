@@ -6,23 +6,34 @@ function sanitizarHTML(texto) {
     return div.innerHTML;
 }
 
-function criarCardHTML(dado) {
-    const cardProduto = document.createElement('div');
-    cardProduto.classList.add("base-card");
+export function filtrarProdutos(){
+
+class criarCardFiltrado{
+    constructor(id,nome,preco,imagem,imagem2,imagem3){
+        this.nome = nome;
+        this.id = id;
+        this.preco = preco;
+        this.imagem = imagem;
+        this.imagem2 = imagem2;
+        this.imagem3 = imagem3;
+    }
+    devolverCard(){
+        const cardProduto = document.createElement('div');
+        cardProduto.classList.add("base-card");
     
-    const idUnico = `${dado.id}`;
-    cardProduto.innerHTML = `
+        const idUnico = `${this.id}`;
+        cardProduto.innerHTML = `
         <div class='card' data-id="${idUnico}">
             <div id="${idUnico}" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img class="d-block w-100" src="${dado.imagem}" alt="First slide">
+                        <img class="d-block w-100" src="${this.imagem}" alt="First slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="${dado.imagem2}" alt="Second slide">
+                        <img class="d-block w-100" src="${this.imagem2}" alt="Second slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="${dado.imagem3}" alt="Third slide">
+                        <img class="d-block w-100" src="${this.imagem3}" alt="Third slide">
                     </div>
                 </div>
                 <a class="carousel-control-prev" data-bs-target="#${idUnico}" role="button" data-bs-slide="prev">
@@ -35,37 +46,39 @@ function criarCardHTML(dado) {
                 </a> 
             </div>
             <div class='card-body'>
-                <h5 class='card-title'>${sanitizarHTML(dado.nome)}</h5>
-                <h3>R$ ${sanitizarHTML(dado.preco)}</h3>
+                <h5 class='card-title'>${sanitizarHTML(this.nome)}</h5>
+                <h3>R$ ${sanitizarHTML(this.preco)}</h3>
             </div>
             <div class="botao-favoritos">
                 <i class="fa-solid fa-star"></i>
             </div>
         </div>`;
     return cardProduto;
+    }
 }
+class filtrarProdutos{
+    constructor(){
 
-export function filtrarProdutos(){
-    const containerFiltrar = document.querySelector(".container-filtrar");
-    const botaoFiltrar = document.querySelector(".pesquisa__botao-filtrar");
-    const fundoBorrado = document.querySelector(".backdrop-glass");
-    const botaoFecharMenuFiltrar = document.querySelector(".container-filtrar .btn-close");
-    const btnConfirmarFiltragem = document.querySelector(".btn-confirmar-filtragem");
-    let containerRoupas = document.querySelector(".produtos-camisas .container-base-card");
-    let containerTenis = document.querySelector(".produtos-tenis .container-base-card");
-    let valorMinimo = document.querySelector("#valor-minimo");
-    let valorMaximo = document.querySelector("#valor-maximo");
+    this.containerFiltrar = document.querySelector(".container-filtrar");
+    this.botaoFiltrar = document.querySelector(".pesquisa__botao-filtrar");
+    this.fundoBorrado = document.querySelector(".backdrop-glass");
+    this.botaoFecharMenuFiltrar = document.querySelector(".container-filtrar .btn-close");
+    this.btnConfirmarFiltragem = document.querySelector(".btn-confirmar-filtragem");
+    this.containerRoupas = document.querySelector(".produtos-camisas .container-base-card");
+    this.containerTenis = document.querySelector(".produtos-tenis .container-base-card");
+    this.valorMinimo = document.querySelector("#valor-minimo");
+    this.valorMaximo = document.querySelector("#valor-maximo");
+    }
 
-
-    async function filtrarDadosCliente(){
+    async filtrarDadosCliente(){
         try {
             const resposta = await fetch('./../produtos.json');
             if (!resposta.ok) throw new Error('Erro ao carregar JSON');
             
             const produtos = await resposta.json();
             
-            const min = Number(valorMinimo.value);
-            const max = Number(valorMaximo.value);
+            const min = Number(this.valorMinimo.value);
+            const max = Number(this.valorMaximo.value);
 
             const produtosNaFaixa = produtos.filter(item => item.preco >= min && item.preco <= max);
             
@@ -79,23 +92,24 @@ export function filtrarProdutos(){
             console.error("Falha no fetch:", erro);
             return [];
         }
-    }
+}
+    conFirmarFiltragem(){
 
-    btnConfirmarFiltragem.addEventListener("click", async function (event){
+        btnConfirmarFiltragem.addEventListener("click", async (event)=> {
         event.preventDefault(); 
 
-        if(valorMaximo.value === "" && valorMinimo.value === ""){
+        if(this.valorMaximo.value === "" && this.valorMinimo.value === ""){
             alert("Nada presente nos campos");
             return;
         }
 
         /*coleta de Produtos de acordo com o nosso jason*/
-        const produtosComEssaFaixa = await filtrarDadosCliente();
+        const produtosComEssaFaixa = await this.filtrarDadosCliente();
 
         if (produtosComEssaFaixa && produtosComEssaFaixa.length > 0) {
 
-            containerRoupas.innerHTML = "";
-            containerTenis.innerHTML = "";
+            this.containerRoupas.innerHTML = "";
+            this.containerTenis.innerHTML = "";
             
 
             /* separacao de produto por categoria */
@@ -103,42 +117,54 @@ export function filtrarProdutos(){
             const produtoTenis = produtosComEssaFaixa.filter(item => item.categoria === "tenis");
 
             produtosBlusa.forEach(dado => {
-                const card = criarCardHTML(dado);
-                containerRoupas.appendChild(card);
+                const card = new criarCardFiltrado(dado.id,dado.nome,dado.preco,dado.imagem,dado.imagem2,dado.imagem3);
+                this.containerRoupas.appendChild(card.devolverCard());
             });
 
             produtoTenis.forEach(dado => {
-                const card = criarCardHTML(dado);
-                containerTenis.appendChild(card);
+                const card = new criarCardFiltrado(dado.id,dado.nome,dado.preco,dado.imagem,dado.imagem2,dado.imagem3);
+                this.containerTenis.appendChild(card.devolverCard());
             });
 
-            valorMaximo.value = "";
-            valorMinimo.value = "";
-            containerFiltrar.style.transform = "scale(0)";
-            fundoBorrado.style.display = "none";
+            this.valorMaximo.value = "";
+            this.valorMinimo.value = "";
+            this.containerFiltrar.style.transform = "scale(0)";
+            this.fundoBorrado.style.display = "none";
         }
     }); 
-
-    botaoFiltrar.addEventListener("click", function(){
-        containerFiltrar.style.transform = "scale(1)";
-        fundoBorrado.style.display = "flex";
+    }
+    ouvinteBotaoFiltrar(){
+            this.botaoFiltrar.addEventListener("click", ()=> {
+            this.containerFiltrar.style.transform = "scale(1)";
+            this.fundoBorrado.style.display = "flex";
     });
-
-    botaoFecharMenuFiltrar.addEventListener("click", function(){
-        containerFiltrar.style.transform = "scale(0)";
-        fundoBorrado.style.display = "none";
-        valorMaximo.value = "";
-        valorMinimo.value = "";
+    }
+    ouvinteBotaoFecharMenuFiltrar(){
+            this.botaoFecharMenuFiltrar.addEventListener("click",()=> {
+            this.containerFiltrar.style.transform = "scale(0)";
+            this.fundoBorrado.style.display = "none";
+            this.valorMaximo.value = "";
+            this.valorMinimo.value = "";
     });
-
-    document.addEventListener("click", function(event){
-        if(event.target === fundoBorrado){
-            containerFiltrar.style.transform = "scale(0)";
-            valorMaximo.value = "";
-            valorMinimo.value = "";
+    }
+    fecharMenuClicandoFora(){
+        document.addEventListener("click", (event) => {
+        if(event.target === this.fundoBorrado){
+            this.containerFiltrar.style.transform = "scale(0)";
+            this.valorMaximo.value = "";
+            this.valorMinimo.value = "";
             setTimeout(function(){
-                fundoBorrado.style.display = "none";
+                this.fundoBorrado.style.display = "none";
             });
         }
     });
+    }
 }
+}
+    
+
+   
+
+    
+
+    
