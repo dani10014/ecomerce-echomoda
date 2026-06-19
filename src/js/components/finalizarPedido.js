@@ -24,7 +24,6 @@ class ProcessarPagamento {
         this.formasPagamento = document.querySelectorAll(".botao-opcao-pagamento");
         this.botaoFecharMenu = document.querySelector(".btn.btn-close");
 
-        // Liga as configurações e os eventos assim que a classe nasce
         this.inicializarConfiguracoes();
         this.registrarEventos();
     }

@@ -9,7 +9,7 @@ import { inicarRenderizacaoProdutosCarrinhos } from './components/renderizarCarr
 import { filtrarProdutos } from './components/botao-filtrar-produtos.js';
 import { indicarProdutosNoCarrinhoEFavoritos } from './components/indicador-notificacao.js';
 import { ouvinteFinalizarPedido } from './components/finalizarPedido.js';
-
+import { buscarProdutoPesquisado } from './components/botaoPesquisar.js';
 
 if(document.querySelector(".produtos-camisas .container-base-card")){
     await buscarProdutos();
@@ -24,6 +24,9 @@ if(document.querySelector("#menu-hamburguer")){
     indicarProdutosNoCarrinhoEFavoritos()
 }
 
+if(document.querySelector("#btn-pesquisar")){
+    buscarProdutoPesquisado()
+}
 if(document.querySelector(".botao-favoritos i")){
     ouvinteBotaoFavoritar();
 }

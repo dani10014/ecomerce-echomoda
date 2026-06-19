@@ -18,7 +18,7 @@ export function ouvinteBotaoFavoritar(){
             
             if (!favoritos.includes(idProduto)) {
                 favoritos.push(idProduto);
-                /*alertaSalvamentoFavorito.style.display = "flex";*/
+                
                 botao.style.color = "gold";
 
                 const alertaAdicao = document.querySelector(".confirmacao-adicao-carrinho");

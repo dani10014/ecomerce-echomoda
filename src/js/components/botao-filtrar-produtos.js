@@ -1,4 +1,5 @@
 import { iniciarCarroselSlick } from "./carrosel-slick.js";
+import { IniciarMenuVertical } from "./menu-vertical.js";
 
 function sanitizarHTML(texto) {
     const div = document.createElement('div');
@@ -132,7 +133,8 @@ class produtosFiltrar{
                 const card = new criarCardFiltrado(dado.id,dado.nome,dado.preco,dado.imagem,dado.imagem2,dado.imagem3);
                 this.containerTenis.appendChild(card.devolverCard());
             });
-
+            this.iniciarCarrosel();
+            this.iniciarMenuVertical();
             this.valorMaximo.value = "";
             this.valorMinimo.value = "";
             this.containerFiltrar.style.transform = "scale(0)";
@@ -153,6 +155,12 @@ class produtosFiltrar{
             this.valorMaximo.value = "";
             this.valorMinimo.value = "";
     });
+    }
+    iniciarCarrosel(){
+        iniciarCarroselSlick()
+    }
+    iniciarMenuVertical(){
+        IniciarMenuVertical()
     }
     fecharMenuClicandoFora(){
         document.addEventListener("click", (event) => {

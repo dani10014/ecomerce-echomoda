@@ -50,12 +50,15 @@
             display: flex;
             position: absolute;
             top: 0;
-            right: 5px;
+            right: 0;
             font-size: variaveis.$font-xs;
             color: #cfcfcf;
             background: rgba(255,255,255,0.02);
             padding: 6px 8px;
             border-radius: 8px;
+            p{
+                margin-bottom: 0;
+            }
         }
         .descricao-e-estrela{
             display: flex;
