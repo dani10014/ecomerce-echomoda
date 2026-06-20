@@ -188,8 +188,10 @@ header .cabecalho__carrinho:hover {
 
 .secao-produtos .texto-da-pesquisa {
   display: none;
+  align-items: center;
   color: #fff;
   font-size: 1rem;
+  margin-bottom: 0;
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
   font-weight: normal;

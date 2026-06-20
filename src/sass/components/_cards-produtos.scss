@@ -4,8 +4,10 @@
 .secao-produtos{
     .texto-da-pesquisa{
         display: none;
+        align-items: center;
         color: #fff;
         font-size: variaveis.$font-md;
+        margin-bottom: 0;
         @include fontes.fontePrincipal;
     }
     .container-base-card{

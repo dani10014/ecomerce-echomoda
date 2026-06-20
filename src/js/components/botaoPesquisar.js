@@ -48,11 +48,20 @@ class ProdutoPesquisado{
                 })
 
                 if(produtoPesquisado.length === 0){
-                    alert("nenhum produto encontrado")
+                    this.textoDaPesquisa.textContent = "Nenhum produto encontrado"; 
+                    this.textoDaPesquisa.innerHTML += `<i class="fas fa-times-circle text-danger ms-2"></i>`
+                    this.btnPesquisar.style.display = "none";
+                    this.botaoRemoverPesquisa.classList.add("ativo-remover-pesquisa");
+                    this.containerTenis.style.display = "none";
+                    this.textoDaPesquisa.classList.add("texto-da-pesquisa-ativo");
+                
+                    this.containerTenis.innerHTML = "";
+                    this.containerRoupas.innerHTML = "";
+                    this.botaoDropdownTenis.style.display = "none";
+                    this.botaoDropdownBlusas.style.display = "none" 
                     return
                 }
 
-                // Destrói com segurança o Slick de todos os containers antes de limpar o DOM
                 const $containers = $('.container-base-card');
                 $containers.each(function() {
                     if ($(this).hasClass('slick-initialized')) {
@@ -80,15 +89,11 @@ class ProdutoPesquisado{
                 IniciarMenuVertical();
                 ouvinteBotaoFavoritar();
 
-                // CORREÇÃO SLICK 1: O setTimeout força o JavaScript a esperar o navegador
-                // renderizar visualmente os novos cards na tela antes de ativar o Slick.
                 setTimeout(() => {
-                    // O carrossel só deve ser ativado se houver mais de 1 produto retornado,
-                    // evitando que um resultado único seja distorcido ou esticado.
                     if (produtoPesquisado.length > 0) {
                         iniciarCarroselSlick();
                     }
-                }, 50); // 50ms é uma janela de segurança perfeita para renderização de layout
+                }, 50); 
             }
             this.espacoDaPesquisa.value = "";
         })
@@ -103,7 +108,6 @@ class ProdutoPesquisado{
                 if(this.textoDaPesquisa) this.textoDaPesquisa.classList.remove("texto-da-pesquisa-ativo");
                 this.containerTenis.style.display = "flex";
 
-                // Se houver slicks ativos, destrói-os antes de limpar o DOM para evitar estado inconsistente
                 const $containers = $('.container-base-card');
                 $containers.each(function() {
                     if ($(this).hasClass('slick-initialized')) {
@@ -114,10 +118,8 @@ class ProdutoPesquisado{
                 this.containerRoupas.innerHTML = "";
                 this.containerTenis.innerHTML = "";
 
-                // Reconstrói os cards a partir do JSON
                 await buscarProdutos();
 
-                // Aguarda o browser renderizar e então re-inicia o Slick e listeners
                 setTimeout(() => {
                     iniciarCarroselSlick();
                     IniciarMenuVertical();
