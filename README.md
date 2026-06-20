@@ -16,7 +16,7 @@ O foco principal do projeto foi unir uma interface de alta conversão visual com
 * **Funções Assíncronas & Fetch API:** Consumo dinâmico de dados e comunicação eficiente com APIs.
 * **Manipulação de JSON:** Estruturação e consumo de dados complexos de produtos de forma dinâmica.
 * **Criação de Cards Dinâmicos:** Renderização automatizada do catálogo de produtos com base no banco de dados.
-* **Refatorado para POO JS.
+* **Refatorado em POO JS**
 
 ### Segurança & Regras de Negócio (UX)
 * **Geração de IDs Únicos:** Controle preciso de inventário e itens no carrinho de compras.
