@@ -3,6 +3,7 @@
 .pesquisa{
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: variaveis.$spacing-sm;
     transition: all 0.3s ease-in-out;;
     &__botao-pesquisar{
@@ -16,6 +17,7 @@
         transition: all 0.3s ease-in-out;
         margin-right: 0;
         box-shadow: 0px 0px 5px black;
+        height: 45px;
         cursor: pointer;
         @include variaveis.hover;
     }
@@ -47,6 +49,22 @@
         box-shadow: 0px 0px 5px black;
         cursor: pointer;
         @include variaveis.hover;
+    }
+    &__botao-remover-pesquisa{
+        display:none;
+        padding: variaveis.$spacing-sm;
+        background-color: #fff;
+        border: none;
+        border-radius: 10px;
+        color: #000000;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0px 0px 5px black;
+        height: 45px;
+        cursor: pointer;
+        @include variaveis.hover;
+    }
+    .ativo-remover-pesquisa{
+        display: flex;
     }
 }
 

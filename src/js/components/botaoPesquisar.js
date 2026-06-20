@@ -1,6 +1,7 @@
 import { IniciarMenuVertical } from "./menu-vertical.js";
 import { iniciarCarroselSlick } from "./carrosel-slick.js";
 import { ouvinteBotaoFavoritar } from "./botaoFavoritar.js";
+import { buscarProdutos } from "./criacao-de-cards.js";
 
 function sanitizarHTML(texto) {
     const div = document.createElement('div');
@@ -18,7 +19,11 @@ class ProdutoPesquisado{
         this.containerRoupas = document.querySelector(".produtos-camisas .container-base-card");
         this.containerTenis = document.querySelector(".produtos-tenis .container-base-card");
         this.botaoDropdownTenis = document.getElementById("dropdown-tenis");
+        this.botaoDropdownBlusas = document.getElementById("dropdown-blusas")
+        this.botaoRemoverPesquisa = document.querySelector("#remover-pesquisa");
+        this.textoDaPesquisa = document.querySelector(".texto-da-pesquisa");
         this.debugBotao()
+        this.removerPesquisa()
     }
     debugBotao(){
         this.btnPesquisar.addEventListener("click", async () =>{
@@ -29,7 +34,7 @@ class ProdutoPesquisado{
                 return
             }
 
-            const produtos = await this.buscarProduto();
+            const produtos = await this.buscarProdutoBanco();
 
             if(produtos.length === 0){
                 alert("Erro ao buscar produtos do banco");
@@ -46,40 +51,88 @@ class ProdutoPesquisado{
                     alert("nenhum produto encontrado")
                     return
                 }
+
+                // Destrói com segurança o Slick de todos os containers antes de limpar o DOM
                 const $containers = $('.container-base-card');
                 $containers.each(function() {
                     if ($(this).hasClass('slick-initialized')) {
-                    $(this).slick('unslick');
-                }
+                        $(this).slick('unslick');
+                    }
                 });
+
+                this.btnPesquisar.style.display = "none";
+                this.botaoRemoverPesquisa.classList.add("ativo-remover-pesquisa");
                 this.containerTenis.style.display = "none";
-                this.containerRoupas.innerHTML = "";
+                this.textoDaPesquisa.innerText = `Resultado da pesquisa: ${this.espacoDaPesquisa.value.trim().toLowerCase()}`;
+                this.textoDaPesquisa.classList.add("texto-da-pesquisa-ativo");
+                
                 this.containerTenis.innerHTML = "";
+                this.containerRoupas.innerHTML = "";
                 this.botaoDropdownTenis.style.display = "none";
+                this.botaoDropdownBlusas.style.display = "none"
 
                 produtoPesquisado.forEach(produto => {
                     const cardProduto = new CriarProduto(produto.id,produto.nome,produto.imagem,produto.imagem2,produto.imagem3,produto.preco)
                     const cardMontado = cardProduto.devolverCard();
-                    console.log(cardProduto)
                     this.containerRoupas.appendChild(cardMontado);
                 });
+                
                 IniciarMenuVertical();
-                iniciarCarroselSlick();
                 ouvinteBotaoFavoritar();
+
+                // CORREÇÃO SLICK 1: O setTimeout força o JavaScript a esperar o navegador
+                // renderizar visualmente os novos cards na tela antes de ativar o Slick.
+                setTimeout(() => {
+                    // O carrossel só deve ser ativado se houver mais de 1 produto retornado,
+                    // evitando que um resultado único seja distorcido ou esticado.
+                    if (produtoPesquisado.length > 0) {
+                        iniciarCarroselSlick();
+                    }
+                }, 50); // 50ms é uma janela de segurança perfeita para renderização de layout
             }
             this.espacoDaPesquisa.value = "";
         })
     }
-    async buscarProduto(){
+    async removerPesquisa(){
+        this.botaoRemoverPesquisa.addEventListener("click", async () =>{ // Adicionado async caso buscarProdutos faça requisição
+            if(this.btnPesquisar.style.display === "none"){
+                this.botaoRemoverPesquisa.classList.remove("ativo-remover-pesquisa");
+                this.btnPesquisar.style.display = "flex";
+                if(this.botaoDropdownTenis) this.botaoDropdownTenis.style.display = "flex";
+                if(this.botaoDropdownBlusas) this.botaoDropdownBlusas.style.display = "flex";
+                if(this.textoDaPesquisa) this.textoDaPesquisa.classList.remove("texto-da-pesquisa-ativo");
+                this.containerTenis.style.display = "flex";
+
+                // Se houver slicks ativos, destrói-os antes de limpar o DOM para evitar estado inconsistente
+                const $containers = $('.container-base-card');
+                $containers.each(function() {
+                    if ($(this).hasClass('slick-initialized')) {
+                        $(this).slick('unslick');
+                    }
+                });
+
+                this.containerRoupas.innerHTML = "";
+                this.containerTenis.innerHTML = "";
+
+                // Reconstrói os cards a partir do JSON
+                await buscarProdutos();
+
+                // Aguarda o browser renderizar e então re-inicia o Slick e listeners
+                setTimeout(() => {
+                    iniciarCarroselSlick();
+                    IniciarMenuVertical();
+                    ouvinteBotaoFavoritar();
+                }, 50);
+            } else {
+                return;
+            }
+        })
+    }
+    async buscarProdutoBanco(){
         try{
             const resposta = await fetch('./../produtos.json');
-
             if (!resposta.ok) throw new Error('Erro ao carregar JSON');
-
-            const produtos = await resposta.json()
-
-            return produtos
-
+            return await resposta.json();
         }
         catch(erro){
             console.error("Falha no fetch:", erro);
@@ -97,42 +150,40 @@ class CriarProduto{
         this.preco = preco;
     }
     devolverCard(){
-    const cardProduto = document.createElement('div');
+        const cardProduto = document.createElement('div');
+        cardProduto.classList.add("base-card")
+        const idUnico = `${this.id}`;
 
-            cardProduto.classList.add("base-card")
-
-            const idUnico = `${this.id}`;
-
-            cardProduto.innerHTML = `<div class='card' data-id="${idUnico}">
-                                        <div  id="${idUnico}" class="carousel slide" data-bs-ride="carousel">
-                                            <div class="carousel-inner">
-                                                <div class="carousel-item active">
-                                                    <img class="d-block w-100" src="${this.imagem}" alt="First slide">
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img class="d-block w-100" src="${this.imagem2}" alt="Second slide">
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img class="d-block w-100" src="${this.imagem3}" alt="Third slide">
-                                                </div>
+        cardProduto.innerHTML = `<div class='card' data-id="${idUnico}">
+                                    <div id="${idUnico}" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active">
+                                                <img class="d-block w-100" src="${this.imagem}" alt="First slide">
                                             </div>
-                                            <a class="carousel-control-prev" data-bs-target="#${idUnico}" role="button" data-bs-slide="prev">
-                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                <span class="sr-only">Previous</span>
-                                            </a>
-                                            <a class="carousel-control-next" data-bs-target="#${idUnico}" role="button" data-bs-slide="next">
-                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                <span class="sr-only">Next</span>
-                                            </a> 
+                                            <div class="carousel-item">
+                                                <img class="d-block w-100" src="${this.imagem2}" alt="Second slide">
+                                            </div>
+                                            <div class="carousel-item">
+                                                <img class="d-block w-100" src="${this.imagem3}" alt="Third slide">
+                                            </div>
                                         </div>
-                                    <div class='card-body'>
-                                        <h5 class='card-title'>${sanitizarHTML(this.nome)}</h5>
-                                        <h3>${sanitizarHTML(this.preco)}</h3>
+                                        <a class="carousel-control-prev" data-bs-target="#${idUnico}" role="button" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" data-bs-target="#${idUnico}" role="button" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a> 
                                     </div>
-                                    <div class="botao-favoritos">
-                                        <i class="fa-solid fa-star"></i>
-                                    </div>
-                                </div>`
-            return cardProduto
+                                <div class='card-body'>
+                                    <h5 class='card-title'>${sanitizarHTML(this.nome)}</h5>
+                                    <h3>${sanitizarHTML(this.preco)}</h3>
+                                </div>
+                                <div class="botao-favoritos">
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>`
+        return cardProduto;
     }
 }
