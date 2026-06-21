@@ -12,7 +12,6 @@ export function IniciarMenuVertical(){
             
             this.stopPropagation();
             this.ouvinteCliqueMenuVertical();
-        
         }
         async buscarEFiltrarProdutos(id){
             try {
@@ -57,14 +56,17 @@ export function IniciarMenuVertical(){
                 this.menuVertical.style.display = "block";
                 this.menuVertical.style.maxHeight = "100vh";
                 this.menuVertical.style.overflowY = "auto";
-                this.document.body.style.overflow = "hidden";
+                document.body.style.overflow = "hidden";
             
                 setTimeout(() => {
                     this.menuVertical.style.transform = "translateX(0)";
                 },500)  
             
                 const produtoEncontrado = await this.buscarEFiltrarProdutos(idProduto);
-    
+
+                this.produtoSelecionado = produtoEncontrado;
+                this.idCard = idProduto;
+
                 if (produtoEncontrado) {
                     console.log("Descrição vindo do JSON:", produtoEncontrado.descricao);
                 }
@@ -222,53 +224,60 @@ export function IniciarMenuVertical(){
                 });
     }
     salvamentoNoCarrinho(){
-            const botaoAdicionarCarrinho = document.querySelector(".botao-carrinho");
+            const botaoAdicionarCarrinho = this.menuVertical.querySelector(".botao-carrinho");
 
-                botaoAdicionarCarrinho.addEventListener("click", () => {
+                botaoAdicionarCarrinho.addEventListener("click", (event) => {
                     const produtosExistentesNaMemoria = JSON.parse(localStorage.getItem("produtosCarrinho")) || [];
-                    const corSelecionada = document.querySelector(".botoes-selecao-cores.active");
-                    const tamanhoSelecionado = document.querySelector(".botoes-selecao-tamanho.active");
-                    const card = this.menuVertical.closest(".card");
-                    const id = card.dataset.id;
-                    let quantidadeSelecionada = parseInt(quantidade.innerText);
-                
+                    const corSelecionada = this.menuVertical.querySelector(".botoes-selecao-cores.active");
+                    const tamanhoSelecionado = this.menuVertical.querySelector(".botoes-selecao-tamanho.active");
+                    const id = this.idCard;
+                    const quantidadeEl = this.menuVertical.querySelector(".quantidade");
+                    let quantidadeSelecionada = parseInt(quantidadeEl.innerText);
+
                     if((corSelecionada === null) || (tamanhoSelecionado === null)){
                         return;
-                    } 
+                    }
 
                     let produtoIgual = produtosExistentesNaMemoria.find(item => item.cor === corSelecionada.style.backgroundColor && item.tamanho === tamanhoSelecionado.innerText && item.id === id);
 
                     if(produtoIgual){
                         produtoIgual.quantidade += quantidadeSelecionada;
-                        quantidade.innerText ++ 
-                    }else{
+                    } else {
+                        const produtoEscolhido = {
+                            id: id,
+                            nome: this.produtoSelecionado.nome,
+                            cor: corSelecionada.style.backgroundColor,
+                            tamanho: tamanhoSelecionado.innerText,
+                            valor: this.produtoSelecionado.preco,
+                            imagem: this.produtoSelecionado.imagem,
+                            quantidade: quantidadeSelecionada
+                        };
 
-                    const produtoEscolhido = {id: this.idCard, nome: produtoEncontrado.nome, cor: corSelecionada.style.backgroundColor, tamanho: tamanhoSelecionado.innerText,valor: produtoEncontrado.preco,imagem: produtoEncontrado.imagem ,quantidade: quantidadeSelecionada}
-
-                    produtosExistentesNaMemoria.push(produtoEscolhido);
-
+                        produtosExistentesNaMemoria.push(produtoEscolhido);
                     }
 
                     localStorage.setItem("produtosCarrinho",JSON.stringify(produtosExistentesNaMemoria));
                     indicarProdutosNoCarrinhoEFavoritos()
 
                     const alertaAdicao = document.querySelector(".confirmacao-adicao-carrinho");
-            
-                        alertaAdicao.style.display = "flex";
 
-                    setTimeout(() => {
-                        alertaAdicao.querySelector(".container").style.transform = "translateY(0)";
-                    },200)
+                        if(alertaAdicao){
+                            alertaAdicao.style.display = "flex";
 
-                    setTimeout(() => {
-                        alertaAdicao.querySelector(".container").style.transform = "translateY(130%)"
-                        setTimeout(() => {
-                            alertaAdicao.style.display = "none";
-                        },600)
+                            setTimeout(() => {
+                                alertaAdicao.querySelector(".container").style.transform = "translateY(0)";
+                            },200)
 
-                    },1000)
+                            setTimeout(() => {
+                                alertaAdicao.querySelector(".container").style.transform = "translateY(130%)"
+                                setTimeout(() => {
+                                    alertaAdicao.style.display = "none";
+                                },600)
+
+                            },1000)
+                        }
                 })
-    
+
     }
     fecharMenuVertical(){
         const fecharMenuVertical = document.querySelector("#menu-vertical-fechar");
