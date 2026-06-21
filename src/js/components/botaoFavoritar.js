@@ -7,6 +7,8 @@ class botaoFavoritar{
     constructor(){
         this.botoesFavoritos = document.querySelectorAll(".botao-favoritos i");
         this.favoritos = JSON.parse(localStorage.getItem("meusFavoritos")) || [];
+        
+        this.ouvinteBotaoFavoritar();
     }
     ouvinteBotaoFavoritar(){
         this.botoesFavoritos.forEach(botao => {
