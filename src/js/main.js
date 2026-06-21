@@ -11,6 +11,7 @@ import { indicarProdutosNoCarrinhoEFavoritos } from './components/indicador-noti
 import { ouvinteFinalizarPedido } from './components/finalizarPedido.js';
 import { buscarProdutoPesquisado } from './components/botaoPesquisar.js';
 
+console.log("iniciando projeto")
 if(document.querySelector(".produtos-camisas .container-base-card")){
     await buscarProdutos();
 }
