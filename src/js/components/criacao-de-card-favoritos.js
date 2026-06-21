@@ -29,7 +29,7 @@ class criarProduto{
             return cardProduto;
     }
 } 
-export async function criarCardFavoritos() { // Adicionei 'async' aqui
+export async function criarCardFavoritos() {
     let produtosFavoritados = localStorage.getItem("meusFavoritos");
     const containerCardsFavritos = document.querySelector(".produtos-favoritados");
 

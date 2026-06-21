@@ -70,8 +70,7 @@ export function IniciarMenuVertical(){
                 if (produtoEncontrado) {
                     console.log("Descrição vindo do JSON:", produtoEncontrado.descricao);
                 }
-
-
+                
                 this.menuVertical.innerHTML = `
                     <div class='container py-4'>
                         <div class='menu-vertical__cabecalho'>
