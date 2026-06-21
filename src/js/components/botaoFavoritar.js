@@ -13,7 +13,6 @@ class botaoFavoritar{
             botao.addEventListener("click", () => {
                 const cardSelecionado = botao.closest(".card");
                 const idProduto = cardSelecionado.dataset.id;
-                const alertaSalvamentoFavorito = document.querySelector(".confirmacao-adicao-carrinho");
             
             if (!this.favoritos.includes(idProduto)) {
                 this.favoritos.push(idProduto);
