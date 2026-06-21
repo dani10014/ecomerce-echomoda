@@ -1,23 +1,22 @@
 import { indicarProdutosNoCarrinhoEFavoritos } from "./indicador-notificacao.js";
 
 export function ouvinteBotaoFavoritar(){
-
-    /**Coletamos os botoes de favoritar  e puxamos o localStorage**/
-    const botoesFavoritos = document.querySelectorAll(".botao-favoritos i");
-    let favoritos = JSON.parse(localStorage.getItem("meusFavoritos")) || [];
-
-    botoesFavoritos.forEach(botao => {
-        /**Adicionamos ouvintes em cada botao*/
-        botao.addEventListener("click", () => {
-            const cardSelecionado = botao.closest(".card");
-            const idProduto = cardSelecionado.dataset.id;
-            const alertaSalvamentoFavorito = document.querySelector(".confirmacao-adicao-carrinho");
-
+    new botaoFavoritar()
+}
+class botaoFavoritar{
+    constructor(){
+        this.botoesFavoritos = document.querySelectorAll(".botao-favoritos i");
+        this.favoritos = JSON.parse(localStorage.getItem("meusFavoritos")) || [];
+    }
+    ouvinteBotaoFavoritar(){
+        this.botoesFavoritos.forEach(botao => {
+            botao.addEventListener("click", () => {
+                const cardSelecionado = botao.closest(".card");
+                const idProduto = cardSelecionado.dataset.id;
+                const alertaSalvamentoFavorito = document.querySelector(".confirmacao-adicao-carrinho");
             
-            console.log("ID do produto clicado:", idProduto);
-            
-            if (!favoritos.includes(idProduto)) {
-                favoritos.push(idProduto);
+            if (!this.favoritos.includes(idProduto)) {
+                this.favoritos.push(idProduto);
                 
                 botao.style.color = "gold";
 
@@ -26,19 +25,19 @@ export function ouvinteBotaoFavoritar(){
                     
                     alertaAdicao.style.display = "flex";
 
-                    setTimeout(function(){
+                    setTimeout(() => {
                         alertaAdicao.querySelector(".container").style.transform = "translateY(0)";
                     },200)
 
-                    setTimeout(function(){
+                    setTimeout(() => {
                         alertaAdicao.querySelector(".container").style.transform = "translateY(130%)";
                     
-                    setTimeout(function(){
+                    setTimeout(() => {
                         alertaAdicao.style.display = "none";
                     },600)
                 },1000)
             } else {
-                favoritos = favoritos.filter(id => id !== idProduto);
+                this.favoritos = this.favoritos.filter(id => id !== idProduto);
                 botao.style.color = "inherit";
 
                     const alertaAdicao = document.querySelector(".confirmacao-adicao-carrinho");
@@ -46,20 +45,21 @@ export function ouvinteBotaoFavoritar(){
 
                     alertaAdicao.style.display = "flex";
 
-                    setTimeout(function(){
+                    setTimeout(() => {
                         alertaAdicao.querySelector(".container").style.transform = "translateY(0)";
                     },200)
 
-                    setTimeout(function(){
+                    setTimeout(() => {
                         alertaAdicao.querySelector(".container").style.transform = "translateY(130%)";
                     
-                    setTimeout(function(){
+                    setTimeout(() => {
                         alertaAdicao.style.display = "none";
                     },600)
                 },1000)
             }
-            localStorage.setItem("meusFavoritos", JSON.stringify(favoritos));
+            localStorage.setItem("meusFavoritos", JSON.stringify(this.favoritos));
             indicarProdutosNoCarrinhoEFavoritos()
         })
     })
+    }
 }
