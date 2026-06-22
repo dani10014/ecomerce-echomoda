@@ -1,0 +1,114 @@
+@use "./fontes";
+@use "./variaveis";
+
+#header-login{
+    height: 300px;
+    background-image: url("../../../src/imagens/pecas-essenciais-que-toda-pessoa-que-trabalha-com-moda-tem-no-armario-chanel-mcskinsie-20220418150325.jpg");
+    background-position: center;
+    background-size: cover;
+    filter: brightness(0.3);
+    z-index: -1;
+}
+#main-login{
+    .titulo-loja{
+        display: flex;
+        position: absolute;
+        text-align: center;
+        top: 130px;
+        left: 50%;
+        font-size: variaveis.$font-xxl;
+        transform: translateX(-50%);
+        color: #fdfcfc;
+        justify-content: center;
+        align-items: center;
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        text-transform: uppercase;
+        h5{
+            font-size: variaveis.$font-sm;
+            width: 70%;
+        }
+    }
+    .texto-logar{
+        color: #fff;
+        font-size: variaveis.$font-md;
+    }
+    .container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .botao-logar{
+        display: flex;
+        width: 100%;
+        background-color: blue;
+        border: none;
+        border-radius: 10px;
+        margin-top: variaveis.$spacing-xl;
+        color: #fff;
+        height: 40px;
+        align-items: center;
+        justify-content: center;
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        width: min(420px, 92%);
+        margin: variaveis.$spacing-xl;
+        gap: variaveis.$spacing-sm;
+        padding: variaveis.$spacing-xl;
+        border-radius: 10px;
+        box-shadow: 0 5px 10px black;
+        @media(min-width:750px){
+            width: 70%;
+        }
+        label{
+            font-family: "Roboto", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: normal;
+            font-size: variaveis.$font-xs;
+            font-style: normal;
+            font-variation-settings:
+            "wdth" 100;
+            @media(min-width:750px){
+                font-size: variaveis.$font-md;
+            }
+        }
+        input{
+            width: 100%;
+            height: 40px;
+            border-radius: 5px;
+            border: none;
+            background-color: rgba(128, 128, 128, 0.397);
+            font-family: "Roboto", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: normal;
+            font-size: variaveis.$font-xs;
+            font-style: normal;
+            font-variation-settings:
+            "wdth" 100;
+            transition: all 0.3s ease-in-out;
+            padding:0 variaveis.$spacing-sm;
+        } 
+    }
+    .formulario-cadastrar{
+        display: none;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+    }
+
+    .formulario-cadastrar-ativo{
+        opacity: 1;
+    }
+    
+    .formulario-cadastrar-desativado{
+        opacity: 0;
+    } 
+}
+body{
+    margin: 0;
+}

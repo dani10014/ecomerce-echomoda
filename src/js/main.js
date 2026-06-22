@@ -10,8 +10,33 @@ import { filtrarProdutos } from './components/botao-filtrar-produtos.js';
 import { indicarProdutosNoCarrinhoEFavoritos } from './components/indicador-notificacao.js';
 import { ouvinteFinalizarPedido } from './components/finalizarPedido.js';
 import { buscarProdutoPesquisado } from './components/botaoPesquisar.js';
+import { verificarUsuario } from './components/verificaçãoDeUsuario.js';
 
-console.log("iniciando projeto")
+
+export function verificarUsuarioExiste(){
+    let usuarioExiste = localStorage.getItem("Usuario");
+    
+    if (usuarioExiste) {
+        let usuario = JSON.parse(usuarioExiste);
+        console.log("Usuário logado:", usuario);
+        if(document.querySelector("#btn-entrar")){
+            window.location.href = "index.html";
+        }
+    } else {
+        console.log("Nenhum usuário logado no momento.");
+        window.location.href = "login.html";
+    }
+}
+if(document.querySelector("#menu-hamburguer")){
+    verificarUsuarioExiste();
+}
+
+
+
+if(document.querySelector("#btn-entrar")){
+    verificarUsuario();
+}
+
 if(document.querySelector(".produtos-camisas .container-base-card")){
     await buscarProdutos();
 }
@@ -36,7 +61,8 @@ if(document.querySelector(".card")){
     IniciarMenuVertical();
 }
 
-if(document.querySelector(".cabecalho h1").innerText === "Favoritos"){
+const cabecalhoH1 = document.querySelector('.cabecalho h1');
+if (cabecalhoH1 && cabecalhoH1.innerText === 'Favoritos') {
     criarCardFavoritos();
 }
 

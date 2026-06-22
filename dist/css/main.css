@@ -1384,6 +1384,118 @@ main .produtos-favoritados .card-body h3::before {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
+#header-login {
+  height: 300px;
+  background-image: url("../../../src/imagens/pecas-essenciais-que-toda-pessoa-que-trabalha-com-moda-tem-no-armario-chanel-mcskinsie-20220418150325.jpg");
+  background-position: center;
+  background-size: cover;
+  filter: brightness(0.3);
+  z-index: -1;
+}
+
+#main-login .titulo-loja {
+  display: flex;
+  position: absolute;
+  text-align: center;
+  top: 130px;
+  left: 50%;
+  font-size: 2rem;
+  transform: translateX(-50%);
+  color: #fdfcfc;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  text-transform: uppercase;
+}
+#main-login .titulo-loja h5 {
+  font-size: 0.85rem;
+  width: 70%;
+}
+#main-login .texto-logar {
+  color: #fff;
+  font-size: 1rem;
+}
+#main-login .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#main-login .botao-logar {
+  display: flex;
+  width: 100%;
+  background-color: blue;
+  border: none;
+  border-radius: 10px;
+  margin-top: 2rem;
+  color: #fff;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+}
+#main-login form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  width: min(420px, 92%);
+  margin: 2rem;
+  gap: 0.75rem;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px black;
+}
+@media (min-width: 750px) {
+  #main-login form {
+    width: 70%;
+  }
+}
+#main-login form label {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+@media (min-width: 750px) {
+  #main-login form label {
+    font-size: 1rem;
+  }
+}
+#main-login form input {
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgba(128, 128, 128, 0.397);
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+  transition: all 0.3s ease-in-out;
+  padding: 0 0.75rem;
+}
+#main-login .formulario-cadastrar {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+#main-login .formulario-cadastrar-ativo {
+  opacity: 1;
+}
+#main-login .formulario-cadastrar-desativado {
+  opacity: 0;
+}
+
+body {
+  margin: 0;
+}
+
 body {
   background: #000000;
   background: linear-gradient(90deg, rgb(0, 0, 0) 0%, rgb(49, 0, 71) 97%);
