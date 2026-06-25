@@ -293,6 +293,9 @@
     "yocto-queue": "^0.1.0"
   },
   "devDependencies": {
+    "@babel/core": "^8.0.1",
+    "@babel/preset-env": "^8.0.2",
+    "gulp-babel": "^8.1.0",
     "imagemin": "^9.0.1",
     "nodemon": "^3.1.14",
     "prisma": "^5.18.0"
