@@ -12,6 +12,7 @@ export function verificarUsuario(){
             this.textoLogin = document.querySelector(".texto-logar");
             this.textoJaPossuiCadastro = document.querySelector("#texto-ja-possui-login");
             this.btnCadastrar = document.querySelector("#btn-cadastrar");
+            this.espacoSenha = document.querySelector("#senha");
 
             this.ouvinteBotaoEntrar();
             this.ouvinteMudançaDeBotaoCadastrar();
@@ -47,8 +48,8 @@ export function verificarUsuario(){
                     event.preventDefault()
                     let nome = document.querySelector("#nome-cadastro").value.trim();
                     let email = document.querySelector("#email-cadastro").value.trim();
-                    let senha = document.querySelector("#senha-cadastro").value
-
+                    let senha = document.querySelector("#senha-cadastro").value.trim();
+                    
                     if(nome === "" || email === "" || senha === ""){
                         alert("Por favor Preencha todos os campos")
                         return

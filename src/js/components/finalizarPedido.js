@@ -1,3 +1,5 @@
+import { inicarRenderizacaoProdutosCarrinhos } from "./renderizarCarrinho.js";
+
 export function ouvinteFinalizarPedido() {
     
     // Instancia (ativa) a classe para os ouvintes começarem a escutar a tela
@@ -237,6 +239,7 @@ class ProcessarPagamento {
             this.mostrarSucesso("Pedido criado! Escaneie o QR Code para pagar.", resultado.copiaECola);
 
             localStorage.removeItem("produtosCarrinho");
+            inicarRenderizacaoProdutosCarrinhos();
             this.limparFormulario();
 
             // CORRIGIDO: Adicionado os parênteses () para chamar o método de fato

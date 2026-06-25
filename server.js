@@ -1,3 +1,4 @@
+import { PrismaClient } from '@prisma/client'; // Importa a biblioteca
 import { MercadoPagoConfig, Payment } from "mercadopago";
 import express from "express";
 import cors from "cors";
@@ -6,6 +7,7 @@ import crypto from "crypto"; // 🔥 Necessário para gerar a chave de idempotê
 
 dotenv.config();
 
+const prisma = new PrismaClient();
 const app = express();
 const PORT = process.env.PORT || 3000;
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5500";
@@ -80,16 +82,37 @@ app.post("/api/criar-pagamento", async (req, res) => {
             }
         };
 
-        // 🔥 CRÍTICO: Configuração com a chave de idempotência obrigatória na v2 da SDK
         const requestOptions = {
             idempotencyKey: crypto.randomUUID() 
         };
+        /*
+        const resultado = await payment.create({ body, requestOptions });*/
 
-        // Passando o body e as opções de requisição separadamente conforme a SDK v2 pede
-        const resultado = await payment.create({ body, requestOptions });
-
-        // Verificação segura das propriedades retornadas
+        const resultado = {
+            id: "999999999",
+            point_of_interaction: {
+                transaction_data: {
+                    qr_code: "00020101021226870014br.gov.bcb.pix-falso-de-teste",
+                    ticket_url: "https://www.mercadopago.com.br/ticket-falso"
+                }
+            }
+    };
         const transactionData = resultado.point_of_interaction?.transaction_data;
+        
+        if(resultado && resultado.id){
+            const pedidoSalvo = await prisma.pedido.create({
+                data: {
+                    email: email,
+                    nomeCliente: nome,
+                    valor: Number(precoTotal),
+                    status: "pendente",
+                    mp_id: resultado.id.toString()
+                }
+            });
+            console.log("Pedido salvo com ID:", pedidoSalvo.id);
+        } else {
+            throw new Error("Falha ao obter ID do pagamento do Mercado Pago.");
+        }
 
         if (!transactionData) {
             throw new Error("Dados de interação do PIX não retornados pelo Mercado Pago.");
@@ -107,7 +130,7 @@ app.post("/api/criar-pagamento", async (req, res) => {
         
         // Se o erro veio da API do Mercado Pago, podemos tentar expor algo mais limpo para o front
         const mensagemErro = erro.message || "Erro ao processar pagamento";
-        return res.status(500).json({ sucesso: false, erro: mensagemerros });
+        return res.status(500).json({ sucesso: false, erro: mensagemErro });
     }
 });
 

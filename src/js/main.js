@@ -31,8 +31,6 @@ if(document.querySelector("#menu-hamburguer")){
     verificarUsuarioExiste();
 }
 
-
-
 if(document.querySelector("#btn-entrar")){
     verificarUsuario();
 }

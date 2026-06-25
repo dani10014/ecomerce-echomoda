@@ -1467,7 +1467,7 @@ main .produtos-favoritados .card-body h3::before {
 }
 #main-login form input {
   width: 100%;
-  height: 40px;
+  height: 3rem;
   border-radius: 5px;
   border: none;
   background-color: rgba(128, 128, 128, 0.397);
@@ -1479,6 +1479,21 @@ main .produtos-favoritados .card-body h3::before {
   font-variation-settings: "wdth" 100;
   transition: all 0.3s ease-in-out;
   padding: 0 0.75rem;
+}
+#main-login form input:focus {
+  color: #fff;
+  background-color: rgb(134, 134, 134);
+  border: none !important;
+}
+@media (min-width: 750px) {
+  #main-login form input {
+    height: 4rem;
+    font-size: 1rem;
+  }
+  #main-login form input:hover {
+    background-color: rgb(134, 134, 134);
+    color: #fff;
+  }
 }
 #main-login .formulario-cadastrar {
   display: none;
