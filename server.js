@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 3000;
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5500";
 const allowedOrigins = [FRONTEND_URL, FRONTEND_URL.replace("localhost", "127.0.0.1")];
 
+console.log(prisma)
 app.use(cors({
     origin: allowedOrigins,
     methods: ["GET", "POST", "OPTIONS"],
@@ -85,28 +86,19 @@ app.post("/api/criar-pagamento", async (req, res) => {
         const requestOptions = {
             idempotencyKey: crypto.randomUUID() 
         };
-        /*
-        const resultado = await payment.create({ body, requestOptions });*/
 
-        const resultado = {
-            id: "999999999",
-            point_of_interaction: {
-                transaction_data: {
-                    qr_code: "00020101021226870014br.gov.bcb.pix-falso-de-teste",
-                    ticket_url: "https://www.mercadopago.com.br/ticket-falso"
-                }
-            }
-    };
+        const resultado = await payment.create({ body, requestOptions });
+
         const transactionData = resultado.point_of_interaction?.transaction_data;
         
         if(resultado && resultado.id){
-            const pedidoSalvo = await prisma.pedido.create({
+            const pedidoSalvo = await prisma.pedidos.create({
                 data: {
-                    email: email,
-                    nomeCliente: nome,
-                    valor: Number(precoTotal),
+                    id:crypto.randomUUID(),
+                    mp_id:resultado.id.toString(),
+                    total: Number(precoTotal),
                     status: "pendente",
-                    mp_id: resultado.id.toString()
+                    data_pedido:new Date(),
                 }
             });
             console.log("Pedido salvo com ID:", pedidoSalvo.id);
@@ -133,6 +125,31 @@ app.post("/api/criar-pagamento", async (req, res) => {
         return res.status(500).json({ sucesso: false, erro: mensagemErro });
     }
 });
+app.post("/api/cadastro" , async (req,res) => {
+    try{
+        const {nome,email,senha} = req.body;
+
+        if(!nome || !email || !senha){
+            return res.status(400).json({ erro: "Dados incompletos" });
+        }
+
+        const usuario = await prisma.usuarios.create({
+            data : {
+                id:crypto.randomUUID(),
+                nome:nome,
+                email:email,
+                senha:senha.toString(),
+                created_at:new Date(),
+            }
+        })
+
+        return res.status(201).json({ sucesso: true, usuario });
+
+    }catch(erro){
+        console.error("Erro:", erro);
+        return res.status(500).json({ erro: "Erro ao cadastrar usuário" });
+    }
+})
 
 app.get("/api/health", (req, res) => {
     res.json({ status: "ok" });

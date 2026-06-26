@@ -13,6 +13,9 @@
         "cor2":"grey",
         "cor3":"blue",
         "cor4":"green",
+        "caption":"Elegante",
+        "caption2":"Costura premium",
+        "caption3":"Otimo cabimento",
         "descricao":"Camiseta oversized preta, feita com tecido de alta qualidade para garantir conforto e estilo. Com um design moderno e versátil, é perfeita para compor looks casuais ou mais despojados. Disponível em várias cores para atender a todos os gostos."
     },
     {
@@ -30,7 +33,8 @@
         "cor4":"green",
         "caption":"Elegante",
         "caption2":"Costura premium",
-        "caption3":"Otimo cabimento"
+        "caption3":"Otimo cabimento",
+        "descricao":"Camiseta oversized preta, feita com tecido de alta qualidade para garantir conforto e estilo. Com um design moderno e versátil, é perfeita para compor looks casuais ou mais despojados. Disponível em várias cores para atender a todos os gostos."
     },
     {
         "id": 3,
@@ -44,7 +48,11 @@
         "cor1":"black",
         "cor2":"grey",
         "cor3":"Red",
-        "cor4":"green"
+        "cor4":"green",
+        "caption":"Elegante",
+        "caption2":"Costura premium",
+        "caption3":"Otimo cabimento",
+        "descricao":"Camiseta oversized preta, feita com tecido de alta qualidade para garantir conforto e estilo. Com um design moderno e versátil, é perfeita para compor looks casuais ou mais despojados. Disponível em várias cores para atender a todos os gostos."
     },
     {
         "id":4,
@@ -58,7 +66,11 @@
         "cor1":"black",
         "cor2":"grey",
         "cor3":"Red",
-        "cor4":"green"
+        "cor4":"green",
+        "caption":"Elegante",
+        "caption2":"Costura premium",
+        "caption3":"Otimo cabimento",
+        "descricao":"Camiseta oversized preta, feita com tecido de alta qualidade para garantir conforto e estilo. Com um design moderno e versátil, é perfeita para compor looks casuais ou mais despojados. Disponível em várias cores para atender a todos os gostos."
         
     },
     {
@@ -73,7 +85,11 @@
         "cor1":"black",
         "cor2":"grey",
         "cor3":"Red",
-        "cor4":"green"
+        "cor4":"green",
+        "caption":"Elegante",
+        "caption2":"Costura premium",
+        "caption3":"Otimo cabimento",
+        "descricao":"Camiseta oversized preta, feita com tecido de alta qualidade para garantir conforto e estilo. Com um design moderno e versátil, é perfeita para compor looks casuais ou mais despojados. Disponível em várias cores para atender a todos os gostos."
     },
     {
         "id":6,
@@ -87,7 +103,11 @@
         "cor1":"black",
         "cor2":"grey",
         "cor3":"Red",
-        "cor4":"green"
+        "cor4":"green",
+        "caption":"Elegante",
+        "caption2":"Costura premium",
+        "caption3":"Otimo cabimento",
+        "descricao":"Camiseta oversized preta, feita com tecido de alta qualidade para garantir conforto e estilo. Com um design moderno e versátil, é perfeita para compor looks casuais ou mais despojados. Disponível em várias cores para atender a todos os gostos."
     },
     {
         "id":7,
@@ -101,7 +121,11 @@
         "cor1":"black",
         "cor2":"grey",
         "cor3":"Red",
-        "cor4":"green"
+        "cor4":"green",
+        "caption":"Elegante",
+        "caption2":"Costura premium",
+        "caption3":"Otimo cabimento",
+        "descricao":"Camiseta oversized preta, feita com tecido de alta qualidade para garantir conforto e estilo. Com um design moderno e versátil, é perfeita para compor looks casuais ou mais despojados. Disponível em várias cores para atender a todos os gostos."
     },
     {
         "id": 8,
@@ -115,7 +139,11 @@
         "cor1":"black",
         "cor2":"grey",
         "cor3":"Red",
-        "cor4":"green"
+        "cor4":"green",
+        "caption":"Elegante",
+        "caption2":"Costura premium",
+        "caption3":"Otimo cabimento",
+        "descricao":"Camiseta oversized preta, feita com tecido de alta qualidade para garantir conforto e estilo. Com um design moderno e versátil, é perfeita para compor looks casuais ou mais despojados. Disponível em várias cores para atender a todos os gostos."
     },
     {
         "id": 9,
@@ -129,7 +157,11 @@
         "cor1":"black",
         "cor2":"grey",
         "cor3":"Red",
-        "cor4":"green"
+        "cor4":"green",
+        "caption":"Elegante",
+        "caption2":"Costura premium",
+        "caption3":"Otimo cabimento",
+        "descricao":"Camiseta oversized preta, feita com tecido de alta qualidade para garantir conforto e estilo. Com um design moderno e versátil, é perfeita para compor looks casuais ou mais despojados. Disponível em várias cores para atender a todos os gostos."
     },
     {
         "id":10,
@@ -143,6 +175,10 @@
         "cor1":"black",
         "cor2":"grey",
         "cor3":"Red",
-        "cor4":"green"
+        "cor4":"green",
+        "caption":"Elegante",
+        "caption2":"Costura premium",
+        "caption3":"Otimo cabimento",
+        "descricao":"Camiseta oversized preta, feita com tecido de alta qualidade para garantir conforto e estilo. Com um design moderno e versátil, é perfeita para compor looks casuais ou mais despojados. Disponível em várias cores para atender a todos os gostos."
     }
 ]

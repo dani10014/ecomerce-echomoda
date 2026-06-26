@@ -1487,7 +1487,7 @@ main .produtos-favoritados .card-body h3::before {
 }
 @media (min-width: 750px) {
   #main-login form input {
-    height: 4rem;
+    height: 3rem;
     font-size: 1rem;
   }
   #main-login form input:hover {

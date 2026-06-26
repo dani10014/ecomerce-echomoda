@@ -39,18 +39,21 @@ export function verificarUsuario(){
                 }
                 verificarUsuarioExiste()
             })
+                senha = "";
+                email = "";
+                nome = "";
         }
         }
         /**Ouvinte no botao que envia os dados para o servidor e cadastrar*/
         ouvinteBotaoCadastrar(){
             if(this.btnCadastrar){
-                this.btnCadastrar.addEventListener("click",(event) => {
+                this.btnCadastrar.addEventListener("click", async (event) => {
                     event.preventDefault()
                     let nome = document.querySelector("#nome-cadastro").value.trim();
                     let email = document.querySelector("#email-cadastro").value.trim();
                     let senha = document.querySelector("#senha-cadastro").value.trim();
-                    
-                    if(nome === "" || email === "" || senha === ""){
+
+                    if(nome === "" || !email.includes("@") || email === "" || senha === ""){
                         alert("Por favor Preencha todos os campos")
                         return
                     }else{
@@ -59,7 +62,35 @@ export function verificarUsuario(){
                             email:email,
                             senha:senha
                         }
-                    localStorage.setItem("Usuario",JSON.stringify(dadosUser))
+                        try{
+                            const resposta = await fetch("http://localhost:3000/api/cadastro",{
+                                method:"POST",
+                                headers:{
+                                    "Content-Type": "application/json" 
+                                },
+                                body:JSON.stringify({
+                                    nome:dadosUser.nome,
+                                    email:dadosUser.email,
+                                    senha:dadosUser.senha,
+                                })
+                            });
+
+                            const resultado = await resposta.json()
+
+                            if(resposta.ok){
+                                alert("Usuario cadastrado com sucesso")
+                                localStorage.setItem("Usuario",JSON.stringify(dadosUser))
+                                senha = "";
+                                email = "";
+                                nome = "";
+                            }
+                            else{
+                                alert("Erro" + resultado.erro)
+                                return
+                            }
+                        }catch(erro){
+                            alert("Erro no servidor")
+                        }
                 }
                 verificarUsuarioExiste()
                 })
