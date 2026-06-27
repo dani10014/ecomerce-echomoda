@@ -120,7 +120,6 @@ app.post("/api/criar-pagamento", async (req, res) => {
     } catch (erro) {
         console.error("Erro detalhado ao criar pagamento:", erro);
         
-        // Se o erro veio da API do Mercado Pago, podemos tentar expor algo mais limpo para o front
         const mensagemErro = erro.message || "Erro ao processar pagamento";
         return res.status(500).json({ sucesso: false, erro: mensagemErro });
     }
@@ -147,10 +146,33 @@ app.post("/api/cadastro" , async (req,res) => {
 
     }catch(erro){
         console.error("Erro:", erro);
-        return res.status(500).json({ erro: "Erro ao cadastrar usuário" });
+        return res.status(500).json({ erro: "Uma conta com esses dados já existe" });
     }
 })
+app.post("/api/logar",async (req,res) => {
+    try{
+        const {email,senha} = req.body
 
+        const resultado = await prisma.usuarios.findUnique({
+            where:{
+                email:email.trim(),
+            }
+        });
+        if(resultado)
+            console.log(resultado)
+
+        if (!resultado || resultado.senha !== senha) {
+            return res.status(401).json({ sucesso: false, erro: "E-mail ou senha inválidos" });
+        }
+
+        const { senha: _, ...usuarioSemSenha } = resultado;
+        return res.status(200).json({ sucesso: true, usuario: usuarioSemSenha });
+
+    }catch(erro){
+        console.error("Erro no login:", erro);
+        return res.status(500).json({ sucesso: false, erro: "Erro interno no servidor" });
+    }
+})
 app.get("/api/health", (req, res) => {
     res.json({ status: "ok" });
 });

@@ -20,8 +20,8 @@ export function verificarUsuario(){
         }
         /** Ouvinte no botao de logar para verificar os campos e verificar com o servidor*/
         ouvinteBotaoEntrar(){
-            if(this.btnCadastrar){
-            this.btnEntrar.addEventListener("click",(event) => {
+            if(this.btnEntrar){
+            this.btnEntrar.addEventListener("click",async (event) => {
                 event.preventDefault()
                     let nome = document.querySelector("#nome").value.trim()
                     let email = document.querySelector("#email").value.trim()
@@ -31,17 +31,39 @@ export function verificarUsuario(){
                     alert("Por favor Preencha todos os campos")
                     return
                 }else{
-                    let dadosUser ={
+                    let dadosUser = {
                         nome:nome,
                         email:email,
-                        senha:senha
+                        senha:senha,
+                    }
+                    try{
+                        const resposta =  await fetch("http://localhost:3000/api/logar",{
+                            method:"POST",
+                            headers:{
+                                "Content-Type":"application/json"
+                            },
+                            body:JSON.stringify({
+                                email:dadosUser.email,
+                                senha:senha
+                            })
+                        })
+                        if(resposta.ok){
+                            alert("Usuario logado com sucesso")
+                            localStorage.setItem("Usuario",JSON.stringify(dadosUser))
+                            senha = "";
+                            email = "";
+                            nome = "";
+                        }
+                        if(!resposta.ok){
+                            alert("Email ou senha incorreta");
+                            return
+                        }
+                    }catch(erro){
+                        alert("Erro no servidor: ",erro)
                     }
                 }
                 verificarUsuarioExiste()
             })
-                senha = "";
-                email = "";
-                nome = "";
         }
         }
         /**Ouvinte no botao que envia os dados para o servidor e cadastrar*/
