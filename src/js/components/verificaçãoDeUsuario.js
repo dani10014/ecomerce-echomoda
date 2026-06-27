@@ -5,6 +5,7 @@ export function verificarUsuario(){
 }
     class userVerific{
         constructor(){
+            this.alertaAdicao = document.querySelector(".confirmacao-adicao-carrinho");
             this.btnEntrar = document.querySelector("#btn-entrar");
             this.btnLinkCadastrar = document.querySelector("#btn-link-cadastrar");
             this.formularioLogin = document.querySelector(".formulario-entrar");
@@ -27,8 +28,22 @@ export function verificarUsuario(){
                     let email = document.querySelector("#email").value.trim()
                     let senha = document.querySelector("#senha").value.trim()
 
-                if(nome === "" || email === "" || senha === ""){
-                    alert("Por favor Preencha todos os campos")
+                if(nome === "" || !email.includes("@") || email === "" || senha === ""){
+                        this.alertaAdicao.style.display = "flex";
+
+                        this.alertaAdicao.querySelector(".container h5").innerHTML =( `<i class="fas fa-times-circle me-2" style="color: #dc3545;"></i>Senha ou email incorreta`)
+                        
+                            setTimeout(() => {
+                                this.alertaAdicao.querySelector(".container").style.transform = "translateY(0)";
+                            },200)
+
+                            setTimeout(() => {
+                                this.alertaAdicao.querySelector(".container").style.transform = "translateY(130%)"
+                                setTimeout(() => {
+                                    this.alertaAdicao.style.display = "none";
+                                },400)
+
+                            },2000)
                     return
                 }else{
                     let dadosUser = {
@@ -48,21 +63,52 @@ export function verificarUsuario(){
                             })
                         })
                         if(resposta.ok){
-                            alert("Usuario logado com sucesso")
+                            this.alertaAdicao.style.display = "flex";
+
+                            this.alertaAdicao.querySelector(".container h5").innerHTML =( `<i class="fas fa-check-circle me-2" style="color: #28a745;"></i>Logado com sucesso`)
+                        
+                            setTimeout(() => {
+                                this.alertaAdicao.querySelector(".container").style.transform = "translateY(0)";
+                            },200)
+
+                            setTimeout(() => {
+                                this.alertaAdicao.querySelector(".container").style.transform = "translateY(130%)"
+                                setTimeout(() => {
+                                    this.alertaAdicao.style.display = "none";
+                                },400)
+
+                            },2000)
+
                             localStorage.setItem("Usuario",JSON.stringify(dadosUser))
                             senha = "";
                             email = "";
                             nome = "";
                         }
-                        if(!resposta.ok){
-                            alert("Email ou senha incorreta");
-                            return
+                        if(resposta.status === 401){
+                            this.alertaAdicao.style.display = "flex";
+
+                            this.alertaAdicao.querySelector(".container h5").innerHTML =( `<i class="fas fa-times-circle me-2" style="color: #dc3545;"></i>Nenhuma conta existente`)
+                        
+                            setTimeout(() => {
+                                this.alertaAdicao.querySelector(".container").style.transform = "translateY(0)";
+                            },200)
+
+                            setTimeout(() => {
+                                this.alertaAdicao.querySelector(".container").style.transform = "translateY(130%)"
+                                setTimeout(() => {
+                                    this.alertaAdicao.style.display = "none";
+                                },400)
+
+                            },2000)
+                        return
                         }
                     }catch(erro){
                         alert("Erro no servidor: ",erro)
                     }
                 }
-                verificarUsuarioExiste()
+                setTimeout(()=> {
+                    verificarUsuarioExiste()
+                },800)
             })
         }
         }
@@ -98,23 +144,41 @@ export function verificarUsuario(){
                             });
 
                             const resultado = await resposta.json()
-
+                            
                             if(resposta.ok){
                                 alert("Usuario cadastrado com sucesso")
+
                                 localStorage.setItem("Usuario",JSON.stringify(dadosUser))
                                 senha = "";
                                 email = "";
                                 nome = "";
                             }
                             else{
-                                alert("Erro" + resultado.erro)
+                                this.alertaAdicao.style.display = "flex";
+
+                                this.alertaAdicao.querySelector(".container h5").innerHTML =( `<i class="fas fa-times-circle me-2" style="color: #dc3545;"></i>Conta ja existente`)
+                        
+                                setTimeout(() => {
+                                    this.alertaAdicao.querySelector(".container").style.transform = "translateY(0)";
+                                },200)
+
+                                setTimeout(() => {
+                                    this.alertaAdicao.querySelector(".container").style.transform = "translateY(130%)"
+                                setTimeout(() => {
+                                    this.alertaAdicao.style.display = "none";
+                                },400)
+
+                            },2000)
                                 return
                             }
+
                         }catch(erro){
                             alert("Erro no servidor")
                         }
                 }
-                verificarUsuarioExiste()
+                setTimeout(()=>{
+                    verificarUsuarioExiste()
+                },800)
                 })
             }
         }
