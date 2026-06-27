@@ -143,10 +143,22 @@ export function verificarUsuario(){
                                 })
                             });
 
-                            const resultado = await resposta.json()
-                            
                             if(resposta.ok){
-                                alert("Usuario cadastrado com sucesso")
+                                this.alertaAdicao.style.display = "flex";
+
+                                this.alertaAdicao.querySelector(".container h5").innerHTML =( `<i class="fas fa-check-circle me-2" style="color: #28a745;"></i>Usuario cadastrado com sucesso`)
+                        
+                                setTimeout(() => {
+                                    this.alertaAdicao.querySelector(".container").style.transform = "translateY(0)";
+                                },200)
+
+                                setTimeout(() => {
+                                    this.alertaAdicao.querySelector(".container").style.transform = "translateY(130%)"
+                                setTimeout(() => {
+                                    this.alertaAdicao.style.display = "none";
+                                },400)
+
+                                },2000)
 
                                 localStorage.setItem("Usuario",JSON.stringify(dadosUser))
                                 senha = "";
@@ -168,8 +180,8 @@ export function verificarUsuario(){
                                     this.alertaAdicao.style.display = "none";
                                 },400)
 
-                            },2000)
-                                return
+                                },2000)
+                            return
                             }
 
                         }catch(erro){
