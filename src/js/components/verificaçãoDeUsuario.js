@@ -13,7 +13,6 @@ export function verificarUsuario(){
             this.textoLogin = document.querySelector(".texto-logar");
             this.textoJaPossuiCadastro = document.querySelector("#texto-ja-possui-login");
             this.btnCadastrar = document.querySelector("#btn-cadastrar");
-            this.espacoSenha = document.querySelector("#senha");
 
             this.ouvinteBotaoEntrar();
             this.ouvinteMudançaDeBotaoCadastrar();
