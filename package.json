@@ -185,6 +185,7 @@
     "mute-stdout": "^2.0.0",
     "neo-async": "^2.6.2",
     "node-releases": "^2.0.38",
+    "nodemailer": "^9.0.1",
     "normalize-path": "^3.0.0",
     "now-and-later": "^3.0.0",
     "object.defaults": "^1.1.0",

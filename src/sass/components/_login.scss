@@ -104,11 +104,50 @@
                 @include variaveis.hover;
             }
         } 
+        .esconder-botao-entrar-ou-cadastro{
+            display: none;
+        }
+    }
+    .texto-nao-recebeu-codigo{
+        font-size: variaveis.$font-md;
+    }
+    .texto-codigo-enviado-para{
+        font-size: variaveis.$font-xl;
+    }
+    .texto-verifique-spam{
+        font-size: variaveis.$font-md;
+    }
+    .caixa-digitos-codigo{
+        input{
+            height: variaveis.$spacing-3xl;
+        }
     }
     .formulario-cadastrar{
         display: none;
         opacity: 0;
         transition: opacity 0.5s ease-in-out;
+    }
+
+    .formulario-verificar-codigo{
+        display: none;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+    }
+
+    #spinner-loading-cadastro{
+        display: none;
+    }
+    
+    #spinner-loading-login{
+        display: none;
+    }
+    
+    #spinner-loading-verificar-codigo{
+        display: none;
+    }
+
+    .spinner-loading-ativo{
+        display: flex !important;
     }
 
     .formulario-cadastrar-ativo{

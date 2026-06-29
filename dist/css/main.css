@@ -1495,10 +1495,42 @@ main .produtos-favoritados .card-body h3::before {
     color: #fff;
   }
 }
+#main-login form .esconder-botao-entrar-ou-cadastro {
+  display: none;
+}
+#main-login .texto-nao-recebeu-codigo {
+  font-size: 1rem;
+}
+#main-login .texto-codigo-enviado-para {
+  font-size: 1.4rem;
+}
+#main-login .texto-verifique-spam {
+  font-size: 1rem;
+}
+#main-login .caixa-digitos-codigo input {
+  height: 4rem;
+}
 #main-login .formulario-cadastrar {
   display: none;
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
+}
+#main-login .formulario-verificar-codigo {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+#main-login #spinner-loading-cadastro {
+  display: none;
+}
+#main-login #spinner-loading-login {
+  display: none;
+}
+#main-login #spinner-loading-verificar-codigo {
+  display: none;
+}
+#main-login .spinner-loading-ativo {
+  display: flex !important;
 }
 #main-login .formulario-cadastrar-ativo {
   opacity: 1;

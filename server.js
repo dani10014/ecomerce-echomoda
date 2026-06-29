@@ -4,6 +4,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import crypto from "crypto"; // 🔥 Necessário para gerar a chave de idempotência
+import nodemailer from "nodemailer";
 
 dotenv.config();
 
@@ -13,7 +14,14 @@ const PORT = process.env.PORT || 3000;
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5500";
 const allowedOrigins = [FRONTEND_URL, FRONTEND_URL.replace("localhost", "127.0.0.1")];
 
-console.log(prisma)
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+    }
+});
+
 app.use(cors({
     origin: allowedOrigins,
     methods: ["GET", "POST", "OPTIONS"],
@@ -126,27 +134,26 @@ app.post("/api/criar-pagamento", async (req, res) => {
 });
 app.post("/api/cadastro" , async (req,res) => {
     try{
-        const {nome,email,senha} = req.body;
+        const {nome,email,senha,emailVerificado} = req.body;
 
         if(!nome || !email || !senha){
             return res.status(400).json({ erro: "Dados incompletos" });
         }
-
-        const usuario = await prisma.usuarios.create({
-            data : {
-                id:crypto.randomUUID(),
-                nome:nome,
-                email:email,
-                senha:senha.toString(),
-                created_at:new Date(),
+        
+        const usuario = await prisma.usuarios.findUnique({
+            where: {
+                email:email.trim()
             }
         })
-
-        return res.status(201).json({ sucesso: true, usuario });
+        if(usuario){
+            return res.status(409).json({mensagem:"usuario existe no banco",usuario})
+        }else{
+            return res.status(200).json({mensagem:"Usuario não existe no banco"})
+        }
 
     }catch(erro){
         console.error("Erro:", erro);
-        return res.status(500).json({ erro: "Uma conta com esses dados já existe" });
+        return res.status(500).json({ erro: "Erro ao conectar no servidor" });
     }
 })
 app.post("/api/logar",async (req,res) => {
@@ -173,6 +180,63 @@ app.post("/api/logar",async (req,res) => {
         return res.status(500).json({ sucesso: false, erro: "Erro interno no servidor" });
     }
 })
+function gerarCodigoVerificacao() {
+    return crypto.randomInt(100000, 999999).toString();
+}
+const codigosTemporarios = new Map();
+
+async function enviarEmailVerificacao(destinatario, codigo) {
+    const mailOptions = {
+        from: '"EchoModa Suporte" <dijalmaduartefleitas0@gmail.com>', // O seu email
+        to: destinatario,
+        subject: "Seu código de verificação EchoModa",
+        text: `Olá! Seu código de verificação é: ${codigo}. Ele expira em 5 minutos.`
+    };
+
+    return await transporter.sendMail(mailOptions);
+}
+
+app.post("/api/enviar-codigo", async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        const codigo = gerarCodigoVerificacao();
+        
+        const expiraEm = Date.now() + (5 * 60 * 1000); // 5 minutos
+
+        codigosTemporarios.set(email, { codigo, expiraEm });
+        
+        await enviarEmailVerificacao(email, codigo);
+        
+        return res.status(200).json({ mensagem: "Código enviado!" });
+    } catch (erro) {
+        return res.status(500).json({ erro: "Erro ao enviar e-mail" });
+    }
+});
+
+app.post("/api/verificar-codigo", (req, res) => {
+    const { email, codigo } = req.body;
+    const registro = codigosTemporarios.get(email);
+
+    // Se não existe o registro no Map
+    if (!registro) {
+        return res.status(400).json({ mensagem: "Solicite um código primeiro." });
+    }
+
+    // Verifica se expirou
+    if (Date.now() > registro.expiraEm) {
+        codigosTemporarios.delete(email);
+        return res.status(400).json({ mensagem: "Código expirado." });
+    }
+
+    // Verifica se o código bate
+    if (codigo === registro.codigo) {
+        codigosTemporarios.delete(email); // Código usado, deleta do Map
+        return res.status(200).json({ mensagem: "Código verificado com sucesso!" });
+    } else {
+        return res.status(400).json({ mensagem: "Código incorreto." });
+    }
+});
 app.get("/api/health", (req, res) => {
     res.json({ status: "ok" });
 });

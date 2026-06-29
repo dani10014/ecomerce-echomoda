@@ -13,6 +13,12 @@ export function verificarUsuario(){
             this.textoLogin = document.querySelector(".texto-logar");
             this.textoJaPossuiCadastro = document.querySelector("#texto-ja-possui-login");
             this.btnCadastrar = document.querySelector("#btn-cadastrar");
+            this.formularioVerificarEmail = document.querySelector(".formulario-verificar-codigo");
+            this.loadingLogin = document.querySelector("#spinner-loading-login");
+            this.loadingCadastrar = document.querySelector("#spinner-loading-cadastro");
+            this.formularioVerificarEmail = document.querySelector(".formulario-verificar-codigo")
+            this.btnEnviarCodigo = document.querySelector("#btn-verificar-codigo");
+            this.loadingEnviarCodigo = document.querySelector("#spinner-loading-verificar-codigo");
 
             this.ouvinteBotaoEntrar();
             this.ouvinteMudançaDeBotaoCadastrar();
@@ -26,28 +32,20 @@ export function verificarUsuario(){
                     let nome = document.querySelector("#nome").value.trim()
                     let email = document.querySelector("#email").value.trim()
                     let senha = document.querySelector("#senha").value.trim()
+                    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-                if(nome === "" || !email.includes("@") || email === "" || senha === ""){
-                        this.alertaAdicao.style.display = "flex";
+                    this.exibirLoading("entrar")
 
-                        this.alertaAdicao.querySelector(".container h5").innerHTML =( `<i class="fas fa-times-circle me-2" style="color: #dc3545;"></i>Senha ou email incorreta`)
-                        
-                            setTimeout(() => {
-                                this.alertaAdicao.querySelector(".container").style.transform = "translateY(0)";
-                            },200)
-
-                            setTimeout(() => {
-                                this.alertaAdicao.querySelector(".container").style.transform = "translateY(130%)"
-                                setTimeout(() => {
-                                    this.alertaAdicao.style.display = "none";
-                                },400)
-
-                            },2000)
+                if(nome === "" || !regexEmail.test(email) || email === "" || senha === ""){
+                        this.exibirAlerta("Por favor preencha todos os campos","erro")
+                        setTimeout(()=>{
+                            this.exibirLoading("entrar")
+                        },1000)
                     return
                 }else{
                     let dadosUser = {
                         nome:nome,
-                        email:email,
+                        email:email.toLowerCase(),
                         senha:senha,
                     }
                     try{
@@ -62,47 +60,22 @@ export function verificarUsuario(){
                             })
                         })
                         if(resposta.ok){
-                            this.alertaAdicao.style.display = "flex";
-
-                            this.alertaAdicao.querySelector(".container h5").innerHTML =( `<i class="fas fa-check-circle me-2" style="color: #28a745;"></i>Logado com sucesso`)
-                        
-                            setTimeout(() => {
-                                this.alertaAdicao.querySelector(".container").style.transform = "translateY(0)";
-                            },200)
-
-                            setTimeout(() => {
-                                this.alertaAdicao.querySelector(".container").style.transform = "translateY(130%)"
-                                setTimeout(() => {
-                                    this.alertaAdicao.style.display = "none";
-                                },400)
-
-                            },2000)
-
+                            this.exibirAlerta("Logado com sucesso","sucesso")
+                            
                             localStorage.setItem("Usuario",JSON.stringify(dadosUser))
                             senha = "";
                             email = "";
                             nome = "";
                         }
                         if(resposta.status === 401){
-                            this.alertaAdicao.style.display = "flex";
-
-                            this.alertaAdicao.querySelector(".container h5").innerHTML =( `<i class="fas fa-times-circle me-2" style="color: #dc3545;"></i>Nenhuma conta existente`)
-                        
-                            setTimeout(() => {
-                                this.alertaAdicao.querySelector(".container").style.transform = "translateY(0)";
-                            },200)
-
-                            setTimeout(() => {
-                                this.alertaAdicao.querySelector(".container").style.transform = "translateY(130%)"
-                                setTimeout(() => {
-                                    this.alertaAdicao.style.display = "none";
-                                },400)
-
-                            },2000)
+                            this.exibirAlerta("Email ou senha incorreta","erro")
                         return
                         }
                     }catch(erro){
                         alert("Erro no servidor: ",erro)
+                        return
+                    }finally{
+                        this.exibirLoading("entrar")
                     }
                 }
                 setTimeout(()=> {
@@ -119,14 +92,20 @@ export function verificarUsuario(){
                     let nome = document.querySelector("#nome-cadastro").value.trim();
                     let email = document.querySelector("#email-cadastro").value.trim();
                     let senha = document.querySelector("#senha-cadastro").value.trim();
+                    let regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-                    if(nome === "" || !email.includes("@") || email === "" || senha === ""){
-                        alert("Por favor Preencha todos os campos")
+                    this.exibirLoading("cadastrar")
+
+                    if(nome === "" || !regexEmail.test(email) || email === "" || senha === ""){
+                        this.exibirAlerta("Por favor preencha todos os campos","erro")
+                        setTimeout(()=>{
+                            this.exibirLoading("cadastrar")
+                        },1000)
                         return
                     }else{
                         let dadosUser ={
                             nome:nome,
-                            email:email,
+                            email:email.toLowerCase(),
                             senha:senha
                         }
                         try{
@@ -142,54 +121,32 @@ export function verificarUsuario(){
                                 })
                             });
 
-                            if(resposta.ok){
-                                this.alertaAdicao.style.display = "flex";
-
-                                this.alertaAdicao.querySelector(".container h5").innerHTML =( `<i class="fas fa-check-circle me-2" style="color: #28a745;"></i>Usuario cadastrado com sucesso`)
-                        
-                                setTimeout(() => {
-                                    this.alertaAdicao.querySelector(".container").style.transform = "translateY(0)";
-                                },200)
-
-                                setTimeout(() => {
-                                    this.alertaAdicao.querySelector(".container").style.transform = "translateY(130%)"
-                                setTimeout(() => {
-                                    this.alertaAdicao.style.display = "none";
-                                },400)
-
-                                },2000)
-
-                                localStorage.setItem("Usuario",JSON.stringify(dadosUser))
-                                senha = "";
-                                email = "";
-                                nome = "";
+                            if(resposta.status === 409){
+                                this.exibirAlerta("Conta ja existente","erro")
+                                return
                             }
-                            else{
-                                this.alertaAdicao.style.display = "flex";
-
-                                this.alertaAdicao.querySelector(".container h5").innerHTML =( `<i class="fas fa-times-circle me-2" style="color: #dc3545;"></i>Conta ja existente`)
-                        
-                                setTimeout(() => {
-                                    this.alertaAdicao.querySelector(".container").style.transform = "translateY(0)";
-                                },200)
-
-                                setTimeout(() => {
-                                    this.alertaAdicao.querySelector(".container").style.transform = "translateY(130%)"
-                                setTimeout(() => {
-                                    this.alertaAdicao.style.display = "none";
-                                },400)
-
-                                },2000)
-                            return
+                            if(resposta.status === 200){
+                                this.exibirAlerta("Seguindo para verificação de email","sucesso")
+                                this.formularioCadastro.style.display ="none";
+                                this.btnLinkCadastrar.style.display = "none";
+                                this.textoLogin.style.display = "none";
+                                this.exibirVerificacaoEmail(email)
+                                this.enviarCodigoEmail();
+                                this.verificarCodigo6Digitos();
                             }
 
                         }catch(erro){
-                            alert("Erro no servidor")
+                            this.exibirAlerta("Ocorreu um erro em nosso servidor","erro")
+                            return
+                        }finally{
+                            this.exibirLoading("cadastrar")
                         }
                 }
+                /*
                 setTimeout(()=>{
                     verificarUsuarioExiste()
                 },800)
+                */
                 })
             }
         }
@@ -209,7 +166,6 @@ export function verificarUsuario(){
                         this.formularioCadastro.classList.remove("formulario-cadastrar-desativado");
                     }, 500);
 
-                
                     this.formularioLogin.style.display = "flex";
                     setTimeout(() => {
                         this.formularioLogin.offsetHeight;
@@ -236,5 +192,79 @@ export function verificarUsuario(){
                     this.formularioCadastro.classList.add("formulario-cadastrar-ativo");
                 }, 200);
             })
+        }
+        exibirAlerta(mensagem,tipo){
+            const icon = tipo === 'sucesso' ? "fa-check-circle" : "fa-times-circle";
+            const cor = tipo === 'sucesso' ? "#28a745" : "#dc3545";
+
+            this.alertaAdicao.querySelector(".container h5").innerHTML = 
+                `<i class="fas ${icon} me-2" style="color: ${cor};"></i>${mensagem}`;
+    
+            this.alertaAdicao.style.display = "flex";
+                setTimeout(() => this.alertaAdicao.querySelector(".container").style.transform = "translateY(0)", 200);
+    
+                setTimeout(() => {
+                    this.alertaAdicao.querySelector(".container").style.transform = "translateY(130%)";
+                    setTimeout(() => this.alertaAdicao.style.display = "none", 400);
+                }, 2000);
+        }
+        exibirLoading(botao){
+            if(botao === "entrar"){
+                this.loadingLogin.classList.toggle("spinner-loading-ativo")
+                this.btnEntrar.classList.toggle("esconder-botao-entrar-ou-cadastro")
+            }
+            if(botao === "verificar-codigo"){  
+                this.loadingEnviarCodigo.classList.toggle("spinner-loading-ativo")
+                this.btnEnviarCodigo.classList.toggle("esconder-botao-entrar-ou-cadastro")
+            }else{
+                this.loadingCadastrar.classList.toggle("spinner-loading-ativo")
+                this.btnCadastrar.classList.toggle("esconder-botao-entrar-ou-cadastro")
+            }
+        }
+        exibirVerificacaoEmail(email){
+            this.formularioVerificarEmail.style.display = "flex";
+            setTimeout(()=>{
+                this.formularioVerificarEmail.querySelector("h5").innerHTML = `Codigo enviado para: ${email}`;
+                this.formularioVerificarEmail.classList.add("formulario-cadastrar-ativo")
+            })
+        }
+        async enviarCodigoEmail(){
+            const email = document.querySelector("#email-cadastro").value.trim();
+        try {
+            const resultado = await fetch("http://localhost:3000/api/enviar-codigo", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email })
+            });
+        if (resultado.ok) {
+            this.exibirAlerta("Código enviado com sucesso!", "sucesso");
+        }
+        } catch (erro) {
+            console.error("Erro ao solicitar código:", erro);
+            this.exibirAlerta("Erro ao enviar e-mail", "erro");
+        }
+}
+        verificarCodigo6Digitos(){
+            if(this.btnEnviarCodigo){
+                this.btnEnviarCodigo.addEventListener("click",async (event) => {
+                    event.preventDefault();
+
+                    const espacosCodigos = document.querySelectorAll(".codigo-6-digitos");
+                    const emailUsuario = document.querySelector("#email-cadastro").value.trim();
+                    let todoOCodigo = "";
+
+                    this.exibirLoading("verificar-codigo")
+
+                    espacosCodigos.forEach(codigo => {
+                        todoOCodigo += codigo.value
+                    });
+    
+                    if(todoOCodigo.length < 6){
+                        this.exibirAlerta("Preencha todos os campos","erro")
+                        this.exibirLoading("verificar-codigo")
+                    }
+                    
+                })
+            }
         }
     }

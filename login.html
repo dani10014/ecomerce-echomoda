@@ -29,6 +29,9 @@
                 <label for="senha">Senha</label>
                 <input type="password" placeholder="Ex: 029393" id="senha" maxlength="8" inputmode="numeric">
                 <button class="botao-logar" id="btn-entrar">Entrar</button>
+                <button id="spinner-loading-login" class="btn btn-primary" >
+                    <i class="spinner-border spinner-border-sm"></i>
+                </button>
             </form>
             <form class="formulario-cadastrar">
                 <label for="nome-cadastro">Nome</label>
@@ -38,6 +41,31 @@
                 <label for="senha-cadastro">Senha</label>
                 <input type="password" placeholder="Ex: 029393" id="senha-cadastro" maxlength="8" inputmode="numeric">
                 <button class="botao-logar" id="btn-cadastrar">Cadastrar</button>
+                <button id="spinner-loading-cadastro" class="btn btn-primary" >
+                    <i class="spinner-border spinner-border-sm"></i>
+                </button>
+            </form>
+            <form class="formulario-verificar-codigo text-center">
+                <h5 class="texto-codigo-enviado-para">Codigo enviado para o email:</h5>
+                <p class="texto-verifique-spam">verifique sua caixa de email</p>
+                <div class="caixa-digitos-codigo d-flex gap-1">
+                    <input class="text-center codigo-6-digitos" type="text" placeholder="0" maxlength="1">
+                    <input class="text-center codigo-6-digitos" type="text" placeholder="0" maxlength="1">
+                    <input class="text-center codigo-6-digitos" type="text" placeholder="0" maxlength="1">
+                    <input class="text-center codigo-6-digitos" type="text" placeholder="0" maxlength="1">
+                    <input class="text-center codigo-6-digitos" type="text" placeholder="0" maxlength="1">
+                    <input class="text-center codigo-6-digitos" type="text" placeholder="0" maxlength="1">
+                </div>
+                <button class="botao-logar mb-4" id="btn-verificar-codigo">Verificar Código</button>
+                <button id="spinner-loading-verificar-codigo" class="btn btn-primary" >
+                    <i class="spinner-border spinner-border-sm"></i>
+                </button>
+                <div class="text-center">
+                    <h2 class="texto-nao-recebeu-codigo">
+                        Não recebeu o codigo?
+                    </h2>
+                    <a id="" href="#">Reenviar</a>
+                </div>
             </form>
         </div>
         <div class="text-center">
