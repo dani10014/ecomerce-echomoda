@@ -22,6 +22,9 @@ export function verificarUsuarioExiste(){
         if(document.querySelector("#btn-entrar")){
             window.location.href = "index.html";
         }
+        if(document.querySelector("#btn-verificar-codigo")){
+            window.location.href = "index.html";
+        }
     } else {
         console.log("Nenhum usuário logado no momento.");
         window.location.href = "login.html";

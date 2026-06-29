@@ -84,7 +84,7 @@ export function verificarUsuario(){
             })
         }
         }
-        /**Ouvinte no botao que envia os dados para o servidor e cadastrar*/
+        /**Ouvinte no botao que envia os dados para o servidor e verificar se o usuario ja tem uma conta com esses dados*/
         ouvinteBotaoCadastrar(){
             if(this.btnCadastrar){
                 this.btnCadastrar.addEventListener("click", async (event) => {
@@ -109,7 +109,7 @@ export function verificarUsuario(){
                             senha:senha
                         }
                         try{
-                            const resposta = await fetch("http://localhost:3000/api/cadastro",{
+                            const resposta = await fetch("http://localhost:3000/api/verificar-cadastro",{
                                 method:"POST",
                                 headers:{
                                     "Content-Type": "application/json" 
@@ -150,7 +150,7 @@ export function verificarUsuario(){
                 })
             }
         }
-        /**Ouvinte no botao que muda para cadastro ou login  */
+        /**Ouvinte no botao que muda para cadastro ou login */
         ouvinteMudançaDeBotaoCadastrar(){
             this.btnLinkCadastrar.addEventListener("click",(event) => {
                 event.preventDefault();
@@ -193,6 +193,7 @@ export function verificarUsuario(){
                 }, 200);
             })
         }
+        /*Metodo que exibi um alerta se foi sucesso ou erro*/
         exibirAlerta(mensagem,tipo){
             const icon = tipo === 'sucesso' ? "fa-check-circle" : "fa-times-circle";
             const cor = tipo === 'sucesso' ? "#28a745" : "#dc3545";
@@ -208,6 +209,7 @@ export function verificarUsuario(){
                     setTimeout(() => this.alertaAdicao.style.display = "none", 400);
                 }, 2000);
         }
+        /*Exibi loading nos botões*/
         exibirLoading(botao){
             if(botao === "entrar"){
                 this.loadingLogin.classList.toggle("spinner-loading-ativo")
@@ -221,6 +223,7 @@ export function verificarUsuario(){
                 this.btnCadastrar.classList.toggle("esconder-botao-entrar-ou-cadastro")
             }
         }
+        /*Exibi o card de verificação de email*/
         exibirVerificacaoEmail(email){
             this.formularioVerificarEmail.style.display = "flex";
             setTimeout(()=>{
@@ -244,6 +247,7 @@ export function verificarUsuario(){
             this.exibirAlerta("Erro ao enviar e-mail", "erro");
         }
 }
+        /*Faz um fetch no meu servidor verificando se o email digitado é identico ao gerado e mandado no email do cliente*/ 
         verificarCodigo6Digitos(){
             if(this.btnEnviarCodigo){
                 this.btnEnviarCodigo.addEventListener("click",async (event) => {
@@ -251,6 +255,7 @@ export function verificarUsuario(){
 
                     const espacosCodigos = document.querySelectorAll(".codigo-6-digitos");
                     const emailUsuario = document.querySelector("#email-cadastro").value.trim();
+                    let emailVerificado = false;
                     let todoOCodigo = "";
 
                     this.exibirLoading("verificar-codigo")
@@ -262,9 +267,66 @@ export function verificarUsuario(){
                     if(todoOCodigo.length < 6){
                         this.exibirAlerta("Preencha todos os campos","erro")
                         this.exibirLoading("verificar-codigo")
+                    }else{
+                        try{
+                            const resposta = await fetch("http://localhost:3000/api/verificar-codigo",{
+                                method:"POST",
+                                headers:{"Content-Type":"application/json"},
+                                
+                                body:JSON.stringify({
+                                    codigo:todoOCodigo,
+                                    email:emailUsuario
+                                })
+                            })
+                            if(resposta.status === 200){
+                                    this.exibirAlerta("Código verificado!", "sucesso");
+    
+                                    // PEGUE OS DADOS QUE ESTÃO NO FORMULÁRIO AQUI
+                                    const nome = document.querySelector("#nome-cadastro").value.trim();
+                                    const email = document.querySelector("#email-cadastro").value.trim();
+                                    const senha = document.querySelector("#senha-cadastro").value.trim();
+
+                                    // Agora chame a função que envia para o /api/criar-cadastro
+                                    await this.criarCadastro(email, senha, nome, true);
+                                    
+                            }
+                            else{
+                                this.exibirAlerta("Codigo invalido","erro")
+                                return
+                            }
+                        }catch(erro){
+                            this.exibirAlerta("Erro no servidor","erro")
+                        }finally{
+                            this.exibirLoading("verificar-codigo")
+                        }
                     }
                     
                 })
             }
         }
-    }
+        async criarCadastro(email,senha,nome,emailVerificado){
+            if(emailVerificado === true){
+                try{
+                    const resposta = await fetch("http://localhost:3000/api/criar-cadastro",{
+                            method:"POST",
+                            headers:{"Content-Type":"application/json"},
+                            body:
+                                JSON.stringify({
+                                    email:email,
+                                    nome:nome,
+                                    senha:senha,
+                                })
+                    })
+                    if(resposta.status === 201){
+                        this.exibirAlerta("Usuario cadastrado com sucesso","sucesso")
+                        localStorage.setItem("Usuario",JSON.stringify({nome,email,senha}))
+                        verificarUsuarioExiste()
+                    }
+                }catch(erro){
+                        this.exibirAlerta("Erro no servidor",erro)
+                    }
+                }else{
+                    return
+                }
+            }
+        }

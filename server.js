@@ -132,7 +132,7 @@ app.post("/api/criar-pagamento", async (req, res) => {
         return res.status(500).json({ sucesso: false, erro: mensagemErro });
     }
 });
-app.post("/api/cadastro" , async (req,res) => {
+app.post("/api/verificar-cadastro" , async (req,res) => {
     try{
         const {nome,email,senha,emailVerificado} = req.body;
 
@@ -147,6 +147,7 @@ app.post("/api/cadastro" , async (req,res) => {
         })
         if(usuario){
             return res.status(409).json({mensagem:"usuario existe no banco",usuario})
+            
         }else{
             return res.status(200).json({mensagem:"Usuario não existe no banco"})
         }
@@ -237,6 +238,25 @@ app.post("/api/verificar-codigo", (req, res) => {
         return res.status(400).json({ mensagem: "Código incorreto." });
     }
 });
+app.post("/api/criar-cadastro",async (req,res) =>{
+    try{
+        const {nome,email,senha} = req.body
+
+        const novoUsuario = await prisma.usuarios.create({
+            data:{
+                nome:nome,
+                email:email,
+                senha:senha
+            }
+        })
+
+        return res.status(201).json({ mensagem: "Sucesso", novo: novoUsuario});
+
+    }catch(erro){
+        console.error(erro)
+        return res.status(500).json({ erro: "Erro no servidor" });
+    }
+})
 app.get("/api/health", (req, res) => {
     res.json({ status: "ok" });
 });
