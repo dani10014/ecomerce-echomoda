@@ -26,9 +26,14 @@ app.use(cors({
 }));
 
 app.use(cors({
-    origin: allowedOrigins,
-    methods: ["GET", "POST", "OPTIONS"],
-    allowedHeaders: ["Content-Type"]
+    origin: [
+        'https://ecomerce-echomoda.vercel.app', 
+        'http://localhost:5500', 
+        'http://127.0.0.1:5500'
+    ],
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
 }));
 
 app.use(express.json({ limit: "1mb" }));
