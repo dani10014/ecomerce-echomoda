@@ -26,7 +26,6 @@ app.use(cors({
 }));
 
 // Adicione isso para garantir que o preflight seja sempre respondido
-app.options('*', cors());
 
 const transporter = nodemailer.createTransport({
     service: "gmail",
