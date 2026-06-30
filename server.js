@@ -21,6 +21,9 @@ const transporter = nodemailer.createTransport({
         pass: process.env.EMAIL_PASS
     }
 });
+app.use(cors({
+    origin: 'https://ecomerce-echomoda.vercel.app/' // A URL do seu frontend
+}));
 
 app.use(cors({
     origin: allowedOrigins,

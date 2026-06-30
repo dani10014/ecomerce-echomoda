@@ -49,7 +49,7 @@ export function verificarUsuario(){
                         senha:senha,
                     }
                     try{
-                        const resposta =  await fetch("http://localhost:3000/api/verificar-cadastro",{
+                        const resposta =  await fetch("https://ecomerce-echomoda.onrender.com/api/verificar-cadastro",{
                             method:"POST",
                             headers:{
                                 "Content-Type":"application/json"
@@ -107,7 +107,7 @@ export function verificarUsuario(){
                             senha:senha
                         }
                         try{
-                            const resposta = await fetch("http://localhost:3000/api/verificar-cadastro",{
+                            const resposta = await fetch("https://ecomerce-echomoda.onrender.com/api/verificar-cadastro",{
                                 method:"POST",
                                 headers:{
                                     "Content-Type": "application/json" 
@@ -230,7 +230,7 @@ export function verificarUsuario(){
                 email = document.querySelector("#email").value
             }
         try {
-            const resultado = await fetch("http://localhost:3000/api/enviar-codigo", {
+            const resultado = await fetch("https://ecomerce-echomoda.onrender.com/api/enviar-codigo", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email })
@@ -269,7 +269,7 @@ export function verificarUsuario(){
                         this.exibirLoading("verificar-codigo")
                     }else{
                         try{
-                            const resposta = await fetch("http://localhost:3000/api/verificar-codigo",{
+                            const resposta = await fetch("https://ecomerce-echomoda.onrender.com/api/verificar-codigo",{
                                 method:"POST",
                                 headers:{"Content-Type":"application/json"},
                                 
@@ -314,7 +314,7 @@ export function verificarUsuario(){
         async criarCadastro(email,senha,nome,emailVerificado){
             if(emailVerificado === true){
                 try{
-                    const resposta = await fetch("http://localhost:3000/api/criar-cadastro",{
+                    const resposta = await fetch("https://ecomerce-echomoda.onrender.com/api/criar-cadastro",{
                             method:"POST",
                             headers:{"Content-Type":"application/json"},
                             body:
