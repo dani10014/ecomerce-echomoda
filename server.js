@@ -21,9 +21,6 @@ const transporter = nodemailer.createTransport({
         pass: process.env.EMAIL_PASS
     }
 });
-app.use(cors({
-    origin: 'https://ecomerce-echomoda.vercel.app/' // A URL do seu frontend
-}));
 
 app.use(cors({
     origin: [
@@ -154,10 +151,10 @@ app.post("/api/verificar-cadastro" , async (req,res) => {
             }
         })
         if(usuario){
-            return res.status(409).json({mensagem:"usuario existe no banco",usuario})
+            return res.status(200).json({mensagem:"usuario existe no banco",usuario})
             
         }else{
-            return res.status(200).json({mensagem:"Usuario não existe no banco"})
+            return res.status(409).json({mensagem:"Usuario não existe no banco"})
         }
 
     }catch(erro){

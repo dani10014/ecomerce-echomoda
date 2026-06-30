@@ -60,7 +60,7 @@ export function verificarUsuario(){
                                 senha:senha,
                             })
                         })
-                        if(resposta.status === 409){
+                        if(resposta.status === 200){
                             this.exibirAlerta("seguindo para verificação de email","sucesso");
                             this.formularioLogin.style.display = "none";
                             this.btnLinkCadastrar.style.display = "none"
@@ -68,7 +68,7 @@ export function verificarUsuario(){
                             this.enviarCodigoEmail(email);
                             this.verificarCodigo6Digitos()
                         }
-                        if(resposta.status === 200){
+                        if(resposta.status === 409){
                             this.exibirAlerta("Email ou senha incorreta","erro")
                         return
                         }
