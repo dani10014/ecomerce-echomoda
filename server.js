@@ -16,7 +16,7 @@ const allowedOrigins = [FRONTEND_URL, FRONTEND_URL.replace("localhost", "127.0.0
 
 app.use(cors({
     origin: [
-        'https://ecomerce-echomoda.vercel.app',
+        'https://ecomerce-echomoda.vercel.app/',
         'http://localhost:5500', 
         'http://127.0.0.1:5500'
     ],
