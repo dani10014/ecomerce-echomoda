@@ -1,4 +1,7 @@
 import { IniciarMenuVertical } from "./menu-vertical.js";
+import { verificarUsuarioExiste } from "../main.js";
+
+verificarUsuarioExiste();
 
 function sanitizarHTML(texto) {
     const div = document.createElement('div');

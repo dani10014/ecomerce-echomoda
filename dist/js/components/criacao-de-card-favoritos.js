@@ -1,4 +1,4 @@
-import{IniciarMenuVertical}from"./menu-vertical.js";function sanitizarHTML(r){var t=document.createElement("div");return t.textContent=r,t.innerHTML}class criarProduto{constructor(r,t,e,o){this.id=r,this.nome=t,this.imagem=o,this.preco=e}devolverCard(){var r=document.createElement("div");return r.innerHTML=` <div class='card' data-id="${this.id}">
+import{IniciarMenuVertical}from"./menu-vertical.js";import{verificarUsuarioExiste}from"../main.js";function sanitizarHTML(r){var t=document.createElement("div");return t.textContent=r,t.innerHTML}verificarUsuarioExiste();class criarProduto{constructor(r,t,e,o){this.id=r,this.nome=t,this.imagem=o,this.preco=e}devolverCard(){var r=document.createElement("div");return r.innerHTML=` <div class='card' data-id="${this.id}">
                                             <img src='${this.imagem}'>
                                             <div class='card-body'>
                                                 <h5 class='card-title'>${sanitizarHTML(this.nome)}</h5>

@@ -49,25 +49,26 @@ export function verificarUsuario(){
                         senha:senha,
                     }
                     try{
-                        const resposta =  await fetch("http://localhost:3000/api/logar",{
+                        const resposta =  await fetch("http://localhost:3000/api/verificar-cadastro",{
                             method:"POST",
                             headers:{
                                 "Content-Type":"application/json"
                             },
                             body:JSON.stringify({
+                                nome:dadosUser.nome,
                                 email:dadosUser.email,
-                                senha:senha
+                                senha:senha,
                             })
                         })
-                        if(resposta.ok){
-                            this.exibirAlerta("Logado com sucesso","sucesso")
-                            
-                            localStorage.setItem("Usuario",JSON.stringify(dadosUser))
-                            senha = "";
-                            email = "";
-                            nome = "";
+                        if(resposta.status === 409){
+                            this.exibirAlerta("seguindo para verificação de email","sucesso");
+                            this.formularioLogin.style.display = "none";
+                            this.btnLinkCadastrar.style.display = "none"
+                            this.exibirVerificacaoEmail(email);
+                            this.enviarCodigoEmail(email);
+                            this.verificarCodigo6Digitos()
                         }
-                        if(resposta.status === 401){
+                        if(resposta.status === 200){
                             this.exibirAlerta("Email ou senha incorreta","erro")
                         return
                         }
@@ -78,9 +79,6 @@ export function verificarUsuario(){
                         this.exibirLoading("entrar")
                     }
                 }
-                setTimeout(()=> {
-                    verificarUsuarioExiste()
-                },800)
             })
         }
         }
@@ -142,11 +140,6 @@ export function verificarUsuario(){
                             this.exibirLoading("cadastrar")
                         }
                 }
-                /*
-                setTimeout(()=>{
-                    verificarUsuarioExiste()
-                },800)
-                */
                 })
             }
         }
@@ -232,7 +225,10 @@ export function verificarUsuario(){
             })
         }
         async enviarCodigoEmail(){
-            const email = document.querySelector("#email-cadastro").value.trim();
+            let email = document.querySelector("#email-cadastro").value.trim();
+            if(!email){
+                email = document.querySelector("#email").value
+            }
         try {
             const resultado = await fetch("http://localhost:3000/api/enviar-codigo", {
                 method: "POST",
@@ -254,9 +250,13 @@ export function verificarUsuario(){
                     event.preventDefault();
 
                     const espacosCodigos = document.querySelectorAll(".codigo-6-digitos");
-                    const emailUsuario = document.querySelector("#email-cadastro").value.trim();
+                    let emailUsuario = document.querySelector("#email-cadastro").value.trim();
                     let emailVerificado = false;
                     let todoOCodigo = "";
+
+                    if(!emailUsuario){
+                        emailUsuario = document.querySelector("#email").value
+                    }
 
                     this.exibirLoading("verificar-codigo")
 
@@ -282,12 +282,19 @@ export function verificarUsuario(){
                                     this.exibirAlerta("Código verificado!", "sucesso");
     
                                     // PEGUE OS DADOS QUE ESTÃO NO FORMULÁRIO AQUI
-                                    const nome = document.querySelector("#nome-cadastro").value.trim();
-                                    const email = document.querySelector("#email-cadastro").value.trim();
-                                    const senha = document.querySelector("#senha-cadastro").value.trim();
-
+                                    let nome = document.querySelector("#nome-cadastro").value.trim();
+                                    let email = document.querySelector("#email-cadastro").value.trim();
+                                    let senha = document.querySelector("#senha-cadastro").value.trim();
+                                    
+                                    if(!nome && !email && !senha){
+                                        nome = document.querySelector("#nome").value
+                                        email = document.querySelector("#email").value.trim()
+                                        senha = document.querySelector("#senha").value.trim()
+                                    }
                                     // Agora chame a função que envia para o /api/criar-cadastro
                                     await this.criarCadastro(email, senha, nome, true);
+                                    localStorage.setItem("Usuario",JSON.stringify({nome,email,senha}))
+                                    verificarUsuarioExiste()
                                     
                             }
                             else{
@@ -319,8 +326,6 @@ export function verificarUsuario(){
                     })
                     if(resposta.status === 201){
                         this.exibirAlerta("Usuario cadastrado com sucesso","sucesso")
-                        localStorage.setItem("Usuario",JSON.stringify({nome,email,senha}))
-                        verificarUsuarioExiste()
                     }
                 }catch(erro){
                         this.exibirAlerta("Erro no servidor",erro)

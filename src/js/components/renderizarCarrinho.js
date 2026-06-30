@@ -1,3 +1,7 @@
+import { verificarUsuarioExiste } from "../main.js";
+
+verificarUsuarioExiste();
+
 export function inicarRenderizacaoProdutosCarrinhos() {
     new cardsCarrinho
 }

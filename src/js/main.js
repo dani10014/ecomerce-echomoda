@@ -15,19 +15,14 @@ import { verificarUsuario } from './components/verificaçãoDeUsuario.js';
 
 export function verificarUsuarioExiste(){
     let usuarioExiste = localStorage.getItem("Usuario");
-    
-    if (usuarioExiste) {
-        let usuario = JSON.parse(usuarioExiste);
-        console.log("Usuário logado:", usuario);
-        if(document.querySelector("#btn-entrar")){
-            window.location.href = "index.html";
-        }
-        if(document.querySelector("#btn-verificar-codigo")){
-            window.location.href = "index.html";
-        }
-    } else {
-        console.log("Nenhum usuário logado no momento.");
+    let paginasPrivadas = ["index.html","carrinho.html","favoritos.html"]
+    let paginaAtual = window.location.pathname
+    console.log(paginaAtual)
+    if(!usuarioExiste && paginasPrivadas.some(pagina => paginaAtual.includes(pagina))){
         window.location.href = "login.html";
+    }
+    if(usuarioExiste && paginaAtual === "/login.html"){
+        window.location.href = "index.html";
     }
 }
 if(document.querySelector("#menu-hamburguer")){
