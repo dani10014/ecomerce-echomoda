@@ -14,19 +14,6 @@ const PORT = process.env.PORT || 3000;
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5500";
 const allowedOrigins = [FRONTEND_URL, FRONTEND_URL.replace("localhost", "127.0.0.1")];
 
-app.use(cors({
-    origin: [
-        'https://ecomerce-echomoda.vercel.app/',
-        'http://localhost:5500', 
-        'http://127.0.0.1:5500'
-    ],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Adicionamos OPTIONS aqui
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
-}));
-
-// Adicione isso para garantir que o preflight seja sempre respondido
-
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -34,6 +21,19 @@ const transporter = nodemailer.createTransport({
         pass: process.env.EMAIL_PASS
     }
 });
+
+app.use(cors({
+    origin: [
+        'https://ecomerce-echomoda.vercel.app', 
+        'http://localhost:5500', 
+        'http://127.0.0.1:5500'
+    ],
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
+
+app.options('*', cors());
 
 app.use(express.json({ limit: "1mb" }));
 
