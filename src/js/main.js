@@ -15,16 +15,24 @@ import { verificarUsuario } from './components/verificaçãoDeUsuario.js';
 
 export function verificarUsuarioExiste(){
     let usuarioExiste = localStorage.getItem("Usuario");
-    let paginasPrivadas = ["index.html","carrinho.html","favoritos.html"]
     let paginaAtual = window.location.pathname
+    
+    const ehPaginaPrivada = paginaAtual === "/" || 
+                            paginaAtual.includes("index.html") || 
+                            paginaAtual.includes("carrinho.html") || 
+                            paginaAtual.includes("favoritos.html");
+
     console.log(paginaAtual)
-    if(!usuarioExiste && paginasPrivadas.some(pagina => paginaAtual.includes(pagina))){
+
+    if(!usuarioExiste && ehPaginaPrivada){
         window.location.href = "login.html";
     }
-    if(usuarioExiste && paginaAtual === "/login.html"){
+    if(usuarioExiste && paginaAtual.includes("login.html")){
         window.location.href = "index.html";
     }
 }
+verificarUsuarioExiste()
+
 if(document.querySelector("#menu-hamburguer")){
     verificarUsuarioExiste();
 }

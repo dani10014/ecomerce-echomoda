@@ -60,7 +60,7 @@ export function IniciarMenuVertical(){
             
                 setTimeout(() => {
                     this.menuVertical.style.transform = "translateX(0)";
-                },500)  
+                },200)  
             
                 const produtoEncontrado = await this.buscarEFiltrarProdutos(idProduto);
 

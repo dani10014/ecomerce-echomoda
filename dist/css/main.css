@@ -108,7 +108,7 @@ header .cabecalho__carrinho:hover {
   transition: all 0.3s ease-in-out;
   margin-right: 0;
   box-shadow: 0px 0px 5px black;
-  height: 45px;
+  height: 46px;
   cursor: pointer;
 }
 .pesquisa__botao-pesquisar:hover {
