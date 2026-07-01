@@ -25,6 +25,8 @@ app.use(cors({
     credentials: true
 }));
 
+app.options('*', cors());
+
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
