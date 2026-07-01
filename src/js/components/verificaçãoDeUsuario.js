@@ -224,12 +224,15 @@ export function verificarUsuario(){
                 this.formularioVerificarEmail.classList.add("formulario-cadastrar-ativo")
             })
         }
-        
+
         async enviarCodigoEmail(){
             let email = document.querySelector("#email-cadastro").value.trim();
             if(!email){
                 email = document.querySelector("#email").value.trim()
             }
+
+            this.exibirLoading("verificar-codigo");
+
         try {
             const resultado = await fetch("https://ecomerce-echomoda.onrender.com/api/enviar-codigo", {
                 method: "POST",
@@ -242,6 +245,8 @@ export function verificarUsuario(){
         } catch (erro) {
             console.error("Erro ao solicitar código:", erro);
             this.exibirAlerta("Erro ao enviar e-mail", "erro");
+        }finally{
+            this.exibirLoading("verificar-codigo");
         }
 }
         /*Faz um fetch no meu servidor verificando se o email digitado é identico ao gerado e mandado no email do cliente*/ 
