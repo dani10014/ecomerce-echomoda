@@ -73,12 +73,16 @@ export function verificarUsuario(){
                                     })
                                 })
                                 if(respostaLogin.status === 200){
-                                    this.exibirAlerta("Login realizado com sucesso seguindo para verificção de email","sucesso")
+                                    this.exibirAlerta("Login realizado com sucesso seguindo para verificção de email","sucesso");
+                                    this.formularioLogin.style.display ="none";
+                                    this.btnLinkCadastrar.style.display = "none";
+                                    this.textoLogin.style.display = "none";
                                     this.exibirVerificacaoEmail(dadosUser.email);
                                     await this.enviarCodigoEmail()
                                     this.btnEnviarCodigo()
                                 }else{
                                     this.exibirAlerta("Email ou senha incorreta","erro")
+                                    return
                                 }
 
                             }catch(erro){
