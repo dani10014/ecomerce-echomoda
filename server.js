@@ -208,10 +208,13 @@ app.post("/api/enviar-codigo", async (req, res) => {
         const expiraEm = Date.now() + (5 * 60 * 1000);
         codigosTemporarios.set(email, { codigo, expiraEm });
         
-        // Dispara o e-mail sem travar a resposta (ou aguarde com timeout)
-        await enviarEmailVerificacao(email, codigo);
+        // REMOVA O AWAIT AQUI para o servidor não travar aguardando o SMTP
+        enviarEmailVerificacao(email, codigo).catch(err => {
+            console.error("Falha silenciosa no envio do email:", err);
+        });
         
-        return res.status(200).json({ mensagem: "Código enviado!" });
+        // Responda imediatamente ao cliente
+        return res.status(200).json({ mensagem: "Processando envio do código..." });
     } catch (erro) {
         console.error("Erro no envio de email:", erro);
         return res.status(500).json({ erro: "Erro ao enviar e-mail" });
