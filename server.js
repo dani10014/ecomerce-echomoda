@@ -15,12 +15,8 @@ const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5500";
 const allowedOrigins = [FRONTEND_URL, FRONTEND_URL.replace("localhost", "127.0.0.1")];
 
 app.use(cors({
-    origin: [
-        'https://ecomerce-echomoda.vercel.app', 
-        'http://localhost:5500', 
-        'http://127.0.0.1:5500'
-    ],
-    methods: ['GET', 'POST', 'OPTIONS'],
+    origin: 'https://ecomerce-echomoda.vercel.app', // A URL exata do seu front na Vercel
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 }));
