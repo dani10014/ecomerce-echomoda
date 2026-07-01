@@ -24,7 +24,7 @@ const transporter = nodemailer.createTransport({
 
 app.use(cors({
     origin: [
-        'https://ecomerce-echomoda.vercel.app/', 
+        'https://ecomerce-echomoda.vercel.app', 
         'http://localhost:5500', 
         'http://127.0.0.1:5500'
     ],
@@ -32,8 +32,6 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 }));
-
-app.options('*', cors());
 
 app.use(express.json({ limit: "1mb" }));
 
