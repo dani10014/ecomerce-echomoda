@@ -202,17 +202,18 @@ async function enviarEmailVerificacao(destinatario, codigo) {
 app.post("/api/enviar-codigo", async (req, res) => {
     try {
         const { email } = req.body;
+        if (!email) return res.status(400).json({ erro: "E-mail necessário" });
 
         const codigo = gerarCodigoVerificacao();
-        
-        const expiraEm = Date.now() + (5 * 60 * 1000); // 5 minutos
-
+        const expiraEm = Date.now() + (5 * 60 * 1000);
         codigosTemporarios.set(email, { codigo, expiraEm });
         
+        // Dispara o e-mail sem travar a resposta (ou aguarde com timeout)
         await enviarEmailVerificacao(email, codigo);
         
         return res.status(200).json({ mensagem: "Código enviado!" });
     } catch (erro) {
+        console.error("Erro no envio de email:", erro);
         return res.status(500).json({ erro: "Erro ao enviar e-mail" });
     }
 });
