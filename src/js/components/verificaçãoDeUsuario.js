@@ -129,7 +129,7 @@ export function verificarUsuario(){
                                 this.btnLinkCadastrar.style.display = "none";
                                 this.textoLogin.style.display = "none";
                                 this.exibirVerificacaoEmail(email)
-                                this.enviarCodigoEmail();
+                                await this.enviarCodigoEmail();
                                 this.verificarCodigo6Digitos();
                             }
 
@@ -224,10 +224,11 @@ export function verificarUsuario(){
                 this.formularioVerificarEmail.classList.add("formulario-cadastrar-ativo")
             })
         }
+        
         async enviarCodigoEmail(){
             let email = document.querySelector("#email-cadastro").value.trim();
             if(!email){
-                email = document.querySelector("#email").value
+                email = document.querySelector("#email").value.trim()
             }
         try {
             const resultado = await fetch("https://ecomerce-echomoda.onrender.com/api/enviar-codigo", {
