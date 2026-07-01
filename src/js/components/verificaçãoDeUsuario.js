@@ -61,15 +61,29 @@ export function verificarUsuario(){
                             })
                         })
                         if(resposta.status === 200){
-                            this.exibirAlerta("seguindo para verificação de email","sucesso");
-                            this.formularioLogin.style.display = "none";
-                            this.btnLinkCadastrar.style.display = "none"
-                            this.exibirVerificacaoEmail(email);
-                            this.enviarCodigoEmail(email);
-                            this.verificarCodigo6Digitos()
+                            try{
+                                const respostaLogin = await fetch("https://ecomerce-echomoda.onrender.com/api/logar",{
+                                    method:"POST",
+                                    headers:{
+                                        "Content-Type":"application/json"
+                                    },
+                                    body:JSON.stringify({
+                                        email:dadosUser.email,
+                                        senha:dadosUser.senha
+                                    })
+                                })
+                                if(respostaLogin.status === 200){
+                                    this.exibirAlerta("Login realizado com sucesso","sucesso")
+                                }else{
+                                    this.exibirAlerta("Email ou senha incorreta","erro")
+                                }
+
+                            }catch(erro){
+
+                            }
                         }
                         if(resposta.status === 409){
-                            this.exibirAlerta("Email ou senha incorreta","erro")
+                            this.exibirAlerta("Nenhuma conta cadastrada","erro")
                         return
                         }
                     }catch(erro){
