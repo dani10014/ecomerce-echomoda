@@ -48,61 +48,42 @@ export function verificarUsuario(){
                         email:email.toLowerCase(),
                         senha:senha,
                     }
-                    try{
-                        const resposta =  await fetch("https://ecomerce-echomoda.onrender.com/api/verificar-cadastro",{
-                            method:"POST",
-                            headers:{
-                                "Content-Type":"application/json"
-                            },
-                            body:JSON.stringify({
-                                nome:dadosUser.nome,
-                                email:dadosUser.email,
-                                senha:senha,
-                            })
-                        })
-                        if(resposta.status === 200){
-                            try{
-                                const respostaLogin = await fetch("https://ecomerce-echomoda.onrender.com/api/logar",{
-                                    method:"POST",
-                                    headers:{
-                                        "Content-Type":"application/json"
-                                    },
-                                    body:JSON.stringify({
-                                        email:dadosUser.email,
-                                        senha:dadosUser.senha
-                                    })
-                                })
-                                if(respostaLogin.status === 200){
-                                    this.exibirAlerta("Login realizado com sucesso seguindo para verificção de email","sucesso");
-                                    this.formularioLogin.style.display ="none";
-                                    this.btnLinkCadastrar.style.display = "none";
-                                    this.textoLogin.style.display = "none";
-                                    this.exibirVerificacaoEmail(dadosUser.email);
-                                    await this.enviarCodigoEmail()
-                                    this.btnEnviarCodigo()
-                                }else{
-                                    this.exibirAlerta("Email ou senha incorreta","erro")
-                                    return
-                                }
+                try {
+                // Tente logar diretamente. O servidor é quem deve validar senha e existência.
+                const resposta = await fetch("https://ecomerce-echomoda.onrender.com/api/logar", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, senha })
+                });
 
-                            }catch(erro){
-                                this.exibirAlerta("Erro no servidor: ",erro)
-                            }
-                        }
-                        if(resposta.status === 409){
-                            this.exibirAlerta("Nenhuma conta cadastrada","erro")
-                        return
-                        }
-                    }catch(erro){
-                        alert("Erro no servidor: ",erro)
-                        return
-                    }finally{
-                        this.exibirLoading("entrar")
-                    }
+                const resultado = await resposta.json();
+
+                // A VERIFICAÇÃO É AQUI:
+                // Se o servidor retornar status 200 E sucesso for true, a senha está correta.
+                if (resposta.status === 200 && resultado.sucesso === true) {
+                    this.exibirAlerta("Login realizado com sucesso!", "sucesso");
+                    
+                    // Lógica de prosseguir para verificação de e-mail
+                    this.formularioLogin.style.display = "none";
+                    this.btnLinkCadastrar.style.display = "none";
+                    this.textoLogin.style.display = "none";
+                    this.exibirVerificacaoEmail(email);
+                    await this.enviarCodigoEmail();
+                } 
+                // Se o status for 401 (Unauthorized), a senha ou email estão errados.
+                else {
+                    this.exibirAlerta(resultado.erro || "E-mail ou senha inválidos", "erro");
                 }
-            })
+
+            } catch (erro) {
+                this.exibirAlerta("Erro de conexão com o servidor", "erro");
+            } finally {
+                this.exibirLoading("entrar");
+            }
         }
-        }
+    })
+}
+}
         /**Ouvinte no botao que envia os dados para o servidor e verificar se o usuario ja tem uma conta com esses dados*/
         ouvinteBotaoCadastrar(){
             if(this.btnCadastrar){
