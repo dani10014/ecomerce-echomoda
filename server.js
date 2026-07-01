@@ -168,15 +168,14 @@ app.post("/api/logar",async (req,res) => {
                 email:email.trim(),
             }
         });
-        if(resultado)
-            console.log(resultado)
 
         if (!resultado || resultado.senha !== senha) {
             return res.status(401).json({ sucesso: false, erro: "E-mail ou senha inválidos" });
         }
-
-        const { senha: _, ...usuarioSemSenha } = resultado;
-        return res.status(200).json({ sucesso: true, usuario: usuarioSemSenha });
+        if(resultado && senha === resultado.senha){
+            const { senha: _, ...usuarioSemSenha } = resultado;
+            return res.status(200).json({ sucesso: true, usuario: usuarioSemSenha });
+        }
 
     }catch(erro){
         console.error("Erro no login:", erro);
