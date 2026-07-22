@@ -238,7 +238,6 @@ class ProcessarPagamento {
                         precoTotal:Number(resultado.total),
                     })
                 });
-
                 const resultadoCriarPagamento = await resposta.json();
 
                 if (!resultadoCriarPagamento.sucesso) {
