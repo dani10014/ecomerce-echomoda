@@ -16,8 +16,10 @@ class perfil{
         this.cardDeAlteracaoNome = document.querySelector("#card-mudar-nome");
         this.btnFecharMenuNome = document.querySelector("#btn-fechar-menu-nome");
         this.backDropGlass = document.querySelector(".backdrop-glass")
+        this.cardDeAlteracaoEmail = document.querySelector("#card-mudar-email");
 
         this.ouvinteMudarNome()
+        this.ouvinteMudarEmail()
         this.atualizarPerfil()
         this.setaVoltar()
     }
@@ -101,6 +103,27 @@ class perfil{
         }
 
         })        
+    }
+    ouvinteMudarEmail(){
+        document.addEventListener("click" ,async(event) => {
+            if(event.target.closest("#mudar-email")){
+                this.cardDeAlteracaoEmail.style.display = "block";
+                this.backDropGlass.style.display = "flex"; 
+
+                requestAnimationFrame(() => {
+                    this.cardDeAlteracaoEmail.classList.add("ativo-card-atualizacao");
+                });
+            }
+            if (event.target.matches("#btn-fechar-menu-email")) {
+        
+            this.cardDeAlteracaoEmail.classList.remove("ativo-card-atualizacao");
+            
+            setTimeout(() => {
+                this.cardDeAlteracaoEmail.style.display = "none";
+                this.backDropGlass.style.display = "none";
+            }, 200); 
+        }
+        })
     }
     setaVoltar(){
         if (!this.setaVoltarHome) return

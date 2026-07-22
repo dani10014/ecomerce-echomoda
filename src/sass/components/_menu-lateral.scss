@@ -48,6 +48,7 @@
         display: flex;
         flex-direction: column;
         position: relative;
+        height: 80%;
         a{
             width: 100%;
             background-color: transparent !important; // Remove esse fundo branco padrão
@@ -58,7 +59,7 @@
             text-decoration: none;
             border-right: none;
             color: #000000;
-            height: 50px;
+            height: 100%;
             font-size: variaveis.$font-base;
             padding: variaveis.$spacing-sm variaveis.$spacing-md;
             transition: all 0.3s ease-in-out;
