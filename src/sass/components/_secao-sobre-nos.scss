@@ -1,0 +1,112 @@
+@use "./variaveis";
+@use "./fontes";
+
+.secao-sobre-nos{
+    &__nome-loja{
+        display: flex;
+        justify-content: end;
+        color: #fff;
+        text-transform: uppercase;
+        font-size: variaveis.$font-sm;
+        margin: 0 variaveis.$spacing-sm;
+    }
+    &__titulo{
+        color: #fff;
+        margin-bottom: variaveis.$spacing-xl;
+        @include fontes.fontePrincipal;
+        border-bottom: 2px solid #fff;
+    }
+    &__container-descricao{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        &__descricao{
+            color: #fff;
+            margin-bottom: variaveis.$spacing-xl;
+            @include fontes.fonteNomeProdutos;
+            font-size: variaveis.$font-sm;
+            margin-bottom: 0;
+            text-align: justify;
+            width: 90%;
+        }
+    }
+    &__container-fotos{
+        #carrosel-sobre-nos {
+            .slick-list {
+                margin: 0 -10px;
+            }
+            .slick-slide {
+                padding: 0 10px;
+                box-sizing: border-box;
+            }
+        }
+
+        .row{
+            gap: variaveis.$spacing-xs;
+            .card{
+                height: 150px;
+                border: none !important;
+                margin: 10px 0;
+                position: relative;
+                box-shadow: 0 0px 10px black;
+                @media(min-width:750px){
+                    height: 200px;
+                }
+                img{
+                    height: 100%;
+                    filter: brightness(0.4);
+                    border-radius: 5px;
+                    @media(min-width:750px){
+                        object-fit: cover;
+                    }
+                }
+                .texto-card{
+                    display: flex;
+                    position: absolute;
+                    justify-content: center;
+                    top:0;
+                    z-index: 100;
+                    text-align: center;
+                    margin-top: 35%;
+                    @media(min-width:750px){
+                        width: 100%;
+                        margin-top: 25%;
+                    }
+                    h5{
+                        color: #fff;
+                        font-size: variaveis.$font-sm;
+                        @include fontes.fonteNomeProdutos;
+                        margin-bottom: 0;
+                        width: 70%;
+                        @media(min-width:750px){
+                            font-size: variaveis.$font-md;
+                        }
+                    }
+                }
+            }
+        }
+        .slick-dots {
+            display: flex !important;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin-top: 20px; /* Distância entre os cards e as linhas */
+            gap: 8px; /* Espaço entre as linhas */
+            li {
+                width: 20% !important;       /* Largura da linha */
+                height: 4px !important;       /* Espessura da linha */
+                background-color: #b3b3b3b4;       /* Cor da linha desativada */
+                cursor: pointer;
+                transition: all 0.3s ease;    /* Efeito suave ao mudar de card */
+                border-radius: 2px;  
+                button {
+                     display: none !important;     /* Esconde o texto/botão padrão do Slick */
+                }         /* Arredondado bem de leve (opcional) */
+            }
+            li.slick-active {
+                background-color: #ffffff;       /* Cor da linha ativa (ex: preto) */
+                width: 10% !important;       /* Se quiser, a linha ativa fica um pouco maior */
+            }
+        }
+    }
+}

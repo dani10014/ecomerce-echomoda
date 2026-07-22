@@ -1,0 +1,28 @@
+$corBotoes:rgb(56, 55, 55);
+$corInputs:#a5a5a5;
+
+// Escala Tipográfica Unificada
+$font-xs: 0.75rem;    // Descrições pequenas
+$font-sm: 0.85rem;    // Labels, preços
+$font-base: 0.9rem;   // Texto padrão
+$font-md: 1rem;       // Subtítulos
+$font-lg: 1.2rem;     // Títulos pequenos
+$font-xl: 1.4rem;     // Seções
+$font-xxl: 2rem;      // Header principal
+
+// Escala de Espaçamento (8px base = Sistema de Grid)
+$spacing-xs: 0.5rem;    // 8px - gaps pequenos
+$spacing-sm: 0.75rem;   // 12px - espaço mínimo
+$spacing-md: 1rem;      // 16px - padrão
+$spacing-lg: 1.5rem;    // 24px - seções
+$spacing-xl: 2rem;      // 32px - grandes
+$spacing-xlMeio:2.5rem; // 40px - grande
+$spacing-2xl: 3rem;     // 48px - muito espaço
+$spacing-3xl:4rem;      // 64px - enorme
+
+@mixin hover{
+    &:hover{
+        background-color:rgb(134, 134, 134);
+        color: #fff;
+    }
+}

@@ -1,0 +1,91 @@
+@use "./fontes";
+@use "./variaveis";
+
+header{
+    margin: 0;
+    padding: variaveis.$spacing-md 0;
+    .cabecalho{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #fff;
+        padding: 0 variaveis.$spacing-xs;
+        position: relative;
+        &__menu-hamburguer{
+            font-size: variaveis.$font-xxl;
+            cursor: pointer;
+            padding: variaveis.$spacing-sm;
+            position: relative;
+            &:hover{
+                color: rgb(134, 134, 134);
+            }
+        }
+        &__nome-loja{
+            font-size: variaveis.$font-xxl;
+            @include fontes.fontePrincipal;
+            text-shadow: 2px 5px 5px black;
+            margin: 0;
+        }
+        &__carrinho{
+            font-size: variaveis.$font-xxl;
+            cursor: pointer;
+            color: #fff;
+            padding: variaveis.$spacing-sm;
+            &:hover{
+                color: rgb(134, 134, 134);
+            }
+        }
+    }
+}
+/** Barra de ofertas que fica no céu do site***/
+
+.barra-oferta {
+    background-color: black;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 20;
+    overflow: hidden; /* CRÍTICO: Esconde o texto que passa das bordas da tela */
+    display: flex;
+    align-items: center;
+    padding: 5px 0; /* Dá uma alturinha de leve na barra */
+    .conteudo-marquise {
+        display: inline-flex;
+        white-space: nowrap; /* Obriga todo o texto a ficar em uma linha reta só */
+        animation: marquee 10s linear infinite;
+        span {
+            @include fontes.fontePrincipal;
+            font-family: sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 14px;
+            padding-right: 50px; /* Um espaço maior entre as frases para não emendar tudo */
+            color: #fff;
+            display: inline-block;
+        }
+    }
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-50%); /* Move metade do bloco e cria o loop infinito perfeito */
+    }
+}
+
+@media (max-width: 600px) {
+    .barra-oferta {
+        padding: 4px 0;
+    }
+
+    .barra-oferta .conteudo-marquise {
+        animation-duration: 15s;
+    }
+
+    .barra-oferta .conteudo-marquise span {
+        font-size: 12px;
+        padding-right: 25px;
+    }
+}

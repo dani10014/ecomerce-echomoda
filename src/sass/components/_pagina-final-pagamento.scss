@@ -1,0 +1,159 @@
+@use "./variaveis";
+@use "./fontes";
+
+#main-pagamento-final{
+    min-height: 100vh;
+    background: #000000;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(49, 0, 71, 1) 97%);
+    overflow-x: hidden;
+    padding: 40px 16px;
+    .container-mae-pagamento{
+        display: block;
+        background-color: #ffff;
+        max-width: 740px;
+        margin: 0 auto;
+        min-height: 80vh;
+        background: #ffffff;
+        border-radius: 24px;
+        box-shadow: 0 28px 60px rgba(22, 42, 79, 0.08);
+        padding: variaveis.$spacing-xl;
+        border: 1px solid rgba(0,0,0,0.04);
+        &__cabecalho{
+            &__titulo{
+                @include fontes.fontePrincipal;
+                font-size: variaveis.$font-xl;
+                text-align: center;
+            }
+            &__metodo{
+                justify-content: center;
+                @include fontes.fonteNomeProdutos;
+            }
+            &__especificacoes-pedido{
+                border-radius: 10px;
+                background-color: rgba(128, 128, 128, 0.376);
+                padding: variaveis.$spacing-sm;
+                box-shadow:0 28px 60px rgba(22, 42, 79, 0.08); ;
+                display: flex;
+                justify-content: center;
+                @media(min-width:750px){
+                    height: 150px;
+                }
+                .bloco{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    width: 100%;
+                    
+                    strong{
+                        padding-left: variaveis.$spacing-xs;
+                    }
+                    /**Valor que fica entre o bloco cinza no cabecalho*/
+                    #valor-total{
+                        &::before{
+                            content: "R$ ";
+                        }
+                    }
+                    span{
+                        font-size: variaveis.$font-sm;
+                        @media(min-width:750px){
+                            font-size: variaveis.$font-lg;
+                        }
+                    }
+                }
+            }
+            /**Valor que fica no centro do bloco,ficando acima do QR code*/
+            #total-pix{
+                &::before{
+                    content: "R$ ";
+                }
+                padding-left: variaveis.$spacing-xs;
+            }
+        }
+        
+    }
+    .qr-code-container{
+        display: block;
+        justify-content: center;
+        &__qr-code-img{
+            width: 100%;
+            border:1px solid  rgba(49, 0, 71, 1);
+            border-radius: 10px;
+            @media(min-width:750px){
+                height: 250px;
+                object-fit:contain;
+            }
+        }
+        &__imagem-e-copiaECola{
+            display: flex;
+            flex-direction: column;
+            gap: variaveis.$font-sm;
+            &__texto-qr-code{
+                font-size: variaveis.$font-md;
+                @media(min-width:750px){
+                    font-size: variaveis.$font-lg;
+                }
+            }
+            &__texto-copia-cola{
+                font-size: variaveis.$font-md;
+                @media(min-width:750px){
+                    font-size: variaveis.$font-lg;
+                }
+            }
+            &__texto-tempo-valido{
+                font-size: variaveis.$font-md;
+                @media(min-width:750px){
+                    font-size: variaveis.$font-lg;
+                }
+            }
+            &__container-copia-e-cola{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                input{
+                    width: 100%;
+                }
+                gap: 10px;
+                @media(min-width:750px){
+                    input{
+                        width: 90%;
+                    }
+                    flex-direction: row;
+                }
+            }
+            span{
+                text-align: center;
+                @include fontes.fontePrincipal;
+            }
+            input{
+                height: variaveis.$spacing-3xl;
+                border-radius: 10px;
+                border: none;
+                border:1px solid  rgba(49, 0, 71, 1);
+            }
+        }
+    }
+    .logo-da-loja{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 200px;
+        height: 50px;
+        margin-top: variaveis.$spacing-sm;
+        gap:variaveis.$spacing-sm;
+        &__nome-loja{
+            font-size: variaveis.$font-md;
+            margin-bottom: 0;
+            color: #ffffff;
+            @include fontes.fontePrincipal
+        }
+        img{
+            width: 20%;
+            height: 80%;
+            border-radius: 10px;
+            box-shadow: 0 28px 60px rgba(22, 42, 79, 0.08);
+        }
+    }
+} 

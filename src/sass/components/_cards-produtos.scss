@@ -1,0 +1,111 @@
+@use "./fontes";
+@use "./variaveis";
+
+.secao-produtos{
+    .texto-da-pesquisa{
+        display: none;
+        align-items: center;
+        color: #fff;
+        font-size: variaveis.$font-md;
+        margin-bottom: 0;
+        @include fontes.fontePrincipal;
+    }
+    .container-base-card{
+        display: flex;
+        justify-content: center;
+        gap: variaveis.$spacing-md;
+        flex-wrap: wrap;
+        .base-card{
+            width: 100%;
+            max-width: 250px;
+            @media (min-width: 750px){
+                max-width: 280px;
+            }
+        }
+        .card{
+            height: 300px;
+            @include fontes.fonteNomeProdutos;
+            box-shadow: 0px 0px 8px black;
+            transition: all 0.3s ease-in-out;
+            border-radius: 10px;
+            cursor: pointer;
+            &:hover{
+                filter: brightness(0.5);
+            }
+            img{
+                height: 200px;
+                border-top-left-radius: 10px;
+                border-top-right-radius:10px;
+                object-fit: fill;
+                border-bottom: 1px solid rgba(49, 0, 71, 1);
+                @media (min-width: 750px){
+                    object-fit: scale-down;
+                }
+            }
+            margin: variaveis.$spacing-xs;
+        }
+        .card-body{
+            padding: variaveis.$spacing-sm;
+            h5{
+                font-size: variaveis.$font-sm;
+                margin-bottom: variaveis.$spacing-xs;
+                @media (min-width: 750px){
+                    font-size: variaveis.$font-md;
+                }
+            }
+            h3{
+                font-size: variaveis.$font-sm;
+                margin-bottom: 0;
+                &::before{
+                    content:"R$ ";
+                }
+                @media (min-width: 750px){
+                    font-size: variaveis.$font-sm;
+                }
+            }
+        }
+    }
+    .texto-da-pesquisa-ativo{
+        display: flex;
+    }
+}
+.botao-favoritos{
+    position: absolute;
+    top: variaveis.$spacing-sm;
+    margin-left: variaveis.$spacing-sm;
+    font-size: 1rem;
+    cursor: pointer;
+    &:hover{
+        color: gold;
+    }
+}
+
+/***estilos de menus carrosel,dots,arrows***/
+
+.dropdown-menu{
+    z-index: 10;
+}
+.carousel-control-prev{
+    margin: 30px 0;
+}
+.carousel-control-next{
+    margin: 30px 0;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(1);
+}
+
+.slick-dots {
+    li {
+        button:before {
+            color: #fff !important; /* Muda a cor da bolinha padrão */
+            opacity: 0.5;           /* Deixa as inativas semi-transparentes */
+        }
+
+        &.slick-active button:before {
+            color: #fff !important; /* Garante que a ativa continue branca */
+            opacity: 1;             /* Brilho total na bolinha ativa */
+        }
+    }
+}

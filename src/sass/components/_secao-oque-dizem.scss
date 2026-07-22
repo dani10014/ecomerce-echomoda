@@ -1,0 +1,89 @@
+@use "./fontes";
+@use "./variaveis";
+
+.oque-dizem{
+    &__titulo{
+        @include fontes.fontePrincipal;
+        color: #fff;
+        text-align: center;
+        margin-bottom: variaveis.$spacing-xl;
+    }
+    .card{
+        padding: variaveis.$spacing-md;
+        display: flex;
+        position: relative;
+        gap: variaveis.$spacing-md;
+        background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+        border-radius: 12px;
+        border: none;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+        transition: transform 180ms ease, box-shadow 180ms ease;
+        &:hover{
+            transform: translateY(-6px);
+            box-shadow: 0 18px 36px rgba(0,0,0,0.26);
+        }
+        @media(min-width:750px){
+            height: auto;
+        }
+        .foto-e-nome{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 96px;
+            min-width: 96px;
+            h5{
+                text-align: center;
+                font-size: variaveis.$font-md;
+                margin: 8px 0 0 0;
+                color: #fff;
+                font-weight: 600;
+            }
+            img{
+                width: 72px;
+                height: 72px;
+                object-fit: cover;
+                border-radius: 50%;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            }
+        }
+        .data-da-publi{
+            display: flex;
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: variaveis.$font-xs;
+            color: #cfcfcf;
+            background: rgba(255,255,255,0.02);
+            padding: 6px 8px;
+            border-radius: 8px;
+            p{
+                margin-bottom: 0;
+            }
+        }
+        .descricao-e-estrela{
+            display: flex;
+            flex-direction: column;
+            margin-top: variaveis.$spacing-sm;
+            justify-content: center;
+            flex: 1;
+            h4{ 
+                font-size: variaveis.$font-sm;
+                color: #eeeeee;
+                text-align: left;
+                line-height: 1.4;
+                margin: 0;
+            }
+            &__estrelas{
+                display: flex;
+                gap: 6px;
+                align-items: center;
+                margin-bottom: 8px;
+                i{
+                    color: #FFD166;
+                    font-size: 1.05rem;
+                    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+                }
+            }
+        }    
+    }
+}

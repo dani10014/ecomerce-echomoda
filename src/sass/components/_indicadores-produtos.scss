@@ -1,0 +1,29 @@
+@use "./variaveis";
+
+.indicador-favoritos{
+    display: none;
+    position: absolute;
+    left: 34px;
+    height: 10px;
+    top: 6px;
+    color: red;
+    font-size:variaveis.$font-xl;
+    &::after{
+        content: "•";
+    }
+}
+#indicador-favorito-menu-lateral{
+    position: absolute;
+}
+.indicador-carrinho{
+    display: none;
+    position: absolute;
+    right: 34px;
+    height: 10px;
+    top: 6px;
+    color: red;
+    font-size:variaveis.$font-xl;
+    &::after{
+        content: "•";
+    }
+}

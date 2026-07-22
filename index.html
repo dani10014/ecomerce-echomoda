@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="./dist/css/main.css">
+    <link rel="icon" type="image/svg+xml" href="./src/imagens/M.jpg">
+    <title>EchoModa</title>
+</head>
+<body>
+    <header>
+        <div class="container py-3">
+            <div class="cabecalho">
+                <i class="fa-solid fa-bars cabecalho__menu-hamburguer" id="menu-hamburguer"><span class="indicador-favoritos"></span></i>
+                <h1 class="mb-0 cabecalho__nome-loja">Echomoda</h1>
+                <a href="./carrinho.html"><i class="fa-solid fa-bag-shopping cabecalho__carrinho"><span class="indicador-carrinho"></span></i></a>
+            </div>
+        </div>
+        <div class="barra-oferta">
+            <div class="conteudo-marquise">
+                    <span>🔥 FRETE GRÁTIS NAS COMPRAS ACIMA DE R$ 150 • 10% OFF NO PIX • </span>
+                    <span>🔥 FRETE GRÁTIS NAS COMPRAS ACIMA DE R$ 150 • 10% OFF NO PIX • </span>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container py-4">
+            <div class="pesquisa">
+                <input type="search" class="pesquisa__input" placeholder="Pesquisar" id="espaco-pesquisa">
+                <i class="fa-solid fa-magnifying-glass pesquisa__botao-pesquisar" id="btn-pesquisar"></i>
+                <i class="fa-solid fa-xmark pesquisa__botao-remover-pesquisa" id="remover-pesquisa"></i>
+                <button class="pesquisa__botao-filtrar"><i class="fa-solid fa-sliders"></i></button>
+            </div>
+        </div>
+        <section class="descontos-e-ofertas" data-aos="fade-up">
+            <div class="container mb-5">
+                <div class="bloco-ofertas">
+                    <div class="backdrop-fade-out">
+                        </div>
+                    <div class="text-oferta">
+                        <h6>50% off em roupas de inverno </h6>
+                        <p>Nao perca essa chance!!</p>
+                        <button class="text-oferta__botao-explorar">Explorar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="secao-de-selecao-produtos" id="dropdown-blusas">
+            <div class="container">
+                <div class="seletor">
+                    <div class="dropdown">
+                        <button class="btn btn-dark dropdown-toggle  py-2 pb-2 d-flex align-items-center justify-content-between" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Blusas
+                        </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Masculinas</a></li>
+                        <li><a class="dropdown-item" href="#">Femininas</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Promoções</a></li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="secao-produtos produtos-camisas">
+            <div class="container">
+                <h2 class="texto-da-pesquisa"></h2>
+            </div>
+            <div class="container py-4 pb-0 container-base-card">
+                
+            </div>
+        </section>
+        <section class="secao-de-selecao-produtos" id="dropdown-tenis">
+            <div class="container">
+                <div class="seletor mt-4">
+                    <div class="dropdown">
+                        <button class="btn btn-dark dropdown-toggle py-2 pb-2 d-flex align-items-center justify-content-between" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Tenis
+                        </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Masculinas</a></li>
+                        <li><a class="dropdown-item" href="#">Femininas</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Promoções</a></li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="secao-produtos produtos-tenis" data-aos="fade-up">
+            <div class="container py-4 pb-0 container-base-card">
+                
+            </div>
+        </section>
+        <div class="backdrop-glass">
+                
+        </div>
+        <section class="secao-sobre-nos" data-aos="fade-up">
+            <div class="container py-4">
+                <div class="secao-sobre-nos__nome-loja">
+                    <p>Echo Moda</p>
+                </div>
+                <h2 class="text-center secao-sobre-nos__titulo">
+                    Sobre a Echo Moda
+                </h2>
+                <div class="secao-sobre-nos__container-descricao">
+                    <h5 class="secao-sobre-nos__container-descricao__descricao">Bem-vindo à Echo Moda. Mais do que uma loja de roupas, nós somos o eco do seu estilo nas ruas.Nascemos com o propósito de conectar você às maiores tendências do streetwear e da moda casual, sem que você precise abrir mão do conforto e, principalmente, da sua identidade. Acreditamos que a roupa que você veste fala antes mesmo de você dizer a primeira palavra. É expressão, é atitude, é a sua melhor versão.</h5>
+                </div>
+                <div class="secao-sobre-nos__container-fotos py-4">
+                    <div class="row" id="carrosel-sobre-nos">
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="texto-card">
+                                    <h5>
+                                        Moda é expressão, é atitude, é a sua melhor versão.
+                                    </h5>
+                                </div>
+                                <img src="./src/imagens/pecas-essenciais-que-toda-pessoa-que-trabalha-com-moda-tem-no-armario-chanel-mcskinsie-20220418150325.jpg">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="texto-card">
+                                    <h5>
+                                        Moda é expressão, é atitude, é a sua melhor versão.
+                                    </h5>
+                                </div>
+                                <img src="./src/imagens/peça-sobre-nos.webp">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="texto-card">
+                                    <h5>
+                                        Moda é expressão, é atitude, é a sua melhor versão.
+                                    </h5>
+                                </div>
+                                <img src="./src/imagens/peca-sobre-noa-2.webp">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="texto-card">
+                                    <h5>
+                                        Moda é expressão, é atitude, é a sua melhor versão.
+                                    </h5>
+                                </div>
+                                <img src="./src/imagens/peca-sobre-noa-2.webp">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="oque-dizem" data-aos="fade-up">
+            <div class="container py-4">
+                <h2 class="oque-dizem__titulo">O que dizem</h2>
+                <div class="container-feedback">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="foto-e-nome">
+                                    <img src="./src/imagens/foto-perfil-removebg-preview.png">
+                                    <h5>Rose S.</h5>
+                                </div>
+                                <div class="descricao-e-estrela">
+                                    <div class="descricao-e-estrela__estrelas">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <h4>Fiz o pedido na terça e na quinta já estava na minha casa. O tênis é lindo demais e super confortável. Tive que tirar uma dúvida sobre o tamanho no suporte e o atendimento foi nota 10. Recomendo muito</h4>
+                                </div>
+                                <div class="data-da-publi">
+                                    <p>05/01/2023</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="foto-e-nome">
+                                    <img src="./src/imagens/foto-perfil-removebg-preview.png">
+                                    <h5>Roger D.</h5>
+                                </div>
+                                <div class="descricao-e-estrela">
+                                    <div class="descricao-e-estrela__estrelas">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <h4>Fiz o pedido na terça e na quinta já estava na minha casa. O tênis é lindo demais e super confortável. Tive que tirar uma dúvida sobre o tamanho no suporte e o atendimento foi nota 10. Recomendo muito</h4>
+                                </div>
+                                <div class="data-da-publi">
+                                    <p>20/08/2025</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="menu-lateral">
+            <div class="container py-3">
+                <div class="menu-lateral__cabecalho">
+                    <h2 class="menu-lateral__titulo">Ola,<strong id="menu-lateral__nome-cliente" class="ms-1">nome</strong></h2>
+                    <button class="text-light btn-close  menu-lateral__botao-fechar" id="botao-fechar">
+
+                    </button>
+                </div>
+            </div>
+            <div class="menu-lateral__botoes">
+                <a href="favoritos.html"><i class="fa-solid fa-star"><span class="indicador-favoritos" style="left: 110px;" id="indicador-favorito-menu-lateral"></span></i>Favoritos</a>
+                <a href="pedidos.html" target="_blank"><i class="fa-solid fa-star"></i>Pedidos</a>
+                <a href="perfil.html"><i class="fa-solid fa-star"></i>Perfil</a>
+            </div>
+        </div>
+        <div class="menu-vertical">
+        </div>
+        <div class="confirmacao-adicao-carrinho">
+            <div class="container">
+                <h5><i class="fas fa-check-circle me-2" style="color: #28a745;"></i>Produto adicionado ao carrinho!</h5>
+            </div>
+        </div>
+        <div class="container-filtrar">
+            <div class="container">
+                <div class="cabecalho">
+                    <h2>Filtrar</h2>
+                    <button class="btn btn-close"> 
+                </button>
+                </div>
+                <div class="container__corpo-conteudo">
+                    <form class="mt-2 mb-2">
+                        <div class="d-flex justify-content-center">
+                        <div class="row w-100 d-flex align-items-center justify-content-center">
+                            <div class="col-6 mt-2">
+                                <p>Preço minimo</p>
+                                <input type="number" placeholder="Ex: R$ 400" id="valor-minimo">
+                            </div>
+                            <div class="col-6 mt-2">
+                                <p>Valor maximo</p>
+                                <input type="number" placeholder="Ex: R$ 700" id="valor-maximo">
+                            </div>
+                        </div>
+                        </div>
+                        <button class="btn btn-primary w-100 mt-5 btn-confirmar-filtragem">
+                            Filtrar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+  // Inicializa a biblioteca para ela começar a vigiar a rolagem da página
+        AOS.init();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script type="module" src="./dist/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+@use "./variaveis";
+
+.secao-de-selecao-produtos{
+    .seletor{
+        margin-bottom: variaveis.$spacing-lg;
+        .dropdown{
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 0px 5px black;
+            button{
+                width: 100%;
+                background-color: #fff;
+                font-size: variaveis.$font-base;
+                cursor: pointer;
+                color: black;
+                padding: variaveis.$spacing-sm variaveis.$spacing-md;
+            }
+            .dropdown-menu{
+                width: 100%;
+                transition: all 0.3s ease-in-out;
+            }
+        }
+    }
+}

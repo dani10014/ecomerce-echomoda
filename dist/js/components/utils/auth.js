@@ -1,0 +1,1 @@
+import jwt from"jsonwebtoken";let SECRET_KEY=process.env.JWT_SECRET;

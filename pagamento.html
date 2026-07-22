@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="./dist/css/main.css">
+    <link rel="icon" type="image/svg+xml" href="./src/imagens/M.jpg">
+    <title>Finalizar pagamento</title>
+</head>
+<body>
+    <main id="main-pagamento-final">
+    <div class="container-mae-pagamento my-5">
+        <div class="container-mae-pagamento__cabecalho">
+            <h1 class="container-mae-pagamento__cabecalho__titulo cabecalho__titulo mb-3">Pagamento <i class="fa-solid fa-wallet ms-2"></i></h1>
+            <div class="my-4 container-mae-pagamento__cabecalho__especificacoes-pedido"> 
+                <div class="bloco">
+                    <span class="container-mae-pagamento__cabecalho__metodo cabecalho__metodo my-2" id="metodo-pagamento">Metodo:<strong id="metodo-selecionado">#</strong></span>
+                    <span class="container-mae-pagamento__cabecalho__metodo cabecalho__metodo my-2" id="metodo-pagamento">Produtos:<strong id="produtos">#</strong></span>
+                </div>
+                <div class="bloco">
+                    <span class="container-mae-pagamento__cabecalho__metodo cabecalho__metodo my-2" id="metodo-pagamento">Total:<strong id="valor-total">#</strong></span>
+                    <span class="container-mae-pagamento__cabecalho__metodo cabecalho__metodo my-2" id="metodo-pagamento">ID:<strong id="id-pagamento">#</strong></span>
+                </div>
+            </div>
+            <h3 class="mt-5 text-center border-2">Total de:<strong><span id="total-pix">200 R$</span></strong></h3>
+        </div>
+        <div class="qr-code-container">
+            <div class="qr-code-container__imagem-e-copiaECola my-5">
+                <span><strong class="qr-code-container__imagem-e-copiaECola__texto-qr-code">QR CODE</strong></span>
+                <img src="#" class="qr-code-container__qr-code-img" id="qr-code-imagem">
+                <span><strong class="qr-code-container__imagem-e-copiaECola__texto-copia-cola">Copia e cola:</strong></span>
+                <div class="qr-code-container__imagem-e-copiaECola__container-copia-e-cola">
+                    <input type="text" disabled id="copia-e-cola-espaco">
+                    <button class="btn btn-success my-2">Copiar  <i class="fa-regular fa-copy"></i></button>
+                </div>
+                <span class="my-5 qr-code-container__imagem-e-copiaECola__texto-tempo-valido"> * Codigo QR CODE e copia e cola validos por 15 minutos </span>
+            </div>
+        </div>
+    </div>
+    <div class="logo-da-loja">
+        <h1 class="logo-da-loja__nome-loja">Echo Moda</h1>
+        <img src="./src/imagens/M.jpg">
+    </div>
+</main>
+<script type="module" src="./dist/js/main.js"></script>
+</body>
+</html>

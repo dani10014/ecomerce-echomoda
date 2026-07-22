@@ -1,0 +1,62 @@
+@use "./variaveis";
+@use "./fontes";
+
+.container-filtrar{
+    display: flex;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0);
+    position: fixed;
+    top: 200px;
+    width: 100%;
+    z-index: 30;
+    transform: scale(0);
+    transition: all 0.3s ease-in-out;
+    .container{
+        background-color: #fff;
+        margin: variaveis.$spacing-xl;
+        border-radius: 10px;
+        .cabecalho{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: variaveis.$spacing-md;
+            h2{
+                color: #000000;
+                font-size: variaveis.$font-lg;
+                text-align: center;
+                @include fontes.fontePrincipal;
+                margin-bottom: 0;
+            }
+        }
+    &__corpo-conteudo{
+        color: #000000;
+        form{
+            input{
+                background-color: rgb(209, 209, 209);
+                transition: all 0.3s ease-in-out;
+                border-radius: 5px;
+                border: none;
+                padding: variaveis.$spacing-sm;
+                width: 100%;
+                outline: none;
+                height: 50px;
+                &:focus{
+                    outline: none !important;
+                    border: 1px solid #fff !important;
+                    background-color:variaveis.$corBotoes;
+                    color: #fff;
+                }
+            }
+            p{
+                font-size: variaveis.$font-sm;
+                text-align: center;
+                margin-bottom: 5px;
+            }
+            button{
+                background-color: variaveis.$corBotoes;
+                border: none;
+            }
+        }
+    }
+}
+}

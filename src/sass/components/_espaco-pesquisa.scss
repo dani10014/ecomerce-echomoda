@@ -1,0 +1,70 @@
+@use "./variaveis";
+
+.pesquisa{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: variaveis.$spacing-sm;
+    transition: all 0.3s ease-in-out;;
+    &__botao-pesquisar{
+        background-color: #fff;
+        color: #000000;
+        padding: variaveis.$spacing-sm;
+        justify-content: center;
+        border-top-right-radius: 10px;
+        border: none;
+        border-bottom-right-radius: 10px;
+        transition: all 0.3s ease-in-out;
+        margin-right: 0;
+        box-shadow: 0px 0px 5px black;
+        height: 46px;
+        cursor: pointer;
+        @include variaveis.hover;
+    }
+    &__input{
+        background-color:#fff;
+        box-shadow: 0px 0px 5px black;
+        width: 70%;
+        color:#000000;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        padding: variaveis.$spacing-sm variaveis.$spacing-md;
+        font-size: variaveis.$font-base;
+        border: none;
+        transition: 0.3s ease-in-out;
+        &:focus{
+            outline: none !important;
+            background-color:variaveis.$corBotoes;
+            color: #fff;
+        }
+        
+    }
+    &__botao-filtrar{
+        padding: variaveis.$spacing-sm;
+        background-color: #fff;
+        border: none;
+        border-radius: 10px;
+        color: #000000;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0px 0px 5px black;
+        cursor: pointer;
+        @include variaveis.hover;
+    }
+    &__botao-remover-pesquisa{
+        display:none;
+        padding: variaveis.$spacing-sm;
+        background-color: #fff;
+        border: none;
+        border-radius: 10px;
+        color: #000000;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0px 0px 5px black;
+        height: 45px;
+        cursor: pointer;
+        @include variaveis.hover;
+    }
+    .ativo-remover-pesquisa{
+        display: flex;
+    }
+}
+

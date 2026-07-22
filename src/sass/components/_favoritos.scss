@@ -1,0 +1,95 @@
+/*** Estilo favoritos **/
+@use "./variaveis";
+@use "./fontes";
+
+header{
+    margin: 0;
+    padding: variaveis.$spacing-md 0;
+    .cabecalho{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #fff;
+        padding: 0 variaveis.$spacing-md;
+        
+        .fa-chevron-left{
+            font-size: variaveis.$font-xxl;
+            cursor: pointer;
+            padding: variaveis.$spacing-sm;
+            &:hover{
+                color: rgb(134, 134, 134);
+            }
+        }
+        
+        h1{
+            @include fontes.fontePrincipal;
+            font-size: variaveis.$font-xxl;
+            text-shadow: 2px 5px 5px black;
+            margin: 0;
+            flex-grow: 1;
+            text-align: center;
+        }
+    }
+}
+main{
+    .produtos-favoritados{
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: variaveis.$spacing-xl;
+        justify-content:center;
+        gap: variaveis.$spacing-md;
+        width: 100%;
+        .card{
+            height: 100%;
+            width: 180px;
+            transition: all 0.3s ease-in-out;
+            @include fontes.fonteNomeProdutos;
+            box-shadow: 0px 0px 8px black;
+            img{
+                height: 200px;
+                width:100%;
+                border-bottom: 1px solid black;
+            }
+            .botao-remover{
+                &__botao{
+                    width: 100%;
+                    border-bottom-left-radius: 5px;
+                    border-bottom-right-radius: 5px;
+                    padding:variaveis.$spacing-sm;
+                    background-color: variaveis.$corBotoes;
+                    color: #fff;
+                    border: none;
+                    transition: all 0.3s ease-in-out;
+                    cursor: pointer;
+                    box-shadow: 0px 0px 5px black;
+                    &:hover{
+                        @include variaveis.hover;
+                        
+                    }
+                    
+                }
+            }
+        }
+        .card-body{
+            padding: variaveis.$spacing-sm;
+            padding: variaveis.$spacing-sm;
+            h5{
+                font-size: variaveis.$font-sm;
+                margin-bottom: variaveis.$spacing-xs;
+                @media (min-width: 750px){
+                    font-size: variaveis.$font-md;
+                }
+            }
+            h3{
+                font-size: variaveis.$font-sm;
+                margin-bottom: 0;
+                &::before{
+                    content:"R$ ";
+                }
+                @media (min-width: 750px){
+                    font-size: variaveis.$font-sm;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,23 @@
+@use "./components/header";
+@use "./components/espaco-pesquisa";
+@use "./components/secao-de-selecao-produtos";
+@use "./components/cards-produtos";
+@use "./components/menu-lateral";
+@use "./components/bloco-ofertas";
+@use "./components/menu-vertical";
+@use "./components/favoritos";
+@use "./components/carrinho";
+@use "./components/botao-filtrar";
+@use "./components/indicadores-produtos";
+@use "./components/card-confirmar-pagamento";
+@use "./components/secao-sobre-nos";
+@use "./components/secao-oque-dizem";
+@use "./components/login.scss";
+@use "./components/perfil-user";
+@use "./components/pagina-final-pagamento";
+
+body{
+    background: #000000;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(49, 0, 71, 1) 97%);
+    transition: all 0.3s ease-in-out;
+}

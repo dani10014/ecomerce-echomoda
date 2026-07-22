@@ -1,0 +1,18 @@
+@use "./variaveis";
+
+@mixin fontePrincipal {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+}
+@mixin fonteNomeProdutos{
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    text-align: center;
+    font-size: variaveis.$font-xs;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
+}

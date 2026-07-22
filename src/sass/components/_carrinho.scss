@@ -1,0 +1,110 @@
+@use "./variaveis";
+@use "./fontes";
+
+#seta-voltar-home{
+    color: #fff;
+}
+.base-cards-carrinho{
+    display: flex;
+    margin-top: variaveis.$spacing-xl;
+    justify-content: center;
+    gap: variaveis.$spacing-md;
+    flex-wrap: wrap;
+    padding-bottom:100px;
+    .card{
+            height: 100%;
+            width: 180px;
+            transition: all 0.3s ease-in-out;
+            @include fontes.fonteNomeProdutos;
+            box-shadow: 0px 0px 8px black;
+            img{
+                height: 200px;
+                width:100%;
+                border-bottom: 1px solid black;
+            }
+            .botao-remover{
+                &__botao{
+                    width: 100%;
+                    border-bottom-left-radius: 5px;
+                    border-bottom-right-radius: 5px;
+                    padding:variaveis.$spacing-sm;
+                    background-color: variaveis.$corBotoes;
+                    color: #fff;
+                    border: none;
+                    transition: all 0.3s ease-in-out;
+                    cursor: pointer;
+                    box-shadow: 0px 0px 5px black;
+                    &:hover{
+                        @include variaveis.hover;
+                        
+                    }
+                    
+                }
+            }
+        }
+        .card-body{
+            padding: variaveis.$spacing-sm;
+            padding: variaveis.$spacing-sm;
+            h5{
+                font-size: variaveis.$font-sm;
+                margin-bottom: variaveis.$spacing-xs;
+                @media (min-width: 750px){
+                    font-size: variaveis.$font-md;
+                }
+            }
+            h3{
+                font-size: variaveis.$font-sm;
+                margin-bottom: 0;
+                &::before{
+                    content:"R$ ";
+                }
+                @media (min-width: 750px){
+                    font-size: variaveis.$font-sm;
+                }
+            }
+        }
+    }
+.botao-finalizar-compra{
+        margin-top: variaveis.$spacing-2xl;
+        display: none;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        bottom: 0;
+        height: 90px;
+        width: 100%;
+        padding: variaveis.$spacing-lg;
+        background-color: #ffff;
+        border: none;
+        color: #000000;
+        font-size: variaveis.$font-sm;
+        box-shadow: 0px 0px 5px black;
+        z-index: 50;
+        box-sizing: border-box;
+        transition: all 0.3s ease-in-out;
+        transform: translateY(120%);
+        .botao-carrinho{
+            display: flex;
+            align-items: center;
+            background-color: variaveis.$corBotoes;
+            border-radius: 50px;
+            height: 50px;
+            padding: 0 variaveis.$spacing-lg;
+            transition: all 0.3s ease-in-out;
+            text-transform: uppercase;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            
+            &:hover{
+                background-color: rgb(82, 82, 82);
+                color: #fff;
+            }
+        }
+        .botao-mais-e-menos{
+            display: flex;
+            align-items: center;
+            gap: variaveis.$spacing-lg;
+            color: variaveis.$corBotoes;
+            }
+}

@@ -1,0 +1,94 @@
+@use "./fontes";
+@use "./variaveis";
+
+.descontos-e-ofertas{
+    .bloco-ofertas{
+        background-color: black;
+        width: 100%;
+        transition: all 0.3s ease-in-out;
+        display: block;
+        position: relative;
+        height: 170px;
+        margin-bottom: variaveis.$spacing-xl;
+        margin-top: variaveis.$spacing-sm;
+        border-radius: 10px;
+        background-image: url("../../../src/imagens/background-bloco-de-ofertas.png");
+        background-position: bottom;
+        background-repeat: no-repeat;
+        background-size: cover;
+        box-shadow: 0 0 5px #000000;
+        @media (min-width:750px){
+            height: 250px;
+        }
+        .backdrop-fade-out{
+            display: block;
+            z-index: 5;
+            border-radius: 10px;
+            filter: opacity(0);
+            background-color: #000000;
+            position: absolute;
+            transition: all 0.3s ease-in-out;
+            top: 0;
+            left: 0;
+            height:100% ;
+            width: 100%;
+        }
+        .text-oferta{
+            padding-left: variaveis.$spacing-md;
+            height: 100%;
+            border-radius: 10px;
+            z-index: 10;
+            backdrop-filter: brightness(0.5);
+            width: 100%;
+            padding: variaveis.$spacing-lg;
+            @media (min-width:750px){
+                padding: variaveis.$spacing-2xl;
+            }
+            h6{
+                @include fontes.fontePrincipal;
+                margin: 0;
+                font-size: variaveis.$font-base;
+                margin-bottom: variaveis.$spacing-xs;
+                -webkit-text-stroke: 1.5px #fff;
+                width: 50%;
+
+                @media (min-width: 750px){
+                    font-size: variaveis.$font-xl;
+                    margin-bottom: variaveis.$spacing-md;
+                    -webkit-text-stroke: 2px #fff;
+                }
+            }
+            p{
+                color: #fff;
+                font-size: variaveis.$font-sm;
+                margin-bottom: variaveis.$spacing-md;
+                @media (min-width: 750px){
+                    font-size: variaveis.$font-md;
+                    margin-bottom: variaveis.$spacing-lg;
+                    -webkit-text-stroke: 1px #fff;
+                }
+            }
+            &__botao-explorar{
+                background-color: black;
+                border: none;
+                border-radius: 10px;
+                font-size: variaveis.$font-sm;
+                padding: variaveis.$spacing-sm variaveis.$spacing-md;
+                width: 50%;
+                color: #fff;
+                box-shadow: 0 0 10px #fff;
+                transition: all 0.3s ease-in-out;
+                cursor: pointer;
+                @media (min-width: 750px){
+                    font-size: variaveis.$font-lg;
+                    padding: variaveis.$spacing-md variaveis.$spacing-lg;
+                }
+                &:hover{
+                    background-color: rgb(134, 134, 134);
+                    color: black;
+                }
+            }
+
+        }
+    }
+}
