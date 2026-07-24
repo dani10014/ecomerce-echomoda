@@ -1,1 +1,1 @@
-import jwt from"jsonwebtoken";let SECRET_KEY=process.env.JWT_SECRET;
+import jwt from"jsonwebtoken";let SECRET_KEY=process.env.JWT_SECRET;function gerarToken(e){e={id:e.id,email:e.email};return jwt.sign(e,SECRET_KEY,{expiresIn:"7d"})}function verificarToken(r,n,i){var e=r.headers.authorization,e=e&&e.split(" ")[1];if(!e)return n.status(401).json({erro:"Token não fornecido ou acesso negado."});jwt.verify(e,SECRET_KEY,(e,o)=>{if(e)return n.status(403).json({erro:"Token inválido ou expirado."});r.usuario=o,i()})}export{gerarToken,verificarToken};

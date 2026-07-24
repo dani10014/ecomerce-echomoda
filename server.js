@@ -5,6 +5,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import crypto from "crypto";
 import { Resend } from 'resend';
+import { gerarToken } from './src/js/components/utils/auth';
+import { verificarToken } from './src/js/components/utils/auth';
 
 dotenv.config();
 
@@ -229,7 +231,7 @@ app.post("/api/logar",async (req,res) => {
         }
         if(resultado && senha === resultado.senha){
             const { senha: _, ...usuarioSemSenha } = resultado;
-            return res.status(200).json({ sucesso: true, usuario: usuarioSemSenha });
+            return res.status(200).json({ sucesso: true, usuario: usuarioSemSenha,token:gerarToken(usuarioSemSenha)});
         }
 
     }catch(erro){

@@ -362,21 +362,22 @@ header .cabecalho__carrinho:hover {
   display: flex;
   flex-direction: column;
   position: relative;
-  height: 80%;
+  height: 100%;
 }
 .menu-lateral__botoes a {
   width: 100%;
+  display: flex;
+  align-items: center;
   background-color: transparent !important;
   color: #ffffff !important;
   border-bottom: 2px solid #fff;
   border-left: none;
-  text-align: start;
   text-decoration: none;
   border-right: none;
   color: #000000;
   height: 100%;
   font-size: 0.9rem;
-  padding: 0.75rem 1rem;
+  padding: 1rem;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
 }
