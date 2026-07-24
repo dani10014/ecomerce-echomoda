@@ -62,24 +62,30 @@ class CriarProduto{
                             }
     }
 }
-export async function buscarProdutos() {
-    try {
-        const resposta = await fetch("https://ecomerce-echomoda.onrender.com/api/buscar-produtos");
-        
-        if (!resposta.ok) throw new Error('Erro ao carregar JSON');
-        
-        const produtos = await resposta.json();
-        
-        if(!resposta.ok || !Array.isArray(produtos)){
-            throw new Error('Resposta inválida do servidor');
-        }
-        /**Criação dos cards direto da classe CriarProduto */
-        produtos.forEach(dado => {
-            const card = new CriarProduto(dado.id,dado.nome,dado.imagem,dado.imagem2,dado.imagem3,dado.preco,dado.categoria);
-            card.devolverCard();
-        })
+    let buscaProdutosJaFeita = false;
 
-    } catch (erro) {
-        console.error("Falha no fetch:", erro);
+export async function buscarProdutos() {
+    if(buscaProdutosJaFeita === false){
+        try {
+            const resposta = await fetch("https://ecomerce-echomoda.onrender.com/api/buscar-produtos");
+        
+            if (!resposta.ok) throw new Error('Erro ao carregar JSON');
+        
+            const produtos = await resposta.json();
+        
+            if(!resposta.ok || !Array.isArray(produtos)){
+                throw new Error('Resposta inválida do servidor');
+            }
+        /**Criação dos cards direto da classe CriarProduto */
+            produtos.forEach(dado => {
+                const card = new CriarProduto(dado.id,dado.nome,dado.imagem,dado.imagem2,dado.imagem3,dado.preco,dado.categoria);
+                card.devolverCard();
+            })
+
+            buscaProdutosJaFeita = true;
+
+        } catch (erro) {
+            console.error("Falha no fetch:", erro);
+        }
     }
 }

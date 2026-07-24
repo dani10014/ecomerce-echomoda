@@ -8,9 +8,23 @@ class botaoFavoritar{
     constructor(){
         this.botoesFavoritos = document.querySelectorAll(".botao-favoritos i");
         this.favoritos = JSON.parse(localStorage.getItem("meusFavoritos")) || [];
-        
+        this.buscaFavoritosJaFeita = false;
+
+        this.atualizarVisualBotoes();
         this.buscarFavoritosClientes();
         this.ouvinteBotaoFavoritar();
+    }
+    atualizarVisualBotoes() {
+        this.botoesFavoritos.forEach(botao => {
+            const cardSelecionado = botao.closest(".card");
+            const idProduto = cardSelecionado.dataset.id;
+
+            if (this.favoritos.includes(idProduto)) {
+                botao.style.color = "gold";
+            } else {
+                botao.style.color = "inherit";
+            }
+        });
     }
     ouvinteBotaoFavoritar(){
         this.botoesFavoritos.forEach(botao => {
@@ -74,7 +88,7 @@ class botaoFavoritar{
     })
     }
     async buscarFavoritosClientes(){
-        if(this.favoritos.length === 0){
+        if(this.buscaFavoritosJaFeita === false){
             const idCliente = JSON.parse(localStorage.getItem("idUser"))
         
             try{
@@ -91,6 +105,9 @@ class botaoFavoritar{
                     localStorage.setItem("meusFavoritos",JSON.stringify(idsFavoritos))
 
                     this.favoritos = idsFavoritos
+
+                    this.buscaFavoritosJaFeita = true
+
                 }else{
                     return
                 }

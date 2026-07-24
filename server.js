@@ -9,7 +9,7 @@ import { gerarToken } from './src/js/components/utils/auth.js';
 import { verificarToken } from './src/js/components/utils/auth.js';
 import { criarHash } from './src/js/components/utils/auth.js';
 import { compararSenha } from './src/js/components/utils/auth.js';
-
+import rateLimit from 'express-rate-limit';
 dotenv.config();
 
 const prisma = new PrismaClient();
@@ -24,6 +24,20 @@ const allowedOrigins = [
 ];
 const resend = new Resend(process.env.RESEND_API_KEY);
 const PORT = process.env.PORT || 3000;
+const limitadorAuth = rateLimit({
+    windowMs: 15 * 60 * 1000, 
+    max: 10,
+    message: { sucesso: false, erro: "Muitas tentativas a partir deste IP. Tente novamente mais tarde." },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+const limitadorGeral = rateLimit({
+    windowMs: 15 * 60 * 1000, 
+    max: 150,
+    message: { sucesso: false, erro: "Muitas tentativas a partir deste IP. Tente novamente mais tarde." },
+    standardHeaders: true,
+    legacyHeaders: false,
+})
 
 app.use(cors({
     origin: function (origin, callback) {
@@ -82,7 +96,7 @@ function sanitizarCPF(cpf) {
     return cpf.replace(/\D/g, "");
 }
 
-app.post("/api/calcular-produtos", async (req,res) =>{
+app.post("/api/calcular-produtos",limitadorGeral, async (req,res) =>{
     try{
         const {itens} = req.body;
 
@@ -114,7 +128,7 @@ app.post("/api/calcular-produtos", async (req,res) =>{
         return res.status(500).json({ sucesso: false, erro: "Erro ao buscar produtos para pagamento" });
     }
 })
-app.post("/api/criar-pagamento", async (req, res) => {
+app.post("/api/criar-pagamento",limitadorGeral, async (req, res) => {
     try {
         const { email, nome, cpf, precoTotal } = req.body;
         const erros = validarDadosUsuario({ email, nome, cpf, precoTotal });
@@ -186,7 +200,7 @@ app.post("/api/criar-pagamento", async (req, res) => {
         return res.status(500).json({ sucesso: false, erro: mensagemErro });
     }
 });
-app.post("/api/verificar-cadastro" , async (req,res) => {
+app.post("/api/verificar-cadastro" ,limitadorAuth, async (req,res) => {
     try{
         const {nome,email,senha} = req.body;
 
@@ -211,7 +225,7 @@ app.post("/api/verificar-cadastro" , async (req,res) => {
         return res.status(500).json({ erro: "Erro ao conectar no servidor" });
     }
 })
-app.post("/api/logar",async (req,res) => {
+app.post("/api/logar",limitadorAuth,async (req,res) => {
     try{
         const {email,senha} = req.body
         
@@ -258,7 +272,7 @@ async function enviarEmailVerificacao(destinatario, codigo) {
     });
 }
 
-app.post("/api/enviar-codigo", async (req, res) => {
+app.post("/api/enviar-codigo", limitadorAuth, async (req, res) => {
     try {
         const { email } = req.body;
         if (!email) return res.status(400).json({ erro: "E-mail necessário" });
@@ -276,7 +290,7 @@ app.post("/api/enviar-codigo", async (req, res) => {
     }
 });
 
-app.post("/api/verificar-codigo", (req, res) => {
+app.post("/api/verificar-codigo", limitadorAuth, (req, res) => {
     const { email, codigo } = req.body;
     const registro = codigosTemporarios.get(email);
 
@@ -296,7 +310,7 @@ app.post("/api/verificar-codigo", (req, res) => {
         return res.status(400).json({ mensagem: "Código incorreto." });
     }
 });
-app.post("/api/criar-cadastro",async (req,res) =>{
+app.post("/api/criar-cadastro",limitadorAuth,async (req,res) =>{
     try{
         const {nome,email,senha} = req.body
 
@@ -325,18 +339,18 @@ app.post("/api/criar-cadastro",async (req,res) =>{
             data:{
                 nome:nome,
                 email:email,
-                senha: criarHash(senha)
+                senha: await criarHash(senha)
             }
         })
             const {senha: _senha,...usuarioSemSenha} = novoUsuario
-        return res.status(201).json({ mensagem: "Sucesso", novo: novoUsuario,token:gerarToken(usuarioSemSenha)})
+        return res.status(201).json({ mensagem: "Sucesso", novo: usuarioSemSenha,token:gerarToken(usuarioSemSenha)})
 
     }catch(erro){
         console.error(erro)
         return res.status(500).json({ erro: "Erro no servidor" });
     }
 })
-app.get("/api/buscar-produtos", async (req, res) => {
+app.get("/api/buscar-produtos",limitadorGeral, async (req, res) => {
     try{
         const resultado = await prisma.produtos.findMany();
 
@@ -347,7 +361,7 @@ app.get("/api/buscar-produtos", async (req, res) => {
         return res.status(500).json({ erro: "Erro ao buscar produtos"});
     }
 })
-app.post("/api/salvar-favoritos", async (req, res) => {
+app.post("/api/salvar-favoritos",limitadorGeral, async (req, res) => {
     try {
         const { idclient, idproduto } = req.body;
 
@@ -373,7 +387,7 @@ app.post("/api/salvar-favoritos", async (req, res) => {
         return res.status(500).json({ resultado: "Erro ao conectar no servidor"});
     }
 });
-app.delete("/api/remover-favoritos", async (req,res) =>{
+app.delete("/api/remover-favoritos",limitadorGeral, async (req,res) =>{
     try{
         const {idclient,idproduto} = req.body
         
@@ -395,7 +409,7 @@ app.delete("/api/remover-favoritos", async (req,res) =>{
         return res.status(500).json({mensagem:"Erro ao conversar com o servidor"})
     }
 })
-app.get("/api/buscar-favoritos", async (req,res) =>{
+app.get("/api/buscar-favoritos",limitadorGeral, async (req,res) =>{
     try{
         const {idclient} = req.query
         
@@ -414,7 +428,7 @@ app.get("/api/buscar-favoritos", async (req,res) =>{
         return res.status(500).json({mensagem:"Erro no servidor"})
     }
 })
-app.put("/api/alterar-nome-usuario", async (req,res) =>{
+app.put("/api/alterar-nome-usuario",limitadorGeral, async (req,res) =>{
     try{
         const{idclient,novonome} = req.body
 
