@@ -4,6 +4,8 @@ import { indicarProdutosNoCarrinhoEFavoritos } from "./indicador-notificacao.js"
 export function ouvinteBotaoFavoritar(){
     new botaoFavoritar()
 }
+let buscaFavoritosJaFeita = false;
+
 class botaoFavoritar{
     constructor(){
         this.botoesFavoritos = document.querySelectorAll(".botao-favoritos i");
@@ -88,7 +90,7 @@ class botaoFavoritar{
     })
     }
     async buscarFavoritosClientes(){
-        if(this.buscaFavoritosJaFeita === false){
+        if(buscaFavoritosJaFeita === false){
             const idCliente = JSON.parse(localStorage.getItem("idUser"))
         
             try{
@@ -106,7 +108,7 @@ class botaoFavoritar{
 
                     this.favoritos = idsFavoritos
 
-                    this.buscaFavoritosJaFeita = true
+                    buscaFavoritosJaFeita = true;
 
                 }else{
                     return
