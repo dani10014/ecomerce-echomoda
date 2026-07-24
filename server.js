@@ -324,7 +324,7 @@ app.post("/api/criar-cadastro",async (req,res) =>{
             }
         })
 
-        return res.status(201).json({ mensagem: "Sucesso", novo: novoUsuario})
+        return res.status(201).json({ mensagem: "Sucesso", novo: novoUsuario,token:gerarToken(novoUsuario)})
 
     }catch(erro){
         console.error(erro)
