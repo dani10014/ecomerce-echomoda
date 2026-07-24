@@ -5,8 +5,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import crypto from "crypto";
 import { Resend } from 'resend';
-import { gerarToken } from './src/js/components/utils/auth';
-import { verificarToken } from './src/js/components/utils/auth';
+import { gerarToken } from './src/js/components/utils/auth.js';
+import { verificarToken } from './src/js/components/utils/auth.js';
 
 dotenv.config();
 
