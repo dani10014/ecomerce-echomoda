@@ -7,6 +7,7 @@ import crypto from "crypto";
 import { Resend } from 'resend';
 import { gerarToken } from './src/js/components/utils/auth.js';
 import { verificarToken } from './src/js/components/utils/auth.js';
+import { criarHash } from './src/js/components/utils/auth.js';
 
 dotenv.config();
 
@@ -320,7 +321,7 @@ app.post("/api/criar-cadastro",async (req,res) =>{
             data:{
                 nome:nome,
                 email:email,
-                senha:senha
+                senha: criarHash(senha)
             }
         })
             const {senha: _senha,...usuarioSemSenha} = novoUsuario

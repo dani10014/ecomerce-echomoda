@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import bcript from "bcrypt";
 
 const SECRET_KEY = process.env.JWT_SECRET;
 
@@ -27,4 +28,15 @@ export function verificarToken(req,res,next){
         req.usuario = usuarioDecodificado; 
         next();
     });
+}
+
+const saltRounds = 10; 
+
+
+export async function criarHash(senhaPura) {
+    return await bcrypt.hash(senhaPura, saltRounds);
+}
+
+export async function compararSenha(senhaPura, senhaComHash) {
+    return await bcrypt.compare(senhaPura, senhaComHash);
 }
