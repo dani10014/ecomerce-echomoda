@@ -74,6 +74,7 @@ export function login(){
                             nome: resultado.usuario.nome || nome,
                         }));
                     
+                        localStorage.setItem("Token",JSON.stringify(resultado.token))
                         localStorage.setItem("idUser",JSON.stringify(resultado.usuario.id))
 
                         this.formularioLogin.style.display = "none";
@@ -340,7 +341,6 @@ export function login(){
                                         if(!dadosLogin) return this.exibirAlerta("Erro ao recuperar dados de login", "erro");
                                         
                                         localStorage.setItem("Usuario", JSON.stringify(dadosLogin));
-                                        
                                         if (dadosLogin.id) {
                                             localStorage.setItem("idUser", JSON.stringify(dadosLogin.id));
                                         }
@@ -385,6 +385,7 @@ export function login(){
                 if(resposta.status === 201){
                     this.exibirAlerta("Usuario cadastrado com sucesso","sucesso");
                     localStorage.setItem("idUser",JSON.stringify(dados.novo.id))
+                    localStorage.setItem("token",JSON.stringify(dados.token))
                     sessionStorage.removeItem("temp_user");
                     return true;
                 } else {
