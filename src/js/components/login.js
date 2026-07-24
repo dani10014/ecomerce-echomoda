@@ -331,7 +331,8 @@ export function login(){
                                         const cadastroSucesso = await this.criarCadastro(dadosTemp.email, dadosTemp.senha, dadosTemp.nome, true);
                                         
                                         if(cadastroSucesso){
-                                            localStorage.setItem("Usuario", JSON.stringify(dadosTemp));
+                                            const {senha,...usuarioSemSenha} = dadosTemp
+                                            localStorage.setItem("Usuario", JSON.stringify(usuarioSemSenha));
                                             sessionStorage.removeItem("tipo_acao");
                                             verificarUsuarioExiste();
                                         }
