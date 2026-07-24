@@ -8,6 +8,7 @@ import { Resend } from 'resend';
 import { gerarToken } from './src/js/components/utils/auth.js';
 import { verificarToken } from './src/js/components/utils/auth.js';
 import { criarHash } from './src/js/components/utils/auth.js';
+import { compararSenha } from './src/js/components/utils/auth.js';
 
 dotenv.config();
 
@@ -226,11 +227,14 @@ app.post("/api/logar",async (req,res) => {
                 email:email.trim(),
             }
         });
+        
+        const senhaValida = resultado ? await compararSenha(senha, resultado.senha) : false;
 
-        if (!resultado || resultado.senha !== senha) {
+        if (!resultado || !senhaValida) {
             return res.status(401).json({ sucesso: false, erro: "E-mail ou senha inválidos" });
         }
-        if(resultado && senha === resultado.senha){
+
+        if(resultado && senhaValida){
             const { senha: _, ...usuarioSemSenha } = resultado;
             return res.status(200).json({ sucesso: true, usuario: usuarioSemSenha,token:gerarToken(usuarioSemSenha)});
         }
