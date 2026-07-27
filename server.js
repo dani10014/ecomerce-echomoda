@@ -25,6 +25,7 @@ const allowedOrigins = [
 ];
 const resend = new Resend(process.env.RESEND_API_KEY);
 const PORT = process.env.PORT || 3000;
+
 const limitadorAuth = rateLimit({
     windowMs: 15 * 60 * 1000, 
     max: 10,
