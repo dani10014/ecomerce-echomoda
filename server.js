@@ -198,7 +198,7 @@ app.post("/api/criar-pagamento",limitadorGeral, async (req, res) => {
         });
 
     } catch (erro) {
-        console.error("Erro detalhado do Mercado Pago:", error.response?.data || error.message);
+        console.error("Erro detalhado do Mercado Pago:", erro.response?.data || erro.message);
         
         const mensagemErro ="Erro ao processar pagamento";
         return res.status(500).json({ sucesso: false, erro: mensagemErro });
