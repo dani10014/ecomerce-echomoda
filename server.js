@@ -40,6 +40,8 @@ const limitadorGeral = rateLimit({
     legacyHeaders: false,
 })
 
+app.set('trust proxy', 1);
+
 app.use(cors({
     origin: function (origin, callback) {
         if (!origin || allowedOrigins.includes(origin)) {
