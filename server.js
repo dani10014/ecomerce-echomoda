@@ -10,6 +10,7 @@ import { verificarToken } from './src/js/components/utils/auth.js';
 import { criarHash } from './src/js/components/utils/auth.js';
 import { compararSenha } from './src/js/components/utils/auth.js';
 import rateLimit from 'express-rate-limit';
+
 dotenv.config();
 
 const prisma = new PrismaClient();
