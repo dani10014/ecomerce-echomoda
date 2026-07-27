@@ -198,7 +198,7 @@ app.post("/api/criar-pagamento",limitadorGeral, async (req, res) => {
         });
 
     } catch (erro) {
-        console.error("Erro detalhado ao criar pagamento:", erro);
+        console.error("Erro detalhado ao criar pagamento:", erro.message);
         
         const mensagemErro ="Erro ao processar pagamento";
         return res.status(500).json({ sucesso: false, erro: mensagemErro });
