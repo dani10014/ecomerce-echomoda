@@ -19,7 +19,7 @@ const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5500";
 const allowedOrigins = [
     "http://localhost:5500",
     "http://127.0.0.1:5500",
-    "http://localhost:5173", // Porta padrão do Vite (caso use)
+    "http://localhost:5173",
     "http://localhost:3000",
     "https://ecomerce-echomoda.vercel.app"
 ];
