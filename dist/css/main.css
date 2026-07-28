@@ -1564,7 +1564,6 @@ body {
 .main-perfil {
   min-height: 100vh;
   background-color: #f7f9fb;
-  overflow-x: hidden;
 }
 .main-perfil .menu-lateral-dados {
   display: block;
