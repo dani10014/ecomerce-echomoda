@@ -1,3 +1,4 @@
+
 import {exibirAlerta} from "./alertaadicao.js";
 
 export function editarPerfil(){
@@ -6,24 +7,24 @@ export function editarPerfil(){
 
 class perfil{
     constructor(){
-        this.btnMudarNome = document.querySelector("#btn-mudar-nome")
+        /*this.btnMudarNome = document.querySelector("#btn-mudar-nome")
         this.espacoNome = document.querySelector("#nome-usuario")
         this.emailUsuario = document.querySelector("#email-usuario")
         this.campoNome = document.querySelector("#campo-nome")
         this.campoEmail = document.querySelector("#campo-email")
-        this.campoTelefone = document.querySelector("#campo-telefone")
+        this.campoTelefone = document.querySelector("#campo-telefone")*/
         this.setaVoltarHome = document.querySelector("#seta-voltar-home")
-        this.cardDeAlteracaoNome = document.querySelector("#card-mudar-nome");
+        /*this.cardDeAlteracaoNome = document.querySelector("#card-mudar-nome");
         this.btnFecharMenuNome = document.querySelector("#btn-fechar-menu-nome");
         this.backDropGlass = document.querySelector(".backdrop-glass")
-        this.cardDeAlteracaoEmail = document.querySelector("#card-mudar-email");
+        this.cardDeAlteracaoEmail = document.querySelector("#card-mudar-email");*/
 
-        this.ouvinteMudarNome()
+        /*this.ouvinteMudarNome()
         this.ouvinteMudarEmail()
-        this.atualizarPerfil()
+        this.atualizarPerfil()*/
         this.setaVoltar()
     }
-
+/*
     atualizarPerfil(){
         const usuario = JSON.parse(localStorage.getItem("Usuario")) || {}
         const nome = usuario.nome || "Nome do cliente"
@@ -125,6 +126,7 @@ class perfil{
         }
         })
     }
+        */
     setaVoltar(){
         if (!this.setaVoltarHome) return
         this.setaVoltarHome.addEventListener("click", () => {

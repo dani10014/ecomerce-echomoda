@@ -21,119 +21,64 @@
     <header>
         <div class="cabecalho">
             <i class="fas fa-chevron-left" id="seta-voltar-home"></i>
-            <h1 class="mb-0 cabecalho__nome-loja">Perfil</h1>
+            <h1 class="mb-0 cabecalho__nome-loja">Meus dados</h1>
         </div>
     </header>
     <main class="main-perfil">
-        <div class="perfil-card container py-4">
-            <section class="perfil-card__top">
-                <div class="perfil-avatar">
-                    <img src="./src/imagens/background-bloco-de-ofertas.png" id="foto-usuario" alt="Foto do perfil" class="perfil-avatar__image">
-                    <button type="button" class="perfil-avatar__edit" aria-label="Mudar foto de perfil">
-                        <i class="fas fa-camera"></i>
+        <div class="container-mae d-flex">
+        <div class="menu-lateral-dados">
+            <div class="menu-lateral-dados_cabecalho-menu">
+                <img src="./src/imagens/background-bloco-de-ofertas.png" class="menu-lateral-dados_cabecalho-menu_foto-perfil">
+                <h2 class="menu-lateral-dados_cabecalho-menu_user-nome">Daniel F.</h2>
+                <p class="menu-lateral-dados_cabecalho-menu_user-email mb-0">daniel.@gmail.com</p>
+            </div>
+            <div class="corpo-menu-lateral">
+                <div class="corpo-menu-lateral_botoes">
+                    <button class="btn btn-primary active">
+                        Perfil
                     </button>
-                </div>
-                <div class="perfil-user-info">
-                    <span class="perfil-user-info__tag">Cliente Echo Moda</span>
-                    <h2 class="perfil-user-info__name" id="nome-usuario">Nome</h2>
-                    <p class="perfil-user-info__email" id="email-usuario">usuario@exemplo.com</p>
-                </div>
-            </section>
-
-            <section class="perfil-card__section perfil-card__section--dados">
-                <h3 class="perfil-card__section-title">Dados do perfil</h3>
-                <ul class="perfil-info-list">
-                    <li>
-                        <span>Nome</span>
-                        <strong id="campo-nome">Nome</strong>
-                    </li>
-                    <li>
-                        <span>Email</span>
-                        <strong id="campo-email">usuario@exemplo.com</strong>
-                    </li>
-                    <li>
-                        <span>Telefone</span>
-                        <strong id="campo-telefone">Não informado</strong>
-                    </li>
-                </ul>
-            </section>
-
-            <section class="perfil-card__section perfil-actions">
-                <button class="perfil-action" id="btn-mudar-nome">
-                    <div class="perfil-action__content">
-                        <i class="fa-solid fa-user-pen"></i>
-                        <div>
-                            <span>Mudar nome</span>
-                            <small>Atualize seu nome de exibição</small>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-chevron-right"></i>
-                </button>
-                <button class="perfil-action" id="mudar-email">
-                    <div class="perfil-action__content">
-                        <i class="fa-solid fa-envelope"></i>
-                        <div>
-                            <span>Alterar email</span>
-                            <small>Mude seu e-mail de contato</small>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-chevron-right"></i>
-                </button>
-                <button class="perfil-action">
-                    <div class="perfil-action__content">
-                        <i class="fa-solid fa-location-dot"></i>
-                        <div>
-                            <span>Atualizar endereço</span>
-                            <small>Gerencie seus dados de entrega</small>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-chevron-right"></i>
-                </button>
-                <button class="perfil-action">
-                    <div class="perfil-action__content">
-                        <i class="fa-solid fa-phone"></i>
-                        <div>
-                            <span>Atualizar telefone</span>
-                            <small>Adicione ou altere seu número</small>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-chevron-right"></i>
-                </button>
-            </section>
-            <div class="backdrop-glass">
-                
-            </div>
-            <div class="card-mudar-nome" id="card-mudar-nome">
-                <div class="d-flex justify-content-between mb-4">
-                    <span class="card-mudar-nome__texto-atualizar-nome">Atualizar nome</span>
-                    <button class="btn btn-close bg-light" id="btn-fechar-menu-nome"></button>
-                </div>    
-                <div class="input" id="card-mudar-nome__conteudo">
-                    <p class="input__texto-novo-nome mb-3">Novo nome:</p>
-                    <input type="text" maxlength="30" class="mb-4 w-100" placeholder="Ex:Silva" id="input-nome">
-                    <div class="descricao-sobre-atualizacao">
-                        <p class="mb-4"> * O nome escohido sera exibido para todas as pessoas,como seção de comentarios e perguntas do produto.</p>
-                    </div>
-                    <btn class="btn btn-primary w-100" id="btn-enviar-novo-nome">Salvar</btn>
-                </div>
-            </div>
-            <div class="card-mudar-nome" id="card-mudar-email">
-                <div class="d-flex justify-content-between mb-4">
-                    <span>Atualizar email</span>
-                    <button class="btn btn-close bg-light" id="btn-fechar-menu-email"></button>
-                </div>    
-                <div class="input">
-                    <p>Novo email</p>
-                    <input type="text" maxlength="30" class="mb-4 w-100">
-                    <btn class="btn btn-primary w-100">Salvar</btn>
+                    <button class="btn btn-primary">
+                        Endereço
+                    </button>
+                    <button class="btn btn-primary">
+                        Historico
+                    </button>
+                    <button class="btn btn-primary">
+                        Email
+                    </button>
                 </div>
             </div>
         </div>
-        <div class="confirmacao-adicao-carrinho">
-                <div class="container">
-                    <h5><i class="fas fa-check-circle me-2" style="color: #28a745;"></i>Produto adicionado ao carrinho!</h5>
-                </div>
+        <div class="container-conteudo-escolhido">
+            <h2 class="titulo-conteudo">Meus dados</h2>
+            <div class="meus-dados-card">
+                <form class="meus-dados-form">
+                    <div class="meus-dados-grid">
+                        <div class="campo">
+                            <label for="nome">Nome completo</label>
+                            <input id="nome" type="text" value="Daniel F.">
+                        </div>
+                        <div class="campo">
+                            <label for="email">E-mail</label>
+                            <input id="email" type="email" value="daniel.@gmail.com">
+                        </div>
+                        <div class="campo">
+                            <label for="telefone">Telefone</label>
+                            <input id="telefone" type="tel" value="+55 11 9XXXX-XXXX">
+                        </div>
+                        <div class="campo">
+                            <label for="nascimento">Data de nascimento</label>
+                            <input id="nascimento" type="date">
+                        </div>
+                    </div>
+                    <div class="acoes-dados">
+                        <button type="button" class="btn-cancelar">Cancelar</button>
+                        <button type="submit" class="btn-salvar">Salvar alterações</button>
+                    </div>
+                </form>
             </div>
+        </div>
+        </div>
     </main>
     <script type="module" src="./dist/js/main.js"></script>
 </body>

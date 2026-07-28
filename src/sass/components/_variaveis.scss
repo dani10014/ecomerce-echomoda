@@ -26,3 +26,6 @@ $spacing-3xl:4rem;      // 64px - enorme
         color: #fff;
     }
 }
+@mixin sombraObj{
+    box-shadow: 0 28px 60px rgba(22, 42, 79, 0.08);
+}
