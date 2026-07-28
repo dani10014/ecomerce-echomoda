@@ -90,7 +90,7 @@ if(document.querySelector(".botao-carrinho")){
     ouvinteFinalizarPedido();
 }
 if(cabecalhoH1){
-    if(cabecalhoH1.innerText === "Perfil"){
+    if(cabecalhoH1.innerText === "Meus dados"){
         editarPerfil()
     }
 }

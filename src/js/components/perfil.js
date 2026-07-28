@@ -130,7 +130,7 @@ class perfil{
     setaVoltar(){
         if (!this.setaVoltarHome) return
         this.setaVoltarHome.addEventListener("click", () => {
-            window.location.href = "index.html"
+            window.location.href = "/index.html"
         })
     }
 }
