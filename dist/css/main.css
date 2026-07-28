@@ -1572,12 +1572,12 @@ body {
   background-color: black;
   background-color: #efefef;
   padding: 1rem;
-  overflow-x: scroll;
 }
 @media (min-width: 750px) {
   .main-perfil .menu-lateral-dados {
     width: 30%;
     height: 100%;
+    overflow-x: scroll;
   }
 }
 .main-perfil .menu-lateral-dados_cabecalho-menu {
