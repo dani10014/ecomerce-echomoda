@@ -1576,7 +1576,7 @@ body {
   .main-perfil .menu-lateral-dados {
     width: 30%;
     height: 100%;
-    overflow-x: scroll;
+    overflow-y: auto;
   }
 }
 .main-perfil .menu-lateral-dados_cabecalho-menu {
@@ -1657,6 +1657,11 @@ body {
   background-color: rgb(134, 134, 134);
   color: #fff;
 }
+.main-perfil .menu-lateral-dados .corpo-menu-lateral .botao-ativo {
+  background: #000000;
+  background: linear-gradient(90deg, rgb(0, 0, 0) 0%, rgb(49, 0, 71) 97%);
+  color: white;
+}
 .main-perfil .container-conteudo-escolhido {
   padding: 1rem;
 }
@@ -1665,7 +1670,7 @@ body {
   display: flex;
   gap: 1.5rem;
   align-items: flex-start;
-  height: 100vh;
+  min-height: calc(100vh - 80px);
 }
 @media (max-width: 749px) {
   .container-mae {
@@ -1675,8 +1680,9 @@ body {
 }
 
 .container-conteudo-escolhido {
+  flex: 1;
+  min-width: 0;
   padding: 1rem;
-  width: 100%;
 }
 @media (max-width: 750px) {
   .container-conteudo-escolhido {
@@ -1693,6 +1699,7 @@ body {
   font-style: normal;
 }
 .container-conteudo-escolhido .meus-dados-card {
+  display: none;
   background-color: #fff;
   border-radius: 12px;
   padding: 1.5rem;
@@ -1791,6 +1798,9 @@ body {
     font-size: 1rem;
   }
 }
+.container-conteudo-escolhido .ativo-card-conteudo {
+  display: block;
+}
 
 #main-pagamento-final {
   min-height: 100vh;
@@ -1882,10 +1892,15 @@ body {
   width: 100%;
   border: 1px solid rgb(49, 0, 71);
   border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+  /* Mantém largura total no mobile, mas limita tamanho no desktop */
 }
 @media (min-width: 750px) {
   #main-pagamento-final .qr-code-container__qr-code-img {
-    height: 250px;
+    width: auto;
+    max-width: 320px;
+    height: auto;
     object-fit: contain;
   }
 }

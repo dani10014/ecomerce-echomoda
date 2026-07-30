@@ -29,21 +29,21 @@
         <div class="menu-lateral-dados">
             <div class="menu-lateral-dados_cabecalho-menu">
                 <img src="./src/imagens/background-bloco-de-ofertas.png" class="menu-lateral-dados_cabecalho-menu_foto-perfil">
-                <h2 class="menu-lateral-dados_cabecalho-menu_user-nome">Daniel F.</h2>
-                <p class="menu-lateral-dados_cabecalho-menu_user-email mb-0">daniel.@gmail.com</p>
+                <h2 class="menu-lateral-dados_cabecalho-menu_user-nome" id="campo-nome">#</h2>
+                <p class="menu-lateral-dados_cabecalho-menu_user-email mb-0" id="espaco-email">#</p>
             </div>
             <div class="corpo-menu-lateral">
                 <div class="corpo-menu-lateral_botoes">
-                    <button class="btn btn-primary active">
-                        Perfil
+                    <button class="btn btn-primary active" data-id="perfil" id="botao-inicial-perfil">
+                        Perfil <i class="fa-solid fa-user"></i>
                     </button>
-                    <button class="btn btn-primary">
+                    <button class="btn btn-primary" data-id="endereço">
                         Endereço
                     </button>
-                    <button class="btn btn-primary">
+                    <button class="btn btn-primary" data-id="historico">
                         Historico
                     </button>
-                    <button class="btn btn-primary">
+                    <button class="btn btn-primary" data-id="email">
                         Email
                     </button>
                 </div>
@@ -51,12 +51,38 @@
         </div>
         <div class="container-conteudo-escolhido">
             <h2 class="titulo-conteudo">Meus dados</h2>
-            <div class="meus-dados-card">
+            <div class="meus-dados-card" id="meus-dados-card">
                 <form class="meus-dados-form">
                     <div class="meus-dados-grid">
                         <div class="campo">
                             <label for="nome">Nome completo</label>
-                            <input id="nome" type="text" value="Daniel F.">
+                            <input type="text" id="nome-usuario-meus-dados" maxlength="32" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        </div>
+                        <div class="campo">
+                            <label for="email">E-mail</label>
+                            <input id="input-email-meus-dados" type="email">
+                        </div>
+                        <div class="campo">
+                            <label for="telefone">Telefone (DDD)</label>
+                            <input type="tel" id="input-telefone-meus-dados">
+                        </div>
+                        <div class="campo">
+                            <label for="nascimento">Data de nascimento</label>
+                            <input id="nascimento" type="date">
+                        </div>
+                    </div>
+                    <div class="acoes-dados">
+                        <button type="button" class="btn-cancelar" id="btn-cancelar-alteracao-meus-dados">Cancelar</button>
+                        <button type="submit" class="btn-salvar" id="btn-salvar-alteracao-meus-dados">Salvar alterações</button>
+                    </div>
+                </form>
+            </div>
+            <div class="meus-dados-card" id="meus-dados-card">
+                <form class="meus-dados-form">
+                    <div class="meus-dados-grid">
+                        <div class="campo">
+                            <label for="nome">Cep</label>
+                            <input type="text" value="." id="nome-usuario-form">
                         </div>
                         <div class="campo">
                             <label for="email">E-mail</label>
@@ -79,7 +105,14 @@
             </div>
         </div>
         </div>
+        <div class="confirmacao-adicao-carrinho">
+            <div class="container">
+                <h5><i class="fas fa-check-circle me-2" style="color: #28a745;"></i>Produto adicionado ao carrinho!</h5>
+            </div>
+        </div>
     </main>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="module" src="./dist/js/main.js"></script>
 </body>
 </html>

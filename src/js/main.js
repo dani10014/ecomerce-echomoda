@@ -19,12 +19,12 @@ export function verificarUsuarioExiste(){
     let paginaAtual = window.location.pathname
     
     const ehPaginaPrivada = paginaAtual === "/" || 
-                            paginaAtual.includes("index.html") || 
-                            paginaAtual.includes("carrinho.html") || 
-                            paginaAtual.includes("favoritos.html") ||
-                            paginaAtual.includes("perfil.html") ||
-                            paginaAtual.includes("pagamento.html");
-
+                    paginaAtual.includes("index.html") || 
+                    paginaAtual.includes("carrinho.html") || 
+                    paginaAtual.includes("favoritos.html") ||
+                    paginaAtual.includes("perfil.html") ||
+                    paginaAtual.includes("pagamento.html");
+                    
     console.log(paginaAtual)
 
     if(!usuarioExiste && ehPaginaPrivada){

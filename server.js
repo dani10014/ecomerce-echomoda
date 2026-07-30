@@ -318,7 +318,7 @@ app.post("/api/criar-cadastro",limitadorAuth,async (req,res) =>{
     try{
         const {nome,email,senha} = req.body
 
-        if (!nome || typeof nome !== 'string' || nome.trim().length < 3) {
+        if (!nome || typeof nome !== 'string' || nome.trim().length < 3 || nome.trim().length > 32 ){
             return res.status(400).json({ erro: "O nome deve ter pelo menos 3 caracteres e ser válido." });
         }
         
@@ -432,30 +432,48 @@ app.get("/api/buscar-favoritos",limitadorGeral, async (req,res) =>{
         return res.status(500).json({mensagem:"Erro no servidor"})
     }
 })
-app.put("/api/alterar-nome-usuario",limitadorGeral, async (req,res) =>{
+app.put("/api/alterar-dados-usuario",limitadorGeral, async (req,res) =>{
     try{
-        const{idclient,novonome} = req.body
+        const{idUser,nomeNovo,novoEmail,token,novoNumero} = req.body
 
-        if(!idclient || !novonome){
+        if(!idUser || !nomeNovo){
             return res.status(400).json("Nenhum id e nenhum nome recebido");
         }
+        
+        if(!novoNumero || typeof(novoNumero) !== "string" || novoNumero.trim().replace(/\D/g, "").length !== 13){
+            return res.status(400).json("Numero invalido");
+        }
 
-        if(novonome.length > 32 || novonome.length < 3){
+        if(!token || typeof(token) !== "string" ){
+            return res.status(400).json("Token invalido");
+        }
+
+        if(!novoEmail || typeof(novoEmail) !== "string"){
+            return res.status(400).json("Email com tipo invalido ");
+        }
+
+        if(nomeNovo.length > 32 || nomeNovo.length < 3){
             return res.status(400).json("O nome deve ter entre 3 e 32 caracteres.");
         }
 
-        if(/\d/.test(novonome)){
+        if(/\d/.test(nomeNovo)){
             return res.status(400).json({erro:"Nome não pode conter numeros"})
+        }
+        
+        if(!verificarToken(token)){
+            return res.status(400).json("Nenhum id e nenhum nome recebido");
         }
 
         const resposta = await prisma.usuarios.update({
-            where:{id:idclient},
+            where:{id:idUser},
             data:{
-                nome:novonome
+                nome:nomeNovo,
+                email:novoEmail,
+                numero:novoNumero,
             }
         })
 
-            return res.status(200).json({Mensagem:"Nome atualizado",Resultado:resposta})
+        return res.status(200).json({Mensagem:"Nome atualizado",Resultado:resposta})
 
     }catch(erro){
         console.error(erro.message)

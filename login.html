@@ -23,7 +23,7 @@
         <div class="container">
             <form class="formulario-entrar">
                 <label for="nome">Nome</label>
-                <input type="text" placeholder="Ex: Pedro Silva" id="nome" maxlength="30">
+                <input type="text" placeholder="Ex: Pedro Silva" id="nome" maxlength="32" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                 <label for="email">Email</label>
                 <input type="text" placeholder="Ex: pedrosilva@gmail.com" id="email">
                 <label for="senha">Senha</label>

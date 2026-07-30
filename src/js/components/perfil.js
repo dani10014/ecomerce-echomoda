@@ -7,126 +7,126 @@ export function editarPerfil(){
 
 class perfil{
     constructor(){
-        /*this.btnMudarNome = document.querySelector("#btn-mudar-nome")
-        this.espacoNome = document.querySelector("#nome-usuario")
-        this.emailUsuario = document.querySelector("#email-usuario")
-        this.campoNome = document.querySelector("#campo-nome")
-        this.campoEmail = document.querySelector("#campo-email")
-        this.campoTelefone = document.querySelector("#campo-telefone")*/
+        this.espacoNome = document.querySelector("#campo-nome")
+        this.emailUsuario = document.querySelector("#espaco-email")
         this.setaVoltarHome = document.querySelector("#seta-voltar-home")
-        /*this.cardDeAlteracaoNome = document.querySelector("#card-mudar-nome");
-        this.btnFecharMenuNome = document.querySelector("#btn-fechar-menu-nome");
-        this.backDropGlass = document.querySelector(".backdrop-glass")
-        this.cardDeAlteracaoEmail = document.querySelector("#card-mudar-email");*/
-
-        /*this.ouvinteMudarNome()
-        this.ouvinteMudarEmail()
-        this.atualizarPerfil()*/
+        
+        this.ouvintesBotoesMenu()
+        this.atualizarPerfil()
         this.setaVoltar()
     }
-/*
+
     atualizarPerfil(){
         const usuario = JSON.parse(localStorage.getItem("Usuario")) || {}
         const nome = usuario.nome || "Nome do cliente"
         const email = usuario.email || (usuario.nome ? `${usuario.nome.toLowerCase().replace(/\s+/g, ".")}@exemplo.com` : "usuario@exemplo.com")
-        const telefone = usuario.telefone || "Não informado"
-
+        
         this.espacoNome.innerText = nome
         this.emailUsuario.innerText = email
-        this.campoNome.innerText = nome
-        this.campoEmail.innerText = email
-        this.campoTelefone.innerText = telefone
     }
+    atualizarDadosCards(){
 
-    ouvinteMudarNome(){
-        document.addEventListener("click",async (event) =>{
-
-            if (event.target.closest("#btn-mudar-nome")){
-                const inputNome = document.querySelector("#card-mudar-nome__conteudo #input-nome");
-                const idCliente = JSON.parse(localStorage.getItem("idUser"));
-                
-            if (inputNome) inputNome.value = ""; 
-
-            this.cardDeAlteracaoNome.style.display = "block";
-            this.backDropGlass.style.display = "flex"; 
-
-            requestAnimationFrame(() => {
-                this.cardDeAlteracaoNome.classList.add("ativo-card-atualizacao");
-            });
-                const btnEnviarNovoNome = document.querySelector("#btn-enviar-novo-nome");
-                btnEnviarNovoNome.addEventListener("click", async () =>{
-                    
-                    if(!btnEnviarNovoNome){return}
-
-                    if(inputNome.value.length === 0){
-                        exibirAlerta("Nada presente nos campos","erro");
-                        return
-                    }else if(inputNome.value.length > 0 && inputNome.value.length <= 32){
-                        try{
-                            const resultado = await fetch("https://ecomerce-echomoda.onrender.com/api/alterar-nome-usuario",{
-                                method:"PUT",
-                                headers:{"Content-Type":"application/json"},
-                                body:JSON.stringify({
-                                    idclient:String(idCliente),
-                                    novonome:String(inputNome.value),
-                                })
-                            })
-                            
-                            const dadosUser = await resultado.json()
-
-                            if(resultado.status === 200){
-                                localStorage.setItem("Usuario",JSON.stringify(dadosUser.Resultado));
-                                this.cardDeAlteracaoNome.classList.remove("ativo-card-atualizacao");
-            
-                                setTimeout(() => {
-                                    exibirAlerta("Nome alterado com sucesso","sucesso")
-                                    this.cardDeAlteracaoNome.style.display = "none";
-                                    this.backDropGlass.style.display = "none";
-                                }, 200); 
-
-                                this.atualizarPerfil();
-                            }
-                        }catch(erro){
-                            exibirAlerta("Erro com o servidor","erro")
-                        }
-                    }
-                })
-        }
-
-        if (event.target.matches("#btn-fechar-menu-nome")) {
+        /*todos os card de cada seção */
+        const cardMeusDados = document.querySelector("#meus-dados-card")|| null
         
-            this.cardDeAlteracaoNome.classList.remove("ativo-card-atualizacao");
-            
-            setTimeout(() => {
-                this.cardDeAlteracaoNome.style.display = "none";
-                this.backDropGlass.style.display = "none";
-            }, 200); 
-        }
 
-        })        
-    }
-    ouvinteMudarEmail(){
-        document.addEventListener("click" ,async(event) => {
-            if(event.target.closest("#mudar-email")){
-                this.cardDeAlteracaoEmail.style.display = "block";
-                this.backDropGlass.style.display = "flex"; 
+        if(cardMeusDados?.classList?.contains("ativo-card-conteudo")){
+            const dadosUser = JSON.parse(localStorage.getItem("Usuario")) || {}
+            const inputNumeroMeusDados = document.querySelector("#input-telefone-meus-dados");
+            const inputNomeMeusDados = document.querySelector("#nome-usuario-meus-dados") || null;
+            const inputEMailMeusDados = document.querySelector("#input-email-meus-dados") || null;
+            const botaoSalvarAlteracoes = document.querySelector("#btn-salvar-alteracao-meus-dados");
+            const btnCancelarAlteracoes = document.querySelector("#btn-cancelar-alteracao-meus-dados")
 
-                requestAnimationFrame(() => {
-                    this.cardDeAlteracaoEmail.classList.add("ativo-card-atualizacao");
-                });
+            $(inputNumeroMeusDados).mask("(+00) 00 00000-0000");
+
+            inputNomeMeusDados.value = dadosUser.nome;
+            inputEMailMeusDados.value = dadosUser.email;
+
+            if(!dadosUser.numero){
+                inputNumeroMeusDados.value = "Não informado"
+            }else{
+                inputNumeroMeusDados.value = dadosUser.numero
             }
-            if (event.target.matches("#btn-fechar-menu-email")) {
-        
-            this.cardDeAlteracaoEmail.classList.remove("ativo-card-atualizacao");
-            
-            setTimeout(() => {
-                this.cardDeAlteracaoEmail.style.display = "none";
-                this.backDropGlass.style.display = "none";
-            }, 200); 
+
+            botaoSalvarAlteracoes.addEventListener("click",async (event)=>{
+                event.preventDefault();
+
+                const emailUsuario = inputEMailMeusDados.value;
+                const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const numeroUsuario = inputNumeroMeusDados.value.trim();
+                const idUser = localStorage.getItem("idUser");
+                const tokenUser = localStorage.getItem("token");
+
+                if(inputNomeMeusDados.value.trim() === "" || inputNomeMeusDados.value.trim().length > 32 || inputNomeMeusDados.value.trim().length < 3 ){
+                    exibirAlerta("Preencha o campo nome","erro")
+                    return
+                }else if(!regexEmail.test(emailUsuario)){
+                    exibirAlerta("Email incorreto","erro");
+                    return
+                }else if(numeroUsuario !== "Não informado" && numeroUsuario.trim().replace(/\D/g, "").length !== 13){
+                    exibirAlerta("Numero invalido","erro");
+                    return
+                }
+
+                try{
+                    const resultado = await fetch("https://ecomerce-echomoda.onrender.com/api/alterar-dados-usuario",{
+                        method:"PUT",
+                        headers:{"Content-type":"application/json",
+                                "Authorization": `Bearer ${tokenUser}`
+                                },
+
+                        body:JSON.stringify({
+                            idUser:idUser,
+                            nomeNovo:inputNomeMeusDados.value,
+                            novoEmail:emailUsuario,
+                            novoNumero:numeroUsuario,
+                            token:tokenUser
+                        })
+                    })
+                    const dadosNovos = await resultado.json();
+
+                    if(resultado.status === 200){
+                        exibirAlerta("Dados atualizados com sucesso","sucesso")
+                        localStorage.setItem("Usuario",JSON.stringify(dadosNovos.resposta))
+                    }
+                }catch(erro){
+                    exibirAlerta("Erro no servidor")
+                }
+                
+            })
+
         }
+}
+    ouvintesBotoesMenu(){
+        const btnConteudoInicial = document.querySelector("#botao-inicial-perfil");
+        const conteudoInicialPerfil = document.querySelector("#meus-dados-card");
+        const botoes = document.querySelectorAll(".corpo-menu-lateral_botoes button")
+        const cardsConteudos = document.querySelectorAll(".meus-dados-card");
+        /*Por padrão eu iniciei ja com um botão seecionado*/
+        btnConteudoInicial.classList.add("botao-ativo");
+        conteudoInicialPerfil.classList.add("ativo-card-conteudo")
+        this.atualizarDadosCards()
+
+
+        botoes.forEach(botao =>{
+            botao.addEventListener("click",() => {
+                botoes.forEach(botaAtivo => {
+                    botaAtivo.classList.remove("botao-ativo");
+                    cardsConteudos.forEach(cardConteudo =>{
+                        cardConteudo.classList.remove("ativo-card-conteudo")
+                    })
+                });
+                botao.classList.add("botao-ativo")
+                if(botao.dataset.id === "perfil"){
+                    const cardPerfil = document.querySelector("#meus-dados-card");
+                    cardPerfil.classList.add("ativo-card-conteudo")
+                    this.atualizarDadosCards()
+                }
+            })
         })
+        
     }
-        */
     setaVoltar(){
         if (!this.setaVoltarHome) return
         this.setaVoltarHome.addEventListener("click", () => {
