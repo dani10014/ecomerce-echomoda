@@ -478,8 +478,8 @@ app.put("/api/alterar-dados-usuario",limitadorGeral ,verificarToken, async (req,
                 numero:novoNumero,
             }
         })
-
-        return res.status(200).json({Mensagem:"Nome atualizado",Resultado:resposta})
+        const {senha,id,...respostaSemSenha} = resposta
+        return res.status(200).json({Mensagem:"Nome atualizado",Resultado:respostaSemSenha})
 
     }catch(erro){
         console.error(erro.message)

@@ -33,7 +33,7 @@ class botaoFavoritar{
             botao.addEventListener("click", async () => {
                 const cardSelecionado = botao.closest(".card");
                 const idProduto = cardSelecionado.dataset.id;
-                const idCliente = JSON.parse(localStorage.getItem("idUser"));
+                const idCliente = localStorage.getItem("idUser");
 
             if (!this.favoritos.includes(idProduto)) {
                 this.favoritos.push(idProduto);
@@ -91,7 +91,7 @@ class botaoFavoritar{
     }
     async buscarFavoritosClientes(){
         if(buscaFavoritosJaFeita === false){
-            const idCliente = JSON.parse(localStorage.getItem("idUser"))
+            const idCliente = localStorage.getItem("idUser")
         
             try{
                 const resultado = await fetch(`https://ecomerce-echomoda.onrender.com/api/buscar-favoritos?idclient=${idCliente}`,{

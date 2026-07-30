@@ -84,11 +84,14 @@ class perfil{
                             token:tokenUser
                         })
                     })
+
                     const dadosNovos = await resultado.json();
+                    
+                    console.log(dadosNovos);
 
                     if(resultado.status === 200){
                         exibirAlerta("Dados atualizados com sucesso","sucesso")
-                        localStorage.setItem("Usuario",JSON.stringify(dadosNovos.resposta))
+                        localStorage.setItem("Usuario",JSON.stringify(dadosNovos.Resultado))
                     }
                 }catch(erro){
                     exibirAlerta("Erro no servidor","erro")
