@@ -4,12 +4,16 @@ import bcrypt from "bcrypt";
 const SECRET_KEY = process.env.JWT_SECRET;
 
 export function gerarToken(usuario){
-    const payload = {
-        id:usuario.id,
-        email:usuario.email,
-
+    if (!SECRET_KEY) {
+        throw new Error('JWT_SECRET não configurado no ambiente');
     }
-    return jwt.sign(payload,SECRET_KEY,{expiresIn:"7d"})
+    
+    const payload = {
+        id: usuario.id,
+        email: usuario.email,
+    };
+    
+    return jwt.sign(payload, SECRET_KEY, { expiresIn: "7d" });
 }
 export function verificarToken(req,res,next){
     

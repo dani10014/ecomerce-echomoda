@@ -56,7 +56,7 @@ class perfil{
                 const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 const numeroUsuario = inputNumeroMeusDados.value.trim();
                 const idUser = localStorage.getItem("idUser");
-                const tokenUser = localStorage.getItem("token");
+                const tokenUser = localStorage.getItem("Token");
 
                 if(inputNomeMeusDados.value.trim() === "" || inputNomeMeusDados.value.trim().length > 32 || inputNomeMeusDados.value.trim().length < 3 ){
                     exibirAlerta("Preencha o campo nome","erro")

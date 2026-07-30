@@ -1,5 +1,5 @@
 import {verificarUsuarioExiste} from "../main.js";
-import { gerarToken } from "./utils/auth.js";
+
 
 
 export function login(){
@@ -75,8 +75,8 @@ export function login(){
                             nome: resultado.usuario.nome || nome,
                         }));
                     
-                        localStorage.setItem("Token",JSON.stringify(resultado.token))
-                        localStorage.setItem("idUser",JSON.stringify(resultado.usuario.id))
+                        localStorage.setItem("Token", resultado.token)
+                        localStorage.setItem("idUser", resultado.usuario.id)
 
                         this.formularioLogin.style.display = "none";
                         this.btnLinkCadastrar.style.display = "none";
@@ -352,7 +352,7 @@ export function login(){
                                         
                                         sessionStorage.removeItem("temp_user_login");
                                         sessionStorage.removeItem("tipo_acao");
-                                        localStorage.setItem("token",resultadoJson.token)
+                                        localStorage.setItem("Token", localStorage.getItem("Token") || "")
                                         
                                         verificarUsuarioExiste();
                                     }
@@ -391,8 +391,8 @@ export function login(){
 
                 if(resposta.status === 201){
                     this.exibirAlerta("Usuario cadastrado com sucesso","sucesso");
-                    localStorage.setItem("idUser",JSON.stringify(dados.novo.id))
-                    localStorage.setItem("token",JSON.stringify(dados.token))
+                    localStorage.setItem("idUser", dados.novo.id)
+                    localStorage.setItem("Token", dados.token)
                     sessionStorage.removeItem("temp_user");
                     return true;
                 } else {

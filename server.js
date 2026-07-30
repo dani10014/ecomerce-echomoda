@@ -254,7 +254,13 @@ app.post("/api/logar",limitadorAuth,async (req,res) => {
 
         if(resultado && senhaValida){
             const { senha: _, ...usuarioSemSenha } = resultado;
-            return res.status(200).json({ sucesso: true, usuario: usuarioSemSenha,token:gerarToken(usuarioSemSenha)});
+            try {
+                const token = gerarToken(usuarioSemSenha);
+                return res.status(200).json({ sucesso: true, usuario: usuarioSemSenha, token: token });
+            } catch (tokenError) {
+                console.error('Erro ao gerar token:', tokenError);
+                return res.status(500).json({ sucesso: false, erro: 'Erro ao gerar token de autenticação' });
+            }
         }
 
     }catch(erro){
@@ -309,7 +315,8 @@ app.post("/api/verificar-codigo", limitadorAuth, (req, res) => {
 
     if (codigo === registro.codigo) {
         codigosTemporarios.delete(email);
-        return res.status(200).json({ mensagem: "Código verificado com sucesso!",token:gerarToken() });
+        // Recuperar dados do usuário para gerar token
+        return res.status(200).json({ mensagem: "Código verificado com sucesso!" });
     } else {
         return res.status(400).json({ mensagem: "Código incorreto." });
     }
@@ -347,7 +354,13 @@ app.post("/api/criar-cadastro",limitadorAuth,async (req,res) =>{
             }
         })
             const {senha: _senha,...usuarioSemSenha} = novoUsuario
-        return res.status(201).json({ mensagem: "Sucesso", novo: usuarioSemSenha,token:gerarToken(usuarioSemSenha)})
+            try {
+                const token = gerarToken(usuarioSemSenha);
+                return res.status(201).json({ sucesso: true, mensagem: "Sucesso", novo: usuarioSemSenha, token: token });
+            } catch (tokenError) {
+                console.error('Erro ao gerar token no cadastro:', tokenError);
+                return res.status(500).json({ sucesso: false, erro: 'Erro ao gerar token de autenticação' });
+            }
 
     }catch(erro){
         console.error(erro)
