@@ -1,4 +1,5 @@
 import {verificarUsuarioExiste} from "../main.js";
+import { gerarToken } from "./utils/auth.js";
 
 
 export function login(){
@@ -313,6 +314,9 @@ export function login(){
                                     email:emailUsuario
                                 })
                             })
+                            
+                            const resultadoJson = await resposta.json()
+
                             if(!resposta.ok){
                                 this.exibirAlerta("Erro ao verificar o codigo","erro");
                                 return
@@ -345,9 +349,11 @@ export function login(){
                                         if (dadosLogin.id) {
                                             localStorage.setItem("idUser", JSON.stringify(dadosLogin.id));
                                         }
-
+                                        
                                         sessionStorage.removeItem("temp_user_login");
                                         sessionStorage.removeItem("tipo_acao");
+                                        localStorage.setItem("token",resultadoJson.token)
+                                        
                                         verificarUsuarioExiste();
                                     }
                             }

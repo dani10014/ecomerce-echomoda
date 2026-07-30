@@ -309,7 +309,7 @@ app.post("/api/verificar-codigo", limitadorAuth, (req, res) => {
 
     if (codigo === registro.codigo) {
         codigosTemporarios.delete(email);
-        return res.status(200).json({ mensagem: "Código verificado com sucesso!" });
+        return res.status(200).json({ mensagem: "Código verificado com sucesso!",token:gerarToken() });
     } else {
         return res.status(400).json({ mensagem: "Código incorreto." });
     }
