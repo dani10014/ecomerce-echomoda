@@ -432,9 +432,9 @@ app.get("/api/buscar-favoritos",limitadorGeral, async (req,res) =>{
         return res.status(500).json({mensagem:"Erro no servidor"})
     }
 })
-app.put("/api/alterar-dados-usuario",limitadorGeral, async (req,res) =>{
+app.put("/api/alterar-dados-usuario",limitadorGeral ,verificarToken, async (req,res) =>{
     try{
-        const{idUser,nomeNovo,novoEmail,token,novoNumero} = req.body
+        const{idUser,nomeNovo,novoEmail,novoNumero} = req.body
 
         if(!idUser || !nomeNovo){
             return res.status(400).json("Nenhum id e nenhum nome recebido");
@@ -459,10 +459,7 @@ app.put("/api/alterar-dados-usuario",limitadorGeral, async (req,res) =>{
         if(/\d/.test(nomeNovo)){
             return res.status(400).json({erro:"Nome não pode conter numeros"})
         }
-        
-        if(!verificarToken(req)){
-            return res.status(400).json("Nenhum id e nenhum nome recebido");
-        }
+
 
         const resposta = await prisma.usuarios.update({
             where:{id:idUser},
