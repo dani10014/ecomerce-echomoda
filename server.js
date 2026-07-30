@@ -444,10 +444,6 @@ app.put("/api/alterar-dados-usuario",limitadorGeral ,verificarToken, async (req,
             return res.status(400).json("Numero invalido");
         }
 
-        if(!token || typeof(token) !== "string" ){
-            return res.status(400).json("Token invalido");
-        }
-
         if(!novoEmail || typeof(novoEmail) !== "string"){
             return res.status(400).json("Email com tipo invalido ");
         }
