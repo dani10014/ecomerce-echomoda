@@ -460,7 +460,7 @@ app.put("/api/alterar-dados-usuario",limitadorGeral, async (req,res) =>{
             return res.status(400).json({erro:"Nome não pode conter numeros"})
         }
         
-        if(!verificarToken(token)){
+        if(!verificarToken(req)){
             return res.status(400).json("Nenhum id e nenhum nome recebido");
         }
 

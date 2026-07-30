@@ -91,7 +91,7 @@ class perfil{
                         localStorage.setItem("Usuario",JSON.stringify(dadosNovos.resposta))
                     }
                 }catch(erro){
-                    exibirAlerta("Erro no servidor")
+                    exibirAlerta("Erro no servidor","erro")
                 }
                 
             })
