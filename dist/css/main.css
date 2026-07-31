@@ -1744,6 +1744,18 @@ body {
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
   border-color: rgb(56, 55, 55);
 }
+.container-conteudo-escolhido .meus-dados-card .meus-dados-grid .botao-buscar-cep {
+  display: flex;
+  align-items: flex-end;
+}
+.container-conteudo-escolhido .meus-dados-card .meus-dados-grid .botao-buscar-cep button {
+  height: 100%;
+}
+@media (min-width: 750px) {
+  .container-conteudo-escolhido .meus-dados-card .meus-dados-grid .botao-buscar-cep button {
+    height: 65%;
+  }
+}
 .container-conteudo-escolhido .meus-dados-card .acoes-dados {
   margin-top: 1rem;
   display: flex;

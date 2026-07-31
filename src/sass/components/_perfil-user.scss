@@ -148,6 +148,16 @@
                         border-color: variaveis.$corBotoes;
                     }
                 }
+                .botao-buscar-cep{
+                    display: flex;
+                    align-items:flex-end;
+                    button{
+                        height: 100%;
+                        @media(min-width:750px){
+                            height: 65%;
+                        }
+                    }
+                }
             }
 
             .acoes-dados{
