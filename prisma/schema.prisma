@@ -71,8 +71,14 @@ model favoritos {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model endereco {
-  created_at DateTime @default(now()) @db.Timestamptz(6)
-  cep        String?
-  id         String   @id @db.Uuid
-  usuarios   usuarios @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  cep         String?
+  id          String   @id @db.Uuid
+  numero      String?
+  rua         String?
+  bairro      String?
+  cidade      String?
+  estado      String?
+  complemento String?  @default("Não informado")
+  usuarios    usuarios @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
