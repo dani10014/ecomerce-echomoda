@@ -129,7 +129,7 @@ class ProcessarPagamento {
             .then(resposta => {
                 if (resposta.erro) {
                     exibirAlerta("CEP não encontrado","erro");
-                    this.limparCep(); // CORRIGIDO: nome da função ajustado
+                    this.limparCep(); 
                     return;
                 }
                 this.espacoCidade.value = resposta.localidade;

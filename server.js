@@ -486,6 +486,53 @@ app.put("/api/alterar-dados-usuario",limitadorGeral ,verificarToken, async (req,
         return res.status(500).json("Erro no servidor")
     }
 })
+app.post("/api/alterar-endereco" ,limitadorAuth ,verificarToken, async (req,res) =>{
+    try{
+        const{cep,numero,rua,bairro,cidade,estado,complemento,idUser} = req.body;
+        
+        if (!idUser) {
+            return res.status(400).json({ erro: "ID do usuário é obrigatório." });
+        }
+
+        if (!cep || !numero || !rua || !bairro || !cidade || !estado) {
+            return res.status(400).json({ erro: "Preencha todos os campos obrigatórios do endereço." });
+        }
+
+        if (!complemento || complemento.trim() === "") {
+            complemento = "Não informado";
+        }
+        
+        const respostaAtualizacao = await prisma.endereco.upsert({
+            where: { id: idUser },
+            update: {
+                cep: cep,
+                numero: numero,
+                rua: rua,
+                bairro: bairro,
+                cidade: cidade,
+                estado: estado,
+                complemento: complemento
+            },
+            create: {
+                id: idUser,
+                cep: cep,
+                numero: numero,
+                rua: rua,
+                bairro: bairro,
+                cidade: cidade,
+                estado: estado,
+                complemento: complemento
+            }
+        })
+
+        return res.status(200).json({ sucesso: true, mensagem: "Endereço atualizado com sucesso", endereco: respostaAtualizacao });
+        
+
+    }catch(erro){
+        console.error("Erro ao atualizar endereço:", erro);
+        return res.status(500).json({ sucesso: false, erro: "Erro ao atualizar endereço" });
+    }
+})
 app.get("/api/health", (req, res) => {
     res.json({ status: "ok" });
 });

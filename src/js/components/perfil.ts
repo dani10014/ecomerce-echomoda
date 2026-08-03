@@ -14,6 +14,7 @@ interface dados{
     rua:string,
     bairro:string,
     UF:string,
+    localidade:string,
 
 }
 class perfil{
@@ -63,7 +64,7 @@ class perfil{
             if(inputNomeMeusDados){
                 inputNomeMeusDados.value = dadosUser.nome;
             }
-            if(inputNomeMeusDados){
+            if(inputEMailMeusDados){
                 inputEMailMeusDados.value = dadosUser.email;
             }
 
@@ -72,6 +73,8 @@ class perfil{
             }else{
                 inputNumeroMeusDados.value = dadosUser.numero
             }
+
+            let alteracaoRolando = false;
 
             botaoSalvarAlteracoes.addEventListener("click",async (event)=>{
                 event.preventDefault();
@@ -92,6 +95,8 @@ class perfil{
                     exibirAlerta("Numero invalido","erro");
                     return
                 }
+                
+                alteracaoRolando = true;
 
                 try{
                     const resultado = await fetch("https://ecomerce-echomoda.onrender.com/api/alterar-dados-usuario",{
@@ -120,8 +125,17 @@ class perfil{
                     }
                 }catch(erro){
                     exibirAlerta("Erro no servidor","erro")
+                }finally{
+                    alteracaoRolando = false;
                 }
                 
+            })
+            btnCancelarAlteracoes.addEventListener("click", () => {
+                if(alteracaoRolando === true){return}
+
+                inputNomeMeusDados.value = dadosUser.nome;
+                inputEMailMeusDados.value = dadosUser.email;
+                inputNumeroMeusDados.value = dadosUser.numero || "Não informado";
             })
 
         }
@@ -133,7 +147,12 @@ class perfil{
             const btnBuscarCep = document.querySelector("#btn-buscar-cep") as HTMLButtonElement;
             const inputMeuEnderecoNumeroCasa = document.querySelector("#numeroCasa") as HTMLInputElement;
             const inputMeuEnderecoUf = document.querySelector("#uf") as HTMLInputElement;
-            
+            const inputMeuEnderecoCidade = document.querySelector("#input-dados-endereco-cidade") as HTMLInputElement;
+            const inputMeuEnderecoRua = document.querySelector("#input-dados-endereco-rua") as HTMLInputElement;
+            const inputMeuEnderecoBairro = document.querySelector("#input-dados-endereco-bairro") as HTMLInputElement;
+            const btnSalvarEndereco = document.querySelector("#btn-salvar-alteracao-endereco") as HTMLButtonElement;
+            const inputMeuEnderecoComplemento = document.querySelector("#input-dados-endereco-referencia") as HTMLInputElement;
+
             $(inputMeuEnderecoCep).mask("00000000");
 
             if (dadosEndereco.cep) {
@@ -142,6 +161,12 @@ class perfil{
                 inputMeuEnderecoCep.value = "Não informado";
             }
             
+            if(dadosEndereco.localidade){
+                inputMeuEnderecoCidade.value = dadosEndereco.localidade;
+            }else{
+                inputMeuEnderecoCidade.value = "Não informado";
+            }
+
             if (dadosEndereco.numero) {
                 inputMeuEnderecoNumeroCasa.value = dadosEndereco.numero;
             } else {
@@ -153,6 +178,104 @@ class perfil{
             } else {
                 inputMeuEnderecoUf.value = "Não informado"
             }
+
+            if(dadosEndereco.bairro){
+                inputMeuEnderecoBairro.value = dadosEndereco.bairro;
+            }else{
+                inputMeuEnderecoBairro.value = "Não informado"
+            }
+
+            if(dadosEndereco.rua){
+                inputMeuEnderecoRua.value = dadosEndereco.rua;
+            }else{
+                inputMeuEnderecoRua.value = "Não informado"
+            }
+            
+            btnBuscarCep.addEventListener("click", async (event) => {
+                event.preventDefault();
+                const cepDigitado = inputMeuEnderecoCep.value.trim();
+
+                if (cepDigitado === "" || cepDigitado.length !== 8) {
+                    exibirAlerta("Digite um CEP válido", "erro");
+                    return;
+                }
+
+                try{
+                    const resultado = await fetch(`https://viacep.com.br/ws/${cepDigitado}/json/`);
+
+                    const resposta = await resultado.json();
+
+                    if(resultado.status === 200){
+                        inputMeuEnderecoUf.value = resposta.uf;
+                        inputMeuEnderecoCidade.value = resposta.localidade;
+                    }
+                    if(resultado.status === 400){
+                        exibirAlerta("CEP não encontrado","erro");
+                        return;
+                    }
+
+                }catch(erro){
+                    exibirAlerta("Erro no servidor","erro");
+                }
+            })
+            btnSalvarEndereco.addEventListener("click", async (event) => {
+                event.preventDefault();
+                
+                if(inputMeuEnderecoCep.value.trim() === "" || inputMeuEnderecoCep.value.trim().length !== 8){
+                    exibirAlerta("Digite um CEP válido","erro");
+                    return;
+                }
+                if(inputMeuEnderecoNumeroCasa.value.trim() === ""){
+                    exibirAlerta("Digite o numero da casa","erro");
+                    return;
+                }
+                if(inputMeuEnderecoCidade.value.trim() === ""){
+                    exibirAlerta("Digite a cidade","erro");
+                    return;
+                }
+                if(inputMeuEnderecoUf.value.trim() === ""){
+                    exibirAlerta("Digite a UF","erro");
+                    return;
+                }
+                if(inputMeuEnderecoBairro.value.trim() === ""){
+                    exibirAlerta("Digite o bairro","erro");
+                    return;
+                }
+                if(inputMeuEnderecoRua.value.trim() === ""){
+                    exibirAlerta("Digite a rua","erro");
+                    return;
+                }
+        
+                
+                const idUser = localStorage.getItem("idUser");
+                const tokenUser = localStorage.getItem("Token");
+
+                try{ 
+                    const resultado = await fetch("https://ecomerce-echomoda.onrender.com/api/alterar-endereco",{
+                        method:"POST",
+                        headers:{"Content-type":"application/json",
+                                "Authorization": `Bearer ${tokenUser}`
+                                },
+                        body:JSON.stringify({
+                            cep:inputMeuEnderecoCep.value,
+                            numero:inputMeuEnderecoNumeroCasa.value,
+                            rua:inputMeuEnderecoRua.value,
+                            bairro:inputMeuEnderecoBairro.value,
+                            cidade:inputMeuEnderecoCidade.value,
+                            estado:inputMeuEnderecoUf.value,
+                            idUser:idUser,
+                            complemento:inputMeuEnderecoComplemento.value || "Não informado"
+                        })
+                    })
+
+                    if(resultado.status === 200){
+                        exibirAlerta("Endereço atualizado com sucesso","sucesso")
+                    }
+                
+                }catch(erro){
+                    exibirAlerta("Erro no servidor","erro");
+                }
+            })
     }
 }
     ouvintesBotoesMenu(){
