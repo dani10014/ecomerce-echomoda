@@ -57,6 +57,7 @@ model usuarios {
   senha      String
   created_at DateTime? @default(dbgenerated("timezone('utc'::text, now())")) @db.Timestamptz(6)
   numero     String?
+  endereco   endereco?
   pedidos    pedidos[]
 }
 
@@ -66,4 +67,12 @@ model favoritos {
   id_produto BigInt
 
   @@id([id_client, id_produto])
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model endereco {
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  cep        String?
+  id         String   @id @db.Uuid
+  usuarios   usuarios @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
