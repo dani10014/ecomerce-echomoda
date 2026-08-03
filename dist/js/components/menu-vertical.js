@@ -1,4 +1,4 @@
-import{indicarProdutosNoCarrinhoEFavoritos}from"./indicador-notificacao.js";import{exibirAlerta}from"./alertaadicao.js";function IniciarMenuVertical(){new menuVerticalBase}class menuVerticalBase{constructor(){this.cardClicavel=document.querySelectorAll(".container-base-card .card"),this.botoesFavoritos=document.querySelectorAll(".botao-favoritos i"),this.setasDeMudancaDeFoto=document.querySelectorAll(".carousel-control-prev, .carousel-control-next"),this.menuVertical=document.querySelector(".menu-vertical"),this.stopPropagation(),this.ouvinteCliqueMenuVertical()}async buscarEFiltrarProdutos(e){try{var o=await(await fetch("./../produtos.json")).json();let a=Number(String(e).replace(/\D/g,""));return o.find(e=>Number(e.id)===a)}catch(e){console.error("Erro ao filtrar dados:",e),exibirAlerta("Erro ao buscar produto","erro")}}stopPropagation(){this.setasDeMudancaDeFoto&&this.setasDeMudancaDeFoto.forEach(e=>{e.addEventListener("click",e=>{e.stopPropagation()})}),this.botoesFavoritos&&this.botoesFavoritos.forEach(e=>{e.addEventListener("click",e=>{e.stopPropagation()})})}ouvinteCliqueMenuVertical(){this.cardClicavel.forEach(i=>{i.addEventListener("click",async e=>{var a=i.dataset.id,o=i.querySelector(".card-body h3").innerText,o=(console.log(a),console.log(o),this.menuVertical.style.display="block",this.menuVertical.style.maxHeight="100vh",this.menuVertical.style.overflowY="auto",document.body.style.overflow="hidden",setTimeout(()=>{this.menuVertical.style.transform="translateX(0)"},200),await this.buscarEFiltrarProdutos(a)),a=(this.produtoSelecionado=o,this.idCard=a,this.menuVertical.innerHTML=`
+import{indicarProdutosNoCarrinhoEFavoritos}from"./indicador-notificacao.js";import{exibirAlerta}from"./alertaadicao.js";function IniciarMenuVertical(){new menuVerticalBase}class menuVerticalBase{constructor(){this.cardClicavel=document.querySelectorAll(".container-base-card .card"),this.botoesFavoritos=document.querySelectorAll(".botao-favoritos i"),this.setasDeMudancaDeFoto=document.querySelectorAll(".carousel-control-prev, .carousel-control-next"),this.menuVertical=document.querySelector(".menu-vertical"),this.stopPropagation(),this.ouvinteCliqueMenuVertical()}async buscarEFiltrarProdutos(e){try{var a=await(await fetch("./../produtos.json")).json();let t=Number(String(e).replace(/\D/g,""));return a.find(e=>Number(e.id)===t)}catch(e){console.error("Erro ao filtrar dados:",e),exibirAlerta("Erro ao buscar produto","erro")}}stopPropagation(){this.setasDeMudancaDeFoto&&this.setasDeMudancaDeFoto.forEach(e=>{e.addEventListener("click",e=>{e.stopPropagation()})}),this.botoesFavoritos&&this.botoesFavoritos.forEach(e=>{e.addEventListener("click",e=>{e.stopPropagation()})})}ouvinteCliqueMenuVertical(){this.cardClicavel.forEach(i=>{i.addEventListener("click",async e=>{var t=i.dataset.id,a=i.querySelector(".card-body h3").innerText,a=(console.log(t),console.log(a),this.menuVertical.style.display="block",this.menuVertical.style.maxHeight="100vh",this.menuVertical.style.overflowY="auto",document.body.style.overflow="hidden",setTimeout(()=>{this.menuVertical.style.transform="translateX(0)"},200),await this.buscarEFiltrarProdutos(t)),o=e=>{var t=document.createElement("div");return t.textContent=String(e||""),t.innerHTML},t=(this.produtoSelecionado=a,this.idCard=t,this.menuVertical.innerHTML=`
                     <div class='container py-4'>
                         <div class='menu-vertical__cabecalho'>
                             <button class='btn-close' id='menu-vertical-fechar'></button>
@@ -14,24 +14,24 @@ import{indicarProdutosNoCarrinhoEFavoritos}from"./indicador-notificacao.js";impo
                                 </div>
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <img src="${o.imagem}" class="d-block w-100" alt="...">
+                                        <img src="${o(a.imagem)}" class="d-block w-100" alt="...">
                                         <div class="carousel-caption d-block d-md-block">
-                                            <h5>${o.caption}</h5>
-                                            <p>${o.preco}</p>
+                                            <h5>${o(a.caption)}</h5>
+                                            <p>${o(a.preco)}</p>
                                         </div>
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="${o.imagem2}" class="d-block w-100" alt="...">
+                                        <img src="${o(a.imagem2)}" class="d-block w-100" alt="...">
                                         <div class="carousel-caption d-block d-md-block">
-                                            <h5>${o.caption2}</h5>
-                                            <p>${o.preco}</p>
+                                            <h5>${o(a.caption2)}</h5>
+                                            <p>${o(a.preco)}</p>
                                         </div>
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="${o.imagem3}" class="d-block w-100" alt="...">
+                                        <img src="${o(a.imagem3)}" class="d-block w-100" alt="...">
                                         <div class="carousel-caption d-block d-md-block">
-                                            <h5>${o.caption3}</h5>
-                                            <p>${o.preco}</p>
+                                            <h5>${o(a.caption3)}</h5>
+                                            <p>${o(a.preco)}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -51,8 +51,8 @@ import{indicarProdutosNoCarrinhoEFavoritos}from"./indicador-notificacao.js";impo
                                 <p class="marca-produto">
                                     ${i.querySelector(".card-body .card-title")?.innerText||"Marca"}
                                 </p>
-                                <h2 class="nome-produto">${o.nome}</h2>
-                                <h2 class="valor-produto">R$ ${o.preco}</h2>
+                                <h2 class="nome-produto">${o(a.nome)}</h2>
+                                <h2 class="valor-produto">R$ ${o(a.preco)}</h2>
 
                             <div class="texto-cor">
                                 <div class="container-cor">
@@ -79,7 +79,7 @@ import{indicarProdutosNoCarrinhoEFavoritos}from"./indicador-notificacao.js";impo
                             </div>
 
                             <h5 class="menu-vertical__texto-descricao-produto">Descrição do produto</h5>
-                                <p class="menu-vertical__descricao-produto">${o.descricao}</p>
+                                <p class="menu-vertical__descricao-produto">${a.descricao}</p>
                             </div>
                         </div>
                     </div>
@@ -91,4 +91,4 @@ import{indicarProdutosNoCarrinhoEFavoritos}from"./indicador-notificacao.js";impo
                             <i class="fa-solid fa-plus"></i>
                         </div>
                     <div class="botao-carrinho">Adicionar ao carrinho</div>
-                </div>`,this.menuVertical.querySelector("#cor-1")),t=this.menuVertical.querySelector("#cor-2"),s=this.menuVertical.querySelector("#cor-3"),r=this.menuVertical.querySelector("#cor-4");a.style.backgroundColor=o.cor1,t.style.backgroundColor=o.cor2,s.style.backgroundColor=o.cor3,r.style.backgroundColor=o.cor4,this.gerenciamentoDeQuantidadeProdutos(),this.selecaoDeCorETamanho(),this.salvamentoNoCarrinho(),this.fecharMenuVertical()})})}selecaoDeCorETamanho(){let o=this.menuVertical.querySelectorAll(".botoes-selecao-cores"),t=(o.forEach(a=>{a.addEventListener("click",e=>{o.forEach(e=>e.classList.remove("active")),a.classList.add("active")})}),this.menuVertical.querySelectorAll(".botoes-selecao-tamanho"));t.forEach(a=>{a.addEventListener("click",e=>{t.forEach(e=>e.classList.remove("active")),a.classList.add("active")})})}gerenciamentoDeQuantidadeProdutos(){var e=this.menuVertical.querySelector(".fa-plus"),a=this.menuVertical.querySelector(".fa-minus");let o=this.menuVertical.querySelector(".quantidade");e.addEventListener("click",()=>{var e=parseInt(o.innerText);e++,o.innerText=e}),a.addEventListener("click",()=>{var e=parseInt(o.innerText);e--,(o.innerText=e)<1&&(o.innerText=1)})}salvamentoNoCarrinho(){this.menuVertical.querySelector(".botao-carrinho").addEventListener("click",e=>{var a=JSON.parse(localStorage.getItem("produtosCarrinho"))||[];let o=this.menuVertical.querySelector(".botoes-selecao-cores.active"),t=this.menuVertical.querySelector(".botoes-selecao-tamanho.active"),s=this.idCard;var r,i=this.menuVertical.querySelector(".quantidade"),i=parseInt(i.innerText);null===o||null===t?exibirAlerta("Selecione cor e tamanho","erro"):((r=a.find(e=>e.cor===o.style.backgroundColor&&e.tamanho===t.innerText&&e.id===s))?r.quantidade+=i:(r={id:s,nome:this.produtoSelecionado.nome,cor:o.style.backgroundColor,tamanho:t.innerText,valor:this.produtoSelecionado.preco,imagem:this.produtoSelecionado.imagem,quantidade:i},a.push(r)),localStorage.setItem("produtosCarrinho",JSON.stringify(a)),indicarProdutosNoCarrinhoEFavoritos(),exibirAlerta("Produto adicionado ao carrinho com sucesso!","sucesso"))})}fecharMenuVertical(){document.querySelector("#menu-vertical-fechar").addEventListener("click",()=>{this.menuVertical.style.transform="translateY(100%)",document.body.style.overflow="auto",document.body.style.height="",setTimeout(()=>{this.menuVertical.style.display="none"},500)})}}export{IniciarMenuVertical};
+                </div>`,this.menuVertical.querySelector("#cor-1")),o=this.menuVertical.querySelector("#cor-2"),r=this.menuVertical.querySelector("#cor-3"),s=this.menuVertical.querySelector("#cor-4");t.style.backgroundColor=a.cor1,o.style.backgroundColor=a.cor2,r.style.backgroundColor=a.cor3,s.style.backgroundColor=a.cor4,this.gerenciamentoDeQuantidadeProdutos(),this.selecaoDeCorETamanho(),this.salvamentoNoCarrinho(),this.fecharMenuVertical()})})}selecaoDeCorETamanho(){let a=this.menuVertical.querySelectorAll(".botoes-selecao-cores"),o=(a.forEach(t=>{t.addEventListener("click",e=>{a.forEach(e=>e.classList.remove("active")),t.classList.add("active")})}),this.menuVertical.querySelectorAll(".botoes-selecao-tamanho"));o.forEach(t=>{t.addEventListener("click",e=>{o.forEach(e=>e.classList.remove("active")),t.classList.add("active")})})}gerenciamentoDeQuantidadeProdutos(){var e=this.menuVertical.querySelector(".fa-plus"),t=this.menuVertical.querySelector(".fa-minus");let a=this.menuVertical.querySelector(".quantidade");e.addEventListener("click",()=>{var e=parseInt(a.innerText);e++,a.innerText=e}),t.addEventListener("click",()=>{var e=parseInt(a.innerText);e--,(a.innerText=e)<1&&(a.innerText=1)})}salvamentoNoCarrinho(){this.menuVertical.querySelector(".botao-carrinho").addEventListener("click",e=>{var t=JSON.parse(localStorage.getItem("produtosCarrinho"))||[];let a=this.menuVertical.querySelector(".botoes-selecao-cores.active"),o=this.menuVertical.querySelector(".botoes-selecao-tamanho.active"),r=this.idCard;var s,i=this.menuVertical.querySelector(".quantidade"),i=parseInt(i.innerText);null===a||null===o?exibirAlerta("Selecione cor e tamanho","erro"):((s=t.find(e=>e.cor===a.style.backgroundColor&&e.tamanho===o.innerText&&e.id===r))?s.quantidade+=i:(s={id:r,nome:this.produtoSelecionado.nome,cor:a.style.backgroundColor,tamanho:o.innerText,valor:this.produtoSelecionado.preco,imagem:this.produtoSelecionado.imagem,quantidade:i},t.push(s)),localStorage.setItem("produtosCarrinho",JSON.stringify(t)),indicarProdutosNoCarrinhoEFavoritos(),exibirAlerta("Produto adicionado ao carrinho com sucesso!","sucesso"))})}fecharMenuVertical(){document.querySelector("#menu-vertical-fechar").addEventListener("click",()=>{this.menuVertical.style.transform="translateY(100%)",document.body.style.overflow="auto",document.body.style.height="",setTimeout(()=>{this.menuVertical.style.display="none"},500)})}}export{IniciarMenuVertical};

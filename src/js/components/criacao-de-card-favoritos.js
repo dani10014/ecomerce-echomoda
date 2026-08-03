@@ -89,7 +89,7 @@ export async function criarCardFavoritos() {
 
                         localStorage.setItem("meusFavoritos", JSON.stringify(produtosFavoritados));
 
-                        const idCliente = JSON.parse(localStorage.getItem("idUser"))
+                        const idCliente = localStorage.getItem("idUser");
 
                         try{
                             const resposta = await fetch("https://ecomerce-echomoda.onrender.com/api/remover-favoritos",{

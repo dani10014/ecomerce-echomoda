@@ -17,16 +17,20 @@ interface dados{
     localidade:string,
 
 }
+
 class perfil{
         espacoNome:HTMLInputElement | null
         emailUsuario:HTMLInputElement | null
         setaVoltarHome:HTMLElement | null
+        dadosUsuario:object[];
 
     constructor(){
         this.espacoNome = document.querySelector("#campo-nome") as HTMLInputElement
         this.emailUsuario = document.querySelector("#espaco-email") as HTMLInputElement 
         this.setaVoltarHome = document.querySelector("#seta-voltar-home") as HTMLInputElement
-        
+        this.dadosUsuario = []
+
+        this.buscarDadosUsuario()
         this.ouvintesBotoesMenu()
         this.atualizarPerfil()
         this.setaVoltar()
@@ -41,6 +45,27 @@ class perfil{
         }
         if(this.emailUsuario){
             this.emailUsuario.innerText = email
+        }
+    }
+    /*********************** Preciso corrigir ainda *******************/
+    async buscarDadosUsuario(){
+        const idUsuario = localStorage.getItem("idUser");
+    
+        try{
+            const resultadoBuscaDados = await fetch(`https://ecomerce-echomoda.onrender.com/api/buscar-dados-usuario/${idUsuario}`,{
+                method:"GET",
+                headers:{"Content-type":"application/json"},
+                credentials:"include"
+            })
+            
+            const dadosBusca = await resultadoBuscaDados.json();
+
+            if(resultadoBuscaDados.status === 200){
+                this.dadosUsuario = dadosBusca.Resultado
+            }
+        
+        }catch(erro){
+            exibirAlerta("Erro no servidor","erro")
         }
     }
     atualizarDadosCards(){
@@ -83,7 +108,6 @@ class perfil{
                 const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 const numeroUsuario = inputNumeroMeusDados.value.trim();
                 const idUser = localStorage.getItem("idUser");
-                const tokenUser = localStorage.getItem("Token");
 
                 if(inputNomeMeusDados.value.trim() === "" || inputNomeMeusDados.value.trim().length > 32 || inputNomeMeusDados.value.trim().length < 3 ){
                     exibirAlerta("Preencha o campo nome","erro")
@@ -101,16 +125,13 @@ class perfil{
                 try{
                     const resultado = await fetch("https://ecomerce-echomoda.onrender.com/api/alterar-dados-usuario",{
                         method:"PUT",
-                        headers:{"Content-type":"application/json",
-                                "Authorization": `Bearer ${tokenUser}`
-                                },
-
+                        headers:{"Content-type":"application/json"},
+                        credentials: "include",
                         body:JSON.stringify({
                             idUser:idUser,
                             nomeNovo:inputNomeMeusDados.value,
                             novoEmail:emailUsuario,
-                            novoNumero:numeroUsuario,
-                            token:tokenUser
+                            novoNumero:numeroUsuario
                         })
                     })
 
@@ -218,6 +239,9 @@ class perfil{
                     exibirAlerta("Erro no servidor","erro");
                 }
             })
+
+            let alteracaoRolando:boolean = false;
+
             btnSalvarEndereco.addEventListener("click", async (event) => {
                 event.preventDefault();
                 
@@ -248,14 +272,14 @@ class perfil{
         
                 
                 const idUser = localStorage.getItem("idUser");
-                const tokenUser = localStorage.getItem("Token");
+                
+                alteracaoRolando = true;
 
                 try{ 
                     const resultado = await fetch("https://ecomerce-echomoda.onrender.com/api/alterar-endereco",{
                         method:"POST",
-                        headers:{"Content-type":"application/json",
-                                "Authorization": `Bearer ${tokenUser}`
-                                },
+                        headers:{"Content-type":"application/json"},
+                        credentials: "include",
                         body:JSON.stringify({
                             cep:inputMeuEnderecoCep.value,
                             numero:inputMeuEnderecoNumeroCasa.value,
@@ -268,12 +292,24 @@ class perfil{
                         })
                     })
 
+                    const dadosEnderecoAtualizados = await resultado.json();
+
                     if(resultado.status === 200){
-                        exibirAlerta("Endereço atualizado com sucesso","sucesso")
+                        exibirAlerta("Endereço atualizado com sucesso","sucesso");
+
+                        inputMeuEnderecoCep.value = dadosEnderecoAtualizados.endereco.cep;
+                        inputMeuEnderecoNumeroCasa.value = dadosEnderecoAtualizados.endereco.numero;
+                        inputMeuEnderecoRua.value = dadosEnderecoAtualizados.endereco.rua;
+                        inputMeuEnderecoBairro.value = dadosEnderecoAtualizados.endereco.bairro;
+                        inputMeuEnderecoCidade.value = dadosEnderecoAtualizados.endereco.localidade;
+                        inputMeuEnderecoUf.value = dadosEnderecoAtualizados.endereco.UF;
+                        inputMeuEnderecoComplemento.value = dadosEnderecoAtualizados.endereco.complemento || "Não informado";
                     }
                 
                 }catch(erro){
                     exibirAlerta("Erro no servidor","erro");
+                }finally{
+                    alteracaoRolando = false;
                 }
             })
     }

@@ -26,6 +26,14 @@ const allowedOrigins = [
 const resend = new Resend(process.env.RESEND_API_KEY);
 const PORT = process.env.PORT || 3000;
 
+const COOKIE_OPTIONS = {
+    httpOnly: true,
+    sameSite: 'none',
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    path: '/'
+};
+
 const limitadorAuth = rateLimit({
     windowMs: 15 * 60 * 1000, 
     max: 10,
@@ -256,6 +264,7 @@ app.post("/api/logar",limitadorAuth,async (req,res) => {
             const { senha: _, ...usuarioSemSenha } = resultado;
             try {
                 const token = gerarToken(usuarioSemSenha);
+                res.cookie('token', token, COOKIE_OPTIONS);
                 return res.status(200).json({ sucesso: true, usuario: usuarioSemSenha, token: token });
             } catch (tokenError) {
                 console.error('Erro ao gerar token:', tokenError);
@@ -315,7 +324,6 @@ app.post("/api/verificar-codigo", limitadorAuth, (req, res) => {
 
     if (codigo === registro.codigo) {
         codigosTemporarios.delete(email);
-        // Recuperar dados do usuário para gerar token
         return res.status(200).json({ mensagem: "Código verificado com sucesso!" });
     } else {
         return res.status(400).json({ mensagem: "Código incorreto." });
@@ -356,6 +364,7 @@ app.post("/api/criar-cadastro",limitadorAuth,async (req,res) =>{
             const {senha: _senha,...usuarioSemSenha} = novoUsuario
             try {
                 const token = gerarToken(usuarioSemSenha);
+                res.cookie('token', token, COOKIE_OPTIONS);
                 return res.status(201).json({ sucesso: true, mensagem: "Sucesso", novo: usuarioSemSenha, token: token });
             } catch (tokenError) {
                 console.error('Erro ao gerar token no cadastro:', tokenError);
@@ -533,6 +542,30 @@ app.post("/api/alterar-endereco" ,limitadorAuth ,verificarToken, async (req,res)
         return res.status(500).json({ sucesso: false, erro: "Erro ao atualizar endereço" });
     }
 })
+app.get("/api/buscar-endereco", limitadorGeral, verificarToken, async (req, res) => {
+    try{
+        const{iduser} = req.body;
+
+        if(!iduser){
+            return res.status(400).json({erro:"Id do usuario não recebido"})
+        }
+
+        const resultadoBuscaEndereco = await prisma.endereco.findUnique({
+            where:{
+                id:iduser
+            }
+        });
+
+        return res.status(200).json({sucesso:true,endereco:resultadoBuscaEndereco})
+
+    }catch(erro){
+        console.error("Erro no servidor");
+        return res.status(500).json({sucesso:false,erro:"Erro no servidor"})
+    }
+})
+app.get("/api/validar-sessao", verificarToken, (req, res) => {
+    return res.status(200).json({ sucesso: true, usuario: req.usuario });
+});
 app.get("/api/health", (req, res) => {
     res.json({ status: "ok" });
 });

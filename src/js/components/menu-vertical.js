@@ -66,6 +66,12 @@ export function IniciarMenuVertical(){
             
                 const produtoEncontrado = await this.buscarEFiltrarProdutos(idProduto);
 
+                const sanitize = (value) => {
+                    const div = document.createElement('div');
+                    div.textContent = String(value || "");
+                    return div.innerHTML;
+                };
+
                 this.produtoSelecionado = produtoEncontrado;
                 this.idCard = idProduto;
 
@@ -85,24 +91,24 @@ export function IniciarMenuVertical(){
                                 </div>
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <img src="${produtoEncontrado.imagem}" class="d-block w-100" alt="...">
+                                        <img src="${sanitize(produtoEncontrado.imagem)}" class="d-block w-100" alt="...">
                                         <div class="carousel-caption d-block d-md-block">
-                                            <h5>${produtoEncontrado.caption}</h5>
-                                            <p>${produtoEncontrado.preco}</p>
+                                            <h5>${sanitize(produtoEncontrado.caption)}</h5>
+                                            <p>${sanitize(produtoEncontrado.preco)}</p>
                                         </div>
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="${produtoEncontrado.imagem2}" class="d-block w-100" alt="...">
+                                        <img src="${sanitize(produtoEncontrado.imagem2)}" class="d-block w-100" alt="...">
                                         <div class="carousel-caption d-block d-md-block">
-                                            <h5>${produtoEncontrado.caption2}</h5>
-                                            <p>${produtoEncontrado.preco}</p>
+                                            <h5>${sanitize(produtoEncontrado.caption2)}</h5>
+                                            <p>${sanitize(produtoEncontrado.preco)}</p>
                                         </div>
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="${produtoEncontrado.imagem3}" class="d-block w-100" alt="...">
+                                        <img src="${sanitize(produtoEncontrado.imagem3)}" class="d-block w-100" alt="...">
                                         <div class="carousel-caption d-block d-md-block">
-                                            <h5>${produtoEncontrado.caption3}</h5>
-                                            <p>${produtoEncontrado.preco}</p>
+                                            <h5>${sanitize(produtoEncontrado.caption3)}</h5>
+                                            <p>${sanitize(produtoEncontrado.preco)}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -122,8 +128,8 @@ export function IniciarMenuVertical(){
                                 <p class="marca-produto">
                                     ${card.querySelector(".card-body .card-title")?.innerText || 'Marca'}
                                 </p>
-                                <h2 class="nome-produto">${produtoEncontrado.nome}</h2>
-                                <h2 class="valor-produto">R$ ${produtoEncontrado.preco}</h2>
+                                <h2 class="nome-produto">${sanitize(produtoEncontrado.nome)}</h2>
+                                <h2 class="valor-produto">R$ ${sanitize(produtoEncontrado.preco)}</h2>
 
                             <div class="texto-cor">
                                 <div class="container-cor">

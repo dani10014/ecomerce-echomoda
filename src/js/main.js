@@ -94,3 +94,35 @@ if(cabecalhoH1){
         editarPerfil()
     }
 }
+
+async function validarSessaoAoEntrar() {
+    const paginaAtual = window.location.pathname;
+    const ehPaginaPrivada = paginaAtual === "/" || 
+        paginaAtual.includes("index.html") || 
+        paginaAtual.includes("carrinho.html") || 
+        paginaAtual.includes("favoritos.html") ||
+        paginaAtual.includes("perfil.html") ||
+        paginaAtual.includes("pagamento.html");
+
+    if (!ehPaginaPrivada) return;
+
+    try {
+        const resposta = await fetch("https://ecomerce-echomoda.onrender.com/api/validar-sessao", {
+            method: "GET",
+            credentials: "include"
+        });
+
+        if (!resposta.ok) {
+            localStorage.removeItem("Usuario");
+            localStorage.removeItem("idUser");
+            window.location.href = "login.html";
+            return;
+        }
+    } catch (erro) {
+        localStorage.removeItem("Usuario");
+        localStorage.removeItem("idUser");
+        window.location.href = "login.html";
+    }
+}
+
+await validarSessaoAoEntrar();

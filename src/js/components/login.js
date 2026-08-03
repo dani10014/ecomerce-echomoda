@@ -55,6 +55,7 @@ export function login(){
                     const resposta = await fetch("https://ecomerce-echomoda.onrender.com/api/logar", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
+                        credentials: "include",
                         body: JSON.stringify({ email, senha })
                     });   
                 
@@ -75,7 +76,6 @@ export function login(){
                             nome: resultado.usuario.nome || nome,
                         }));
                     
-                        localStorage.setItem("Token", resultado.token)
                         localStorage.setItem("idUser", resultado.usuario.id)
 
                         this.formularioLogin.style.display = "none";
@@ -133,6 +133,7 @@ export function login(){
                                 headers:{
                                     "Content-Type": "application/json" 
                                 },
+                                credentials: "include",
                                 body:JSON.stringify({
                                     nome:dadosUser.nome,
                                     email:dadosUser.email,
@@ -217,8 +218,9 @@ export function login(){
             const icon = tipo === 'sucesso' ? "fa-check-circle" : "fa-times-circle";
             const cor = tipo === 'sucesso' ? "#28a745" : "#dc3545";
 
-            this.alertaAdicao.querySelector(".container h5").innerHTML = 
-                `<i class="fas ${icon} me-2" style="color: ${cor};"></i>${mensagem}`;
+            const h5 = this.alertaAdicao.querySelector(".container h5");
+            h5.innerHTML = `<i class="fas ${icon} me-2" style="color: ${cor};"></i>`;
+            h5.appendChild(document.createTextNode(mensagem));
     
             this.alertaAdicao.style.display = "flex";
                 setTimeout(() => this.alertaAdicao.querySelector(".container").style.transform = "translateY(0)", 200);
@@ -246,7 +248,7 @@ export function login(){
         exibirVerificacaoEmail(email){
             this.formularioVerificarEmail.style.display = "flex";
             setTimeout(()=>{
-                this.formularioVerificarEmail.querySelector("h5").innerHTML = `Codigo enviado para: ${email}`;
+                this.formularioVerificarEmail.querySelector("h5").textContent = `Codigo enviado para: ${email}`;
                 this.formularioVerificarEmail.classList.add("formulario-cadastrar-ativo")
             })
         }
@@ -352,7 +354,6 @@ export function login(){
                                         
                                         sessionStorage.removeItem("temp_user_login");
                                         sessionStorage.removeItem("tipo_acao");
-                                        localStorage.setItem("Token", localStorage.getItem("Token") || "")
                                         
                                         verificarUsuarioExiste();
                                     }
@@ -379,6 +380,7 @@ export function login(){
                 const resposta = await fetch("https://ecomerce-echomoda.onrender.com/api/criar-cadastro",{
                         method:"POST",
                         headers:{"Content-Type":"application/json"},
+                        credentials: "include",
                         body: JSON.stringify({ email, nome, senha })
                 })
 
@@ -392,7 +394,6 @@ export function login(){
                 if(resposta.status === 201){
                     this.exibirAlerta("Usuario cadastrado com sucesso","sucesso");
                     localStorage.setItem("idUser", dados.novo.id)
-                    localStorage.setItem("Token", dados.token)
                     sessionStorage.removeItem("temp_user");
                     return true;
                 } else {
