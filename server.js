@@ -563,6 +563,31 @@ app.get("/api/buscar-endereco", limitadorGeral, verificarToken, async (req, res)
         return res.status(500).json({sucesso:false,erro:"Erro no servidor"})
     }
 })
+app.get("/api/buscar-dados-usuario:idUsuario", limitadorGeral, verificarToken, async (req, res) => {
+    try{
+        const { idUsuario } = req.params;
+        
+        if (!idUsuario) {
+            return res.status(400).json({ erro: "Id do usuário não recebido" });
+        }
+
+        if(!idUsuario || typeof(idUsuario) !== "string"){
+            return res.status(400).json({erro:"Id do usuario invalido"})
+        }
+
+        const resultadoBuscaDados = await prisma.usuarios.findUnique({
+            where:{
+                id:idUsuario
+            }
+        });
+
+        return res.status(200).json({sucesso:true,Resultado:resultadoBuscaDados});
+
+    }catch(erro){
+        console.error("Erro no servidor:", erro);
+        return res.status(500).json({sucesso:false,erro:"Erro no servidor"});
+    }
+})
 app.get("/api/validar-sessao", verificarToken, (req, res) => {
     return res.status(200).json({ sucesso: true, usuario: req.usuario });
 });

@@ -97,6 +97,7 @@ class botaoFavoritar{
                 const resultado = await fetch(`https://ecomerce-echomoda.onrender.com/api/buscar-favoritos?idclient=${idCliente}`,{
                     method:"GET",
                     headers:{"Content-Type":"application/json"},
+                    credentials: "include",
                 })
 
                 const produtos = await resultado.json()

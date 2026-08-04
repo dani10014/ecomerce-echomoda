@@ -22,13 +22,15 @@ class perfil{
         espacoNome:HTMLInputElement | null
         emailUsuario:HTMLInputElement | null
         setaVoltarHome:HTMLElement | null
-        dadosUsuario:object[];
+        dadosUsuarioEndereco:object[];
+        dadosUsuarioPerfil:object[];
 
     constructor(){
         this.espacoNome = document.querySelector("#campo-nome") as HTMLInputElement
         this.emailUsuario = document.querySelector("#espaco-email") as HTMLInputElement 
         this.setaVoltarHome = document.querySelector("#seta-voltar-home") as HTMLInputElement
-        this.dadosUsuario = []
+        this.dadosUsuarioEndereco = [{}];
+        this.dadosUsuarioPerfil = [{}];
 
         this.buscarDadosUsuario()
         this.ouvintesBotoesMenu()
@@ -61,7 +63,7 @@ class perfil{
             const dadosBusca = await resultadoBuscaDados.json();
 
             if(resultadoBuscaDados.status === 200){
-                this.dadosUsuario = dadosBusca.Resultado
+                this.dadosUsuarioEndereco = dadosBusca.Resultado
             }
         
         }catch(erro){
