@@ -32,7 +32,7 @@ class perfil{
         this.dadosUsuarioEndereco = [{}];
         this.dadosUsuarioPerfil = [{}];
 
-        this.buscarDadosUsuario()
+        this.buscarDadosUsuarioEndereco()
         this.ouvintesBotoesMenu()
         this.atualizarPerfil()
         this.setaVoltar()
@@ -50,14 +50,17 @@ class perfil{
         }
     }
     /*********************** Preciso corrigir ainda *******************/
-    async buscarDadosUsuario(){
+    async buscarDadosUsuarioEndereco(){
         const idUsuario = localStorage.getItem("idUser");
     
         try{
-            const resultadoBuscaDados = await fetch(`https://ecomerce-echomoda.onrender.com/api/buscar-dados-usuario/${idUsuario}`,{
+            const resultadoBuscaDados = await fetch("https://ecomerce-echomoda.onrender.com/api/buscar-endereco",{
                 method:"GET",
                 headers:{"Content-type":"application/json"},
-                credentials:"include"
+                credentials:"include",
+                body:JSON.stringify({
+                    iduser:idUsuario,
+                })
             })
             
             const dadosBusca = await resultadoBuscaDados.json();
