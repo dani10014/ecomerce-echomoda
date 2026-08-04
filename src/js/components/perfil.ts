@@ -13,24 +13,30 @@ interface dados{
     cep:string,
     rua:string,
     bairro:string,
-    UF:string,
-    localidade:string,
-
+    estado:string,
+    cidade:string,
+    complemento:string,
 }
 
 class perfil{
+
         espacoNome:HTMLInputElement | null
         emailUsuario:HTMLInputElement | null
         setaVoltarHome:HTMLElement | null
-        dadosUsuarioEndereco:object[];
-        dadosUsuarioPerfil:object[];
+        dadosUsuarioPerfil: object[];
+        loadingFetch:HTMLElement | null;
+        backDropGlass:HTMLElement| null ;
+        dadosUsuarioEndereco: Partial<dados>;
 
     constructor(){
         this.espacoNome = document.querySelector("#campo-nome") as HTMLInputElement
         this.emailUsuario = document.querySelector("#espaco-email") as HTMLInputElement 
         this.setaVoltarHome = document.querySelector("#seta-voltar-home") as HTMLInputElement
-        this.dadosUsuarioEndereco = [{}];
-        this.dadosUsuarioPerfil = [{}];
+        this.backDropGlass = document.querySelector(".backdrop-glass-perfil") as HTMLElement;
+        this.loadingFetch = document.querySelector(".loading") as HTMLElement;
+
+        this.dadosUsuarioEndereco = {};
+        this.dadosUsuarioPerfil = [];
 
         this.buscarDadosUsuarioEndereco()
         this.ouvintesBotoesMenu()
@@ -51,26 +57,38 @@ class perfil{
     }
     /*********************** Preciso corrigir ainda *******************/
     async buscarDadosUsuarioEndereco(){
-        const idUsuario = localStorage.getItem("idUser");
-    
+        const idUser = localStorage.getItem("idUser");
+        this.backDropGlass?.classList.add("ativo-loading-glass");
+        this.loadingFetch?.classList.add("ativo-loading-glass");
+
         try{
-            const resultadoBuscaDados = await fetch("https://ecomerce-echomoda.onrender.com/api/buscar-endereco",{
+            const resultadoBuscaDados = await fetch(`https://ecomerce-echomoda.onrender.com/api/buscar-endereco/${idUser}`,{
                 method:"GET",
                 headers:{"Content-type":"application/json"},
                 credentials:"include",
-                body:JSON.stringify({
-                    iduser:idUsuario,
-                })
             })
             
             const dadosBusca = await resultadoBuscaDados.json();
 
             if(resultadoBuscaDados.status === 200){
-                this.dadosUsuarioEndereco = dadosBusca.Resultado
+                this.dadosUsuarioEndereco = dadosBusca.endereco
+                this.backDropGlass?.classList.remove("ativo-loading-glass");
+                this.loadingFetch?.classList.remove("ativo-loading-glass");
+
+                /************************************************************************************* */
+                /************************ Fetch buscando historico ********************************** */
+
+            }
+            if(resultadoBuscaDados.status === 400){
+                exibirAlerta("Erro ao buscar dados","erro")
+                return
             }
         
         }catch(erro){
             exibirAlerta("Erro no servidor","erro")
+        }finally{
+            this.backDropGlass?.classList.remove("ativo-loading-glass");
+            this.loadingFetch?.classList.remove("ativo-loading-glass");
         }
     }
     atualizarDadosCards(){
@@ -82,7 +100,7 @@ class perfil{
         /****************************** Seção Perfil ****************************************** */
 
         if(cardMeusDados?.classList?.contains("ativo-card-conteudo")){
-            const dadosUser = JSON.parse(localStorage.getItem("Usuario") || "{}") as dados
+            const dadosUser = JSON.parse(localStorage.getItem("Usuario") || "{}") as dados;
             const inputNumeroMeusDados = document.querySelector("#input-telefone-meus-dados") as HTMLInputElement
             const inputNomeMeusDados = document.querySelector("#nome-usuario-meus-dados") as HTMLInputElement
             const inputEMailMeusDados = document.querySelector("#input-email-meus-dados") as HTMLInputElement
@@ -92,10 +110,10 @@ class perfil{
             $(inputNumeroMeusDados).mask("(+00) 00 00000-0000")
 
             if(inputNomeMeusDados){
-                inputNomeMeusDados.value = dadosUser.nome;
+                inputNomeMeusDados.value = dadosUser.nome ?? "";
             }
             if(inputEMailMeusDados){
-                inputEMailMeusDados.value = dadosUser.email;
+                inputEMailMeusDados.value = dadosUser.email ?? "";
             }
 
             if(!dadosUser.numero){
@@ -159,15 +177,15 @@ class perfil{
             btnCancelarAlteracoes.addEventListener("click", () => {
                 if(alteracaoRolando === true){return}
 
-                inputNomeMeusDados.value = dadosUser.nome;
-                inputEMailMeusDados.value = dadosUser.email;
+                inputNomeMeusDados.value = dadosUser.nome ?? "";
+                inputEMailMeusDados.value = dadosUser.email ?? "";
                 inputNumeroMeusDados.value = dadosUser.numero || "Não informado";
             })
 
         }
         /****************************** Seção endereço ****************************************** */
         if(cardEndereco?.classList?.contains("ativo-card-conteudo")){
-            const dadosEndereco = JSON.parse(localStorage.getItem("endereco") || "{}") as dados
+            const dadosEndereco = this.dadosUsuarioEndereco as dados;
 
             const inputMeuEnderecoCep = document.querySelector("#input-endereco-cep") as HTMLInputElement;
             const btnBuscarCep = document.querySelector("#btn-buscar-cep") as HTMLButtonElement;
@@ -187,8 +205,8 @@ class perfil{
                 inputMeuEnderecoCep.value = "Não informado";
             }
             
-            if(dadosEndereco.localidade){
-                inputMeuEnderecoCidade.value = dadosEndereco.localidade;
+            if(dadosEndereco.cidade){
+                inputMeuEnderecoCidade.value = dadosEndereco.cidade;
             }else{
                 inputMeuEnderecoCidade.value = "Não informado";
             }
@@ -199,8 +217,8 @@ class perfil{
                 inputMeuEnderecoNumeroCasa.value = "Não informado";
             }
 
-            if (dadosEndereco.UF) {
-                inputMeuEnderecoUf.value = dadosEndereco.UF;
+            if (dadosEndereco.estado) {
+                inputMeuEnderecoUf.value = dadosEndereco.estado;
             } else {
                 inputMeuEnderecoUf.value = "Não informado"
             }
@@ -215,6 +233,10 @@ class perfil{
                 inputMeuEnderecoRua.value = dadosEndereco.rua;
             }else{
                 inputMeuEnderecoRua.value = "Não informado"
+            }
+
+            if(dadosEndereco.complemento){
+                inputMeuEnderecoComplemento.value = dadosEndereco.complemento
             }
             
             btnBuscarCep.addEventListener("click", async (event) => {
@@ -275,7 +297,6 @@ class perfil{
                     return;
                 }
         
-                
                 const idUser = localStorage.getItem("idUser");
                 
                 alteracaoRolando = true;
@@ -301,14 +322,15 @@ class perfil{
 
                     if(resultado.status === 200){
                         exibirAlerta("Endereço atualizado com sucesso","sucesso");
-
+                        this.dadosUsuarioEndereco = dadosEnderecoAtualizados.endereco;
+                        
                         inputMeuEnderecoCep.value = dadosEnderecoAtualizados.endereco.cep;
                         inputMeuEnderecoNumeroCasa.value = dadosEnderecoAtualizados.endereco.numero;
                         inputMeuEnderecoRua.value = dadosEnderecoAtualizados.endereco.rua;
                         inputMeuEnderecoBairro.value = dadosEnderecoAtualizados.endereco.bairro;
-                        inputMeuEnderecoCidade.value = dadosEnderecoAtualizados.endereco.localidade;
-                        inputMeuEnderecoUf.value = dadosEnderecoAtualizados.endereco.UF;
-                        inputMeuEnderecoComplemento.value = dadosEnderecoAtualizados.endereco.complemento || "Não informado";
+                        inputMeuEnderecoCidade.value = dadosEnderecoAtualizados.endereco.cidade;
+                        inputMeuEnderecoUf.value = dadosEnderecoAtualizados.endereco.estado;
+                        inputMeuEnderecoComplemento.value = dadosEnderecoAtualizados.endereco.complemento;
                     }
                 
                 }catch(erro){

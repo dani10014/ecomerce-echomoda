@@ -74,6 +74,7 @@ export function login(){
                         sessionStorage.setItem("temp_user_login", JSON.stringify({
                             email: email,
                             nome: resultado.usuario.nome || nome,
+                            numero: resultado.usuario.numero || null,
                         }));
                     
                         localStorage.setItem("idUser", resultado.usuario.id)
