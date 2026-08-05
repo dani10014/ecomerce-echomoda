@@ -1758,6 +1758,19 @@ body {
     height: 65%;
   }
 }
+.container-conteudo-escolhido .meus-dados-card table th {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+  border-bottom: 1px solid black;
+}
+.container-conteudo-escolhido .meus-dados-card table tbody #imagem-produto img {
+  width: 100px;
+}
+.container-conteudo-escolhido .meus-dados-card table tbody #valor {
+  color: green;
+}
 .container-conteudo-escolhido .meus-dados-card .acoes-dados {
   margin-top: 1rem;
   display: flex;

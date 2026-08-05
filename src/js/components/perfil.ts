@@ -23,10 +23,10 @@ class perfil{
         espacoNome:HTMLInputElement | null
         emailUsuario:HTMLInputElement | null
         setaVoltarHome:HTMLElement | null
-        dadosUsuarioPerfil: object[];
         loadingFetch:HTMLElement | null;
         backDropGlass:HTMLElement| null ;
         dadosUsuarioEndereco: Partial<dados>;
+        dadosHistoricos:object[]
 
     constructor(){
         this.espacoNome = document.querySelector("#campo-nome") as HTMLInputElement
@@ -36,7 +36,7 @@ class perfil{
         this.loadingFetch = document.querySelector(".loading") as HTMLElement;
 
         this.dadosUsuarioEndereco = {};
-        this.dadosUsuarioPerfil = [];
+        this.dadosHistoricos = [{}]
 
         this.buscarDadosUsuarioEndereco()
         this.ouvintesBotoesMenu()
@@ -195,6 +195,7 @@ class perfil{
             const inputMeuEnderecoRua = document.querySelector("#input-dados-endereco-rua") as HTMLInputElement;
             const inputMeuEnderecoBairro = document.querySelector("#input-dados-endereco-bairro") as HTMLInputElement;
             const btnSalvarEndereco = document.querySelector("#btn-salvar-alteracao-endereco") as HTMLButtonElement;
+            const btnCancelarSalvamento = document.querySelector("#btn-cancelar-alteracao-endereco") as HTMLButtonElement;
             const inputMeuEnderecoComplemento = document.querySelector("#input-dados-endereco-referencia") as HTMLInputElement;
 
             $(inputMeuEnderecoCep).mask("00000000");
@@ -339,6 +340,18 @@ class perfil{
                     alteracaoRolando = false;
                 }
             })
+        btnCancelarSalvamento.addEventListener("click",(event) => {
+            event.preventDefault();
+            if(alteracaoRolando === true){return}
+                inputMeuEnderecoCep.value = this.dadosUsuarioEndereco.cep!;
+                inputMeuEnderecoNumeroCasa.value = this.dadosUsuarioEndereco.numero!;
+                inputMeuEnderecoRua.value = this.dadosUsuarioEndereco.rua!;
+                inputMeuEnderecoBairro.value = this.dadosUsuarioEndereco.bairro!;
+                inputMeuEnderecoCidade.value = this.dadosUsuarioEndereco.cidade!;
+                inputMeuEnderecoUf.value = this.dadosUsuarioEndereco.estado!;
+                inputMeuEnderecoComplemento.value = this.dadosUsuarioEndereco.complemento!
+            
+        }) 
     }
 }
     ouvintesBotoesMenu(){
@@ -371,6 +384,11 @@ class perfil{
                 if(botao.dataset.id === "endereco"){
                     const cardEndereco = document.querySelector("#dados-endereco") as HTMLElement;
                     cardEndereco.classList.add("ativo-card-conteudo")
+                    this.atualizarDadosCards()
+                }
+                if(botao.dataset.id === "historico"){
+                    const cardHistorico = document.querySelector("#dados-historico") as HTMLElement
+                    cardHistorico.classList.add("ativo-card-conteudo")
                     this.atualizarDadosCards()
                 }
             })

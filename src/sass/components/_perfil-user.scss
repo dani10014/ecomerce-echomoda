@@ -160,7 +160,23 @@
                     }
                 }
             }
-
+            table{
+                th{
+                    @include fontes.fontePrincipal;
+                    border-bottom: 1px solid black;
+                }
+                tbody{
+                    #imagem-produto{
+                        img{
+                            width: 100px;
+                            
+                        }
+                    }
+                    #valor{
+                        color: green;
+                    }
+                }
+            }
             .acoes-dados{
                 margin-top: variaveis.$spacing-md;
                 display:flex;
