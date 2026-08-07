@@ -1,0 +1,76 @@
+@use "./variaveis";
+@use "./fontes";
+
+.secao-catalogo{
+    @media (min-width:750px){
+        height: 100vh;
+    }
+    padding: variaveis.$spacing-3xl 0;
+    .container{
+        display: flex;
+        flex-direction: column-reverse;
+        width: 100%;
+        height: 100%;
+        @include variaveis.sombraObj;
+        @media(min-width:750px){
+            flex-direction: row;
+        }
+        .container-texto-catalogo{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: variaveis.$spacing-3xl;
+            padding-top: 78px;
+            width: 100%;
+            backdrop-filter: brightness(0.5);
+            -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
+            mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
+            @media(min-width:750px){
+                -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
+                mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
+            }
+            border-radius: 10px;
+            &__titulo{
+                color: #fff;
+                @include fontes.fontePrincipal;
+            }
+            &__subtitulo{
+                color: #fff;
+                margin-bottom: 0;
+                @include fontes.fonteNomeProdutos;
+            }
+            &__detalhes-catalogo{
+                display: flex;
+                flex-direction: column;
+                margin: variaveis.$spacing-lg 0;
+                span{
+                    color: #fff;
+                    text-align: start !important;
+                    @include fontes.fonteNomeProdutos;
+                }
+            }
+            &__botao{
+                padding: variaveis.$spacing-md variaveis.$spacing-3xl;
+                border-radius: 10px;
+                border: none;
+                @include variaveis.sombraObj;
+            }
+        }
+        .container-foto-catalogo{
+            width: 100%;
+            &__imagem-catalogo{
+                width: 100%;
+                height: 100%;
+                border-radius: 10px;
+                -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
+                mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
+                @media(min-width:750px){
+                    -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
+                    mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
+                }
+            }
+        }
+    }
+}

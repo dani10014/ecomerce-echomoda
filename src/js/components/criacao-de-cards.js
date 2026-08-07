@@ -5,7 +5,7 @@ function sanitizarHTML(texto) {
     return div.innerHTML;
 }
 class CriarProduto{
-    constructor(id,nome,imagem,imagem2,imagem3,preco,categoria){
+    constructor(id,nome,imagem,imagem2,imagem3,preco,categoria,cor1,cor2,cor3,cor4){
         this.id = id;
         this.nome = nome
         this.imagem = imagem;
@@ -13,6 +13,10 @@ class CriarProduto{
         this.imagem3 = imagem3;
         this.preco = preco;
         this.categoria = categoria;
+        this.cor1 = cor1;
+        this.cor2 = cor2;
+        this.cor3 = cor3;
+        this.cor4 = cor4;
     }
     devolverCard(){
     const cardProduto = document.createElement('div');
@@ -46,11 +50,47 @@ class CriarProduto{
                                     <div class='card-body'>
                                         <h5 class='card-title'>${sanitizarHTML(this.nome)}</h5>
                                         <h3>${sanitizarHTML(this.preco)}</h3>
+                                        <div class="estrelas d-flex justify-content-between">
+                                            <div class="container-estrelas">
+                                                <i class="fas fa-star"></i>
+                                                <p class="mb-0">2.5/5</p>
+                                            </div>
+                                            <div class="container-cores">
+                                                    <button id="cor-exibic-tela-inicial-1"></button>
+                                                    <button id="cor-exibic-tela-inicial-2"></button>
+                                                    <button id="cor-exibic-tela-inicial-3"></button>
+                                                    <button id="cor-exibic-tela-inicial-4"></button>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="botao-favoritos">
                                         <i class="fa-solid fa-star"></i>
                                     </div>
                                 </div>`
+
+                            if(this.cor1){
+                                cardProduto.querySelector("#cor-exibic-tela-inicial-1").style.backgroundColor = `${this.cor1}`;
+                            }else{
+                                cardProduto.querySelector("#cor-exibic-tela-inicial-1").style.backgroundColor = "grey";
+                            }
+
+                            if(this.cor2){
+                                cardProduto.querySelector("#cor-exibic-tela-inicial-2").style.backgroundColor = `${this.cor2}`;
+                            }else{
+                                cardProduto.querySelector("#cor-exibic-tela-inicial-2").style.backgroundColor = "grey";
+                            }
+
+                            if(this.cor3){
+                                cardProduto.querySelector("#cor-exibic-tela-inicial-3").style.backgroundColor = `${this.cor3}`;
+                            }else{
+                                cardProduto.querySelector("#cor-exibic-tela-inicial-3").style.backgroundColor = "grey";
+                            }
+
+                            if(this.cor4){
+                                cardProduto.querySelector("#cor-exibic-tela-inicial-4").style.backgroundColor = `${this.cor4}`;
+                            }else{
+                                cardProduto.querySelector("#cor-exibic-tela-inicial-4").style.backgroundColor = "grey";
+                            }
 
                             if(this.categoria === "blusa"){
                                 const containerRoupas = document.querySelector(".produtos-camisas .container-base-card");   
@@ -78,7 +118,7 @@ export async function buscarProdutos() {
             }
         /**Criação dos cards direto da classe CriarProduto */
             produtos.forEach(dado => {
-                const card = new CriarProduto(dado.id,dado.nome,dado.imagem,dado.imagem2,dado.imagem3,dado.preco,dado.categoria);
+                const card = new CriarProduto(dado.id,dado.nome,dado.imagem,dado.imagem2,dado.imagem3,dado.preco,dado.categoria,dado.cor1,dado.cor2,dado.cor3,dado.cor4,dado.cor5)
                 card.devolverCard();
             })
 

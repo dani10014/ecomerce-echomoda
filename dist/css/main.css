@@ -24,7 +24,7 @@ header .cabecalho__nome-loja {
   font-size: 2rem;
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
   text-shadow: 2px 5px 5px black;
   margin: 0;
@@ -59,7 +59,7 @@ header .cabecalho__carrinho:hover {
 .barra-oferta .conteudo-marquise span {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
   font-family: sans-serif;
   font-weight: bold;
@@ -194,7 +194,7 @@ header .cabecalho__carrinho:hover {
   margin-bottom: 0;
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
 }
 .secao-produtos .container-base-card {
@@ -213,15 +213,15 @@ header .cabecalho__carrinho:hover {
   }
 }
 .secao-produtos .container-base-card .card {
-  height: 300px;
+  height: 330px;
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 400;
   text-align: center;
   font-size: 0.75rem;
   font-style: normal;
   font-variation-settings: "wdth" 100;
-  box-shadow: 0px 0px 8px black;
+  box-shadow: 0 28px 60px rgba(22, 42, 79, 0.08);
   transition: all 0.3s ease-in-out;
   border-radius: 10px;
   cursor: pointer;
@@ -267,6 +267,23 @@ header .cabecalho__carrinho:hover {
   .secao-produtos .container-base-card .card-body h3 {
     font-size: 0.85rem;
   }
+}
+.secao-produtos .container-base-card .card-body .estrelas {
+  align-items: center;
+  margin-top: 1.5rem;
+}
+.secao-produtos .container-base-card .card-body .estrelas .container-cores {
+  gap: 0.75rem;
+}
+.secao-produtos .container-base-card .card-body .estrelas .container-cores button {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 28px 60px rgba(22, 42, 79, 0.08);
+}
+.secao-produtos .container-base-card .card-body .estrelas .container-estrelas i {
+  color: gold;
 }
 .secao-produtos .texto-da-pesquisa-ativo {
   display: flex;
@@ -345,7 +362,7 @@ header .cabecalho__carrinho:hover {
   color: #ffffff;
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
   font-size: 1.2rem;
   margin: 0;
@@ -453,19 +470,18 @@ header .cabecalho__carrinho:hover {
 .descontos-e-ofertas .bloco-ofertas .text-oferta h6 {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
   margin: 0;
   font-size: 0.9rem;
   margin-bottom: 0.5rem;
-  -webkit-text-stroke: 1.5px #fff;
+  color: #fff;
   width: 50%;
 }
 @media (min-width: 750px) {
   .descontos-e-ofertas .bloco-ofertas .text-oferta h6 {
     font-size: 1.4rem;
     margin-bottom: 1rem;
-    -webkit-text-stroke: 2px #fff;
   }
 }
 .descontos-e-ofertas .bloco-ofertas .text-oferta p {
@@ -477,7 +493,6 @@ header .cabecalho__carrinho:hover {
   .descontos-e-ofertas .bloco-ofertas .text-oferta p {
     font-size: 1rem;
     margin-bottom: 1.5rem;
-    -webkit-text-stroke: 1px #fff;
   }
 }
 .descontos-e-ofertas .bloco-ofertas .text-oferta__botao-explorar {
@@ -527,7 +542,7 @@ header .cabecalho__carrinho:hover {
   color: black;
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
   font-size: 1.2rem;
 }
@@ -579,7 +594,7 @@ header .cabecalho__carrinho:hover {
 .menu-vertical__corpo-produto .nome-produto {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
   font-size: 2rem;
   color: black;
@@ -588,7 +603,7 @@ header .cabecalho__carrinho:hover {
 .menu-vertical__corpo-produto .valor-produto {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
   font-size: 2rem;
   color: black;
@@ -695,7 +710,7 @@ header .cabecalho__carrinho:hover {
   color: black;
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 400;
   text-align: center;
   font-size: 0.75rem;
   font-style: normal;
@@ -784,7 +799,7 @@ header .cabecalho__carrinho:hover {
 .confirmacao-adicao-carrinho .container h5 {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
   color: #fff;
   font-size: 0.85rem;
@@ -807,7 +822,7 @@ header .cabecalho__carrinho:hover {
   margin-bottom: 0.75rem;
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
 }
 .carousel-caption p {
@@ -840,7 +855,7 @@ header .cabecalho .fa-chevron-left:hover {
 header .cabecalho h1 {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
   font-size: 2rem;
   text-shadow: 2px 5px 5px black;
@@ -863,7 +878,7 @@ main .produtos-favoritados .card {
   transition: all 0.3s ease-in-out;
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 400;
   text-align: center;
   font-size: 0.75rem;
   font-style: normal;
@@ -935,7 +950,7 @@ main .produtos-favoritados .card-body h3::before {
   transition: all 0.3s ease-in-out;
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 400;
   text-align: center;
   font-size: 0.75rem;
   font-style: normal;
@@ -1061,7 +1076,7 @@ main .produtos-favoritados .card-body h3::before {
   text-align: center;
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
   margin-bottom: 0;
 }
@@ -1156,7 +1171,7 @@ main .produtos-favoritados .card-body h3::before {
 #container-finalizar label {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
   margin-bottom: 10px;
 }
@@ -1191,7 +1206,7 @@ main .produtos-favoritados .card-body h3::before {
   margin-bottom: 2rem;
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
   border-bottom: 2px solid #fff;
 }
@@ -1205,7 +1220,7 @@ main .produtos-favoritados .card-body h3::before {
   margin-bottom: 2rem;
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 400;
   text-align: center;
   font-size: 0.75rem;
   font-style: normal;
@@ -1267,7 +1282,7 @@ main .produtos-favoritados .card-body h3::before {
   font-size: 0.85rem;
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 400;
   text-align: center;
   font-size: 0.75rem;
   font-style: normal;
@@ -1310,7 +1325,7 @@ main .produtos-favoritados .card-body h3::before {
 .oque-dizem__titulo {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
   color: #fff;
   text-align: center;
@@ -1324,7 +1339,7 @@ main .produtos-favoritados .card-body h3::before {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.02));
   border-radius: 12px;
   border: none;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 28px 60px rgba(22, 42, 79, 0.08);
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 .oque-dizem .card:hover {
@@ -1606,7 +1621,7 @@ body {
   font-size: 1rem;
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
 }
 @media (min-width: 750px) {
@@ -1649,7 +1664,7 @@ body {
   box-shadow: 0 28px 60px rgba(22, 42, 79, 0.08);
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 400;
   text-align: center;
   font-size: 0.75rem;
   font-style: normal;
@@ -1697,7 +1712,7 @@ body {
   margin-bottom: 1rem;
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
 }
 .container-conteudo-escolhido .meus-dados-card {
@@ -1737,7 +1752,7 @@ body {
   font-size: 0.9rem;
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
   transition: box-shadow 0.18s ease, border-color 0.18s ease;
 }
@@ -1761,7 +1776,7 @@ body {
 .container-conteudo-escolhido .meus-dados-card table th {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
   border-bottom: 1px solid black;
 }
@@ -1787,7 +1802,7 @@ body {
   cursor: pointer;
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 400;
   text-align: center;
   font-size: 0.75rem;
   font-style: normal;
@@ -1807,7 +1822,7 @@ body {
   cursor: pointer;
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 400;
   text-align: center;
   font-size: 0.75rem;
   font-style: normal;
@@ -1858,7 +1873,7 @@ body {
   margin-bottom: 0;
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
   font-size: 1.2rem;
   margin-top: 0.75rem;
@@ -1890,7 +1905,7 @@ body {
 #main-pagamento-final .container-mae-pagamento__cabecalho__titulo {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
   font-size: 1.4rem;
   text-align: center;
@@ -1899,7 +1914,7 @@ body {
   justify-content: center;
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 400;
   text-align: center;
   font-size: 0.75rem;
   font-style: normal;
@@ -2022,7 +2037,7 @@ body {
   text-align: center;
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
 }
 #main-pagamento-final .qr-code-container__imagem-e-copiaECola input {
@@ -2049,7 +2064,7 @@ body {
   color: #ffffff;
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
 }
 #main-pagamento-final .logo-da-loja img {
@@ -2057,6 +2072,105 @@ body {
   height: 80%;
   border-radius: 10px;
   box-shadow: 0 28px 60px rgba(22, 42, 79, 0.08);
+}
+
+@media (min-width: 750px) {
+  .secao-catalogo {
+    height: 100vh;
+  }
+}
+.secao-catalogo {
+  padding: 4rem 0;
+}
+.secao-catalogo .container {
+  display: flex;
+  flex-direction: column-reverse;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 28px 60px rgba(22, 42, 79, 0.08);
+}
+@media (min-width: 750px) {
+  .secao-catalogo .container {
+    flex-direction: row;
+  }
+}
+.secao-catalogo .container .container-texto-catalogo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4rem;
+  padding-top: 78px;
+  width: 100%;
+  backdrop-filter: brightness(0.5);
+  -webkit-mask-image: linear-gradient(to top, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(to top, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
+}
+@media (min-width: 750px) {
+  .secao-catalogo .container .container-texto-catalogo {
+    -webkit-mask-image: linear-gradient(to right, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
+    mask-image: linear-gradient(to right, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
+  }
+}
+.secao-catalogo .container .container-texto-catalogo {
+  border-radius: 10px;
+}
+.secao-catalogo .container .container-texto-catalogo__titulo {
+  color: #fff;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+.secao-catalogo .container .container-texto-catalogo__subtitulo {
+  color: #fff;
+  margin-bottom: 0;
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  text-align: center;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+.secao-catalogo .container .container-texto-catalogo__detalhes-catalogo {
+  display: flex;
+  flex-direction: column;
+  margin: 1.5rem 0;
+}
+.secao-catalogo .container .container-texto-catalogo__detalhes-catalogo span {
+  color: #fff;
+  text-align: start !important;
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  text-align: center;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+.secao-catalogo .container .container-texto-catalogo__botao {
+  padding: 1rem 4rem;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 28px 60px rgba(22, 42, 79, 0.08);
+}
+.secao-catalogo .container .container-foto-catalogo {
+  width: 100%;
+}
+.secao-catalogo .container .container-foto-catalogo__imagem-catalogo {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  -webkit-mask-image: linear-gradient(to bottom, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(to bottom, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
+}
+@media (min-width: 750px) {
+  .secao-catalogo .container .container-foto-catalogo__imagem-catalogo {
+    -webkit-mask-image: linear-gradient(to left, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
+    mask-image: linear-gradient(to left, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
+  }
 }
 
 body {

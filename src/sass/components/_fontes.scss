@@ -3,13 +3,13 @@
 @mixin fontePrincipal {
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
-    font-weight: normal;
+    font-weight: 600;
     font-style: normal;
 }
 @mixin fonteNomeProdutos{
     font-family: "Roboto", sans-serif;
     font-optical-sizing: auto;
-    font-weight: normal;
+    font-weight: 400;
     text-align: center;
     font-size: variaveis.$font-xs;
     font-style: normal;
