@@ -563,7 +563,20 @@ app.get("/api/buscar-endereco/:idUser", limitadorGeral, verificarToken, async (r
         return res.status(500).json({sucesso:false,erro:"Erro no servidor"})
     }
 })
+app.get("/api/buscar-historico/:iduser" ,limitadorGeral ,verificarToken, async (req,res) =>{
+    const {iduser} = req.params
 
+    if(!iduser){
+        return res.status(400).json({erro:"Id do usuario não recebido"})
+    }
+
+    const resultadoBuscaHistorico = await prisma.pedidos.findMany({
+        where:{
+            id:iduser
+        }
+    })
+        return res.status(200).json({Resposta:resultadoBuscaHistorico || []});
+})
 app.get("/api/validar-sessao", verificarToken, (req, res) => {
     return res.status(200).json({ sucesso: true, usuario: req.usuario });
 });

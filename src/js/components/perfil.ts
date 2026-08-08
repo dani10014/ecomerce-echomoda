@@ -62,27 +62,29 @@ class perfil{
         this.loadingFetch?.classList.add("ativo-loading-glass");
 
         try{
-            const resultadoBuscaDados = await fetch(`https://ecomerce-echomoda.onrender.com/api/buscar-endereco/${idUser}`,{
-                method:"GET",
-                headers:{"Content-type":"application/json"},
-                credentials:"include",
-            })
-            
-            const dadosBusca = await resultadoBuscaDados.json();
+            const [resultadoBuscaEndereco,resultadoBuscaHistorico] = await Promise.all([
+                fetch(`https://ecomerce-echomoda.onrender.com/api/buscar-endereco/${idUser}`,{
+                    method:"GET",
+                    headers:{"Content-type":"application/json"},
+                    credentials:"include",
+                }),
+                fetch(`https://ecomerce-echomoda.onrender.com/api/buscar-historico/${idUser}`,{
+                    method:"GET",
+                    headers:{"Content-type":"application/json"},
+                    credentials:"include",
+                })
+            ])
 
-            if(resultadoBuscaDados.status === 200){
-                this.dadosUsuarioEndereco = dadosBusca.endereco
-                this.backDropGlass?.classList.remove("ativo-loading-glass");
-                this.loadingFetch?.classList.remove("ativo-loading-glass");
-
-                /************************************************************************************* */
-                /************************ Fetch buscando historico ********************************** */
-
-            }
-            if(resultadoBuscaDados.status === 400){
+            if(!resultadoBuscaEndereco.ok || !resultadoBuscaHistorico.ok){
                 exibirAlerta("Erro ao buscar dados","erro")
                 return
             }
+
+            const dadosBuscaEndereco = await resultadoBuscaEndereco.json();
+            const dadosBuscaHistorico = await resultadoBuscaHistorico.json();
+
+            this.dadosUsuarioEndereco = dadosBuscaEndereco.endereco;
+            this.dadosHistoricos = dadosBuscaHistorico.historico;
         
         }catch(erro){
             exibirAlerta("Erro no servidor","erro")
@@ -96,6 +98,7 @@ class perfil{
         /*todos os card de cada seção */
         const cardMeusDados = document.querySelector("#meus-dados-card") as HTMLElement
         const cardEndereco = document.querySelector("#dados-endereco") as HTMLElement
+        const cardHistorico = document.querySelector("#dados-historico") as HTMLElement
         
         /****************************** Seção Perfil ****************************************** */
 
@@ -352,6 +355,10 @@ class perfil{
                 inputMeuEnderecoComplemento.value = this.dadosUsuarioEndereco.complemento!
             
         }) 
+
+    }
+    if(cardHistorico?.classList?.contains(".ativo-card-conteudo")){
+        const dadosHistorico = this.dadosHistoricos
     }
 }
     ouvintesBotoesMenu(){
