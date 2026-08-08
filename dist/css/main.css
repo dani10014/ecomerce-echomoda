@@ -2074,19 +2074,20 @@ body {
   box-shadow: 0 28px 60px rgba(22, 42, 79, 0.08);
 }
 
+.secao-catalogo {
+  padding: 4rem 0;
+}
 @media (min-width: 750px) {
   .secao-catalogo {
     height: 100vh;
   }
-}
-.secao-catalogo {
-  padding: 4rem 0;
 }
 .secao-catalogo .container {
   display: flex;
   flex-direction: column-reverse;
   width: 100%;
   height: 100%;
+  overflow-x: hidden;
   box-shadow: 0 28px 60px rgba(22, 42, 79, 0.08);
 }
 @media (min-width: 750px) {
@@ -2103,6 +2104,8 @@ body {
   padding: 4rem;
   padding-top: 78px;
   width: 100%;
+  min-width: 0;
+  flex: 1 1 0;
   backdrop-filter: brightness(0.5);
   -webkit-mask-image: linear-gradient(to top, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
   mask-image: linear-gradient(to top, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
@@ -2158,10 +2161,14 @@ body {
 }
 .secao-catalogo .container .container-foto-catalogo {
   width: 100%;
+  min-width: 0;
+  flex: 1 1 0;
 }
 .secao-catalogo .container .container-foto-catalogo__imagem-catalogo {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  display: block;
   border-radius: 10px;
   -webkit-mask-image: linear-gradient(to bottom, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
   mask-image: linear-gradient(to bottom, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
@@ -2171,6 +2178,15 @@ body {
     -webkit-mask-image: linear-gradient(to left, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
     mask-image: linear-gradient(to left, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
   }
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
 }
 
 body {
