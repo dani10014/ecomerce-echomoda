@@ -41,7 +41,7 @@
                         Endereço <i class="fa-solid fa-location-dot"></i>
                     </button>
                     <button class="btn btn-primary" data-id="historico">
-                        Historico
+                        Histórico
                     </button>
                     <button class="btn btn-primary" data-id="email">
                         Email
@@ -120,30 +120,22 @@
             </div>
             <div class="meus-dados-card" id="dados-historico">
                 <form class="meus-dados-form">
-                    <table class="w-100 text-center">
-                        <th>Imagem</th>
-                        <th>Status</th>
-                        <th>Data</th>
-                        <th>Quantidade</th>
-                        <th>Valor</th>
-                        <tbody>
-                            <td id="imagem-produto">
-                                <img src="./src/imagens/puma-180-1.png">
-                            </td>
-                            <td>
-                                Pendente
-                            </td>
-                            <td>
-                                09/02/26
-                            </td>
-                            <td>
-                                2
-                            </td>
-                            <td id="valor">
-                                180,00
-                            </td>
-                        </tbody>
-                    </table>
+                    <div class="informacoes-tabela">
+                        <div class="informacoes-tabela__tabela-header">
+                            <span class="invisible"></span>
+                            <span>Status</span>
+                            <span>Data</span>
+                            <span>Quantidade</span>
+                            <span>Valor</span>
+                        </div>
+                        <div class="informacoes-tabela__tabela-corpo">
+                            <span class="image-container"><img src="./src/imagens/Asics-Gel-NYC-Cream-Oyster-Grey-3.jpg" class="imagem-produto"></span>
+                            <span id="status">Pendente</span>
+                            <span id="data">03/04/26</span>
+                            <span id="quantidade">1</span>
+                            <span id="valor">128,00</span>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
