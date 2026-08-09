@@ -1417,6 +1417,8 @@ main .produtos-favoritados .card-body h3::before {
   background-image: url("../../../src/imagens/pecas-essenciais-que-toda-pessoa-que-trabalha-com-moda-tem-no-armario-chanel-mcskinsie-20220418150325.jpg");
   background-position: center;
   background-size: cover;
+  -webkit-mask-image: linear-gradient(to bottom, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(to bottom, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
   filter: brightness(0.3);
   z-index: -1;
 }
@@ -1772,6 +1774,21 @@ body {
   .container-conteudo-escolhido .meus-dados-card .meus-dados-grid .botao-buscar-cep button {
     height: 65%;
   }
+}
+.container-conteudo-escolhido .meus-dados-card .informacoes-tabela .aviso-sem-compras-produto {
+  display: none;
+  text-align: center;
+  margin-top: 1.5rem;
+}
+.container-conteudo-escolhido .meus-dados-card .informacoes-tabela .aviso-sem-compras-produto span::before {
+  content: "|";
+  background: #000000;
+  background: linear-gradient(90deg, rgb(0, 0, 0) 0%, rgb(49, 0, 71) 97%);
+  transition: all 0.3s ease-in-out;
+  margin-right: 0.75rem;
+}
+.container-conteudo-escolhido .meus-dados-card .informacoes-tabela .ativo-aviso {
+  display: flex;
 }
 .container-conteudo-escolhido .meus-dados-card .informacoes-tabela__tabela-header {
   display: flex;

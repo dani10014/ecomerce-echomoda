@@ -366,15 +366,21 @@ class perfil{
     }
     if(cardHistorico?.classList?.contains("ativo-card-conteudo")){
         const containerParaInserir = document.querySelector(".informacoes-tabela") as HTMLElement;
-
         const dadosHistoricosUSer = this.dadosHistoricos;
+        const avisoHistoricoSemCompras = document.querySelector(".aviso-sem-compras-produto") as HTMLElement;
+
+        if(dadosHistoricosUSer.length === 0){
+            avisoHistoricoSemCompras.classList.add("ativo-aviso")
+        }
 
         dadosHistoricosUSer.forEach(dadoUsuario => {
+            const horaFormatada = new Date(dadoUsuario.data_pedido).toLocaleDateString("pt-BR")
+
             const card = document.createElement("div");
             card.className = "informacoes-tabela__tabela-corpo"
             card.innerHTML =`<span class="image-container"><img src="${dadoUsuario.imagem || "#"}"class="imagem-produto"></span>
                             <span id="status">${dadoUsuario.status || "Sem dados"}</span>
-                            <span id="data">${dadoUsuario.data_pedido || "Sem dados"}</span>
+                            <span id="data"> ${horaFormatada || "Sem dados"}</span>
                             <span id="quantidade">${dadoUsuario.quantidade || "Sem dados"}</span>
                             <span id="valor">${dadoUsuario.total || "Sem dados"}</span>`
 

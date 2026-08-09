@@ -161,6 +161,24 @@
                 }
             }
             .informacoes-tabela{
+                .aviso-sem-compras-produto{
+                    display: none;
+                    text-align: center;
+                    margin-top: variaveis.$spacing-lg;
+                    span{
+                        
+                        &::before{
+                            content: "|";
+                            background: #000000;
+                            background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(49, 0, 71, 1) 97%);
+                            transition: all 0.3s ease-in-out;
+                            margin-right: variaveis.$spacing-sm;
+                        }
+                    }
+                }
+                .ativo-aviso{
+                    display: flex;
+                }
                 &__tabela-header{
                     display: flex;
                     gap: 5px;
