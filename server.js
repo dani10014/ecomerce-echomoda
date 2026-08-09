@@ -185,7 +185,7 @@ app.post("/api/criar-pagamento",limitadorGeral, async (req, res) => {
                     usuario_id:idUser,
                     mp_id:resultado.id.toString(),
                     total: Number(precoTotal),
-                    status: "pendente",
+                    status: "Pendente",
                     data_pedido:new Date(),
                 }
             });

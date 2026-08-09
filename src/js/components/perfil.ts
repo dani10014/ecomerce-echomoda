@@ -367,8 +367,6 @@ class perfil{
     if(cardHistorico?.classList?.contains("ativo-card-conteudo")){
         const containerParaInserir = document.querySelector(".informacoes-tabela") as HTMLElement;
 
-   
-        containerParaInserir.innerHTML = "";
         const dadosHistoricosUSer = this.dadosHistoricos;
 
         dadosHistoricosUSer.forEach(dadoUsuario => {
