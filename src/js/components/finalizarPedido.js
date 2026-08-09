@@ -224,7 +224,7 @@ class ProcessarPagamento {
             }
 
             sessionStorage.setItem("totalPix",JSON.stringify((resultado.total)));
-            
+            const idUser = localStorage.getItem("idUser")
             try {
                 const resposta = await fetch("https://ecomerce-echomoda.onrender.com/api/criar-pagamento",{
                     method: "POST",
@@ -232,6 +232,7 @@ class ProcessarPagamento {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
+                        idUser: idUser,
                         nome: dados.nome,
                         email: dados.email,
                         cpf: dados.cpf,

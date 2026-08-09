@@ -142,7 +142,7 @@ app.post("/api/calcular-produtos",limitadorGeral, async (req,res) =>{
 })
 app.post("/api/criar-pagamento",limitadorGeral, async (req, res) => {
     try {
-        const { email, nome, cpf, precoTotal } = req.body;
+        const { email, nome, cpf, precoTotal,idUser } = req.body;
         const erros = validarDadosUsuario({ email, nome, cpf, precoTotal });
 
         if (erros.length > 0) {
@@ -181,7 +181,7 @@ app.post("/api/criar-pagamento",limitadorGeral, async (req, res) => {
 
             const pedidoSalvo = await prisma.pedidos.create({
                 data: {
-                    id:crypto.randomUUID(),
+                    id:idUser,
                     mp_id:resultado.id.toString(),
                     total: Number(precoTotal),
                     status: "pendente",

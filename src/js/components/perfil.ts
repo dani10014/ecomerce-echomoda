@@ -17,7 +17,13 @@ interface dados{
     cidade:string,
     complemento:string,
 }
-
+interface tipoDadosHistorico{
+    imagem:string | null;
+    data_pedido:string ;
+    status:string;
+    total:string;
+    quantidade:string | null;
+}
 class perfil{
 
         espacoNome:HTMLInputElement | null
@@ -26,7 +32,7 @@ class perfil{
         loadingFetch:HTMLElement | null;
         backDropGlass:HTMLElement| null ;
         dadosUsuarioEndereco: Partial<dados>;
-        dadosHistoricos:object[]
+        dadosHistoricos:tipoDadosHistorico [];
 
     constructor(){
         this.espacoNome = document.querySelector("#campo-nome") as HTMLInputElement
@@ -36,7 +42,7 @@ class perfil{
         this.loadingFetch = document.querySelector(".loading") as HTMLElement;
 
         this.dadosUsuarioEndereco = {};
-        this.dadosHistoricos = [{}]
+        this.dadosHistoricos = [];
 
         this.buscarDadosUsuarioEndereco()
         this.ouvintesBotoesMenu()
@@ -72,7 +78,7 @@ class perfil{
                     method:"GET",
                     headers:{"Content-type":"application/json"},
                     credentials:"include",
-                })
+                }),
             ])
 
             if(!resultadoBuscaEndereco.ok || !resultadoBuscaHistorico.ok){
@@ -84,7 +90,7 @@ class perfil{
             const dadosBuscaHistorico = await resultadoBuscaHistorico.json();
 
             this.dadosUsuarioEndereco = dadosBuscaEndereco.endereco;
-            this.dadosHistoricos = dadosBuscaHistorico.historico;
+            this.dadosHistoricos = dadosBuscaHistorico.Resposta;
         
         }catch(erro){
             exibirAlerta("Erro no servidor","erro")
@@ -93,6 +99,7 @@ class perfil{
             this.loadingFetch?.classList.remove("ativo-loading-glass");
         }
     }
+    
     atualizarDadosCards(){
 
         /*todos os card de cada seção */
@@ -357,8 +364,25 @@ class perfil{
         }) 
 
     }
-    if(cardHistorico?.classList?.contains(".ativo-card-conteudo")){
-        const dadosHistorico = this.dadosHistoricos
+    if(cardHistorico?.classList?.contains("ativo-card-conteudo")){
+        const containerParaInserir = document.querySelector(".informacoes-tabela") as HTMLElement;
+
+   
+        containerParaInserir.innerHTML = "";
+        const dadosHistoricosUSer = this.dadosHistoricos;
+
+        dadosHistoricosUSer.forEach(dadoUsuario => {
+            const card = document.createElement("div");
+            card.className = "informacoes-tabela__tabela-corpo"
+            card.innerHTML =`<span class="image-container"><img src="${dadoUsuario.imagem || "#"}"class="imagem-produto"></span>
+                            <span id="status">${dadoUsuario.status || "Sem dados"}</span>
+                            <span id="data">${dadoUsuario.data_pedido || "Sem dados"}</span>
+                            <span id="quantidade">${dadoUsuario.quantidade || "Sem dados"}</span>
+                            <span id="valor">${dadoUsuario.total || "Sem dados"}</span>`
+
+            containerParaInserir.appendChild(card);
+        });
+    
     }
 }
     ouvintesBotoesMenu(){
