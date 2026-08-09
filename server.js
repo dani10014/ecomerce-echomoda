@@ -181,7 +181,8 @@ app.post("/api/criar-pagamento",limitadorGeral, async (req, res) => {
 
             const pedidoSalvo = await prisma.pedidos.create({
                 data: {
-                    id:idUser,
+                    id:crypto.randomUUID(),
+                    usuario_id:idUser,
                     mp_id:resultado.id.toString(),
                     total: Number(precoTotal),
                     status: "pendente",
