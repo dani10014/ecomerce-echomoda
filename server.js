@@ -573,7 +573,7 @@ app.get("/api/buscar-historico/:iduser" ,limitadorGeral ,verificarToken, async (
 
     const resultadoBuscaHistorico = await prisma.pedidos.findMany({
         where:{
-            usuario_pedido:iduser
+            usuario_id:iduser
         }
     })
         return res.status(200).json({Resposta:resultadoBuscaHistorico || []});
