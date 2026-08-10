@@ -351,7 +351,8 @@ interface dadosUserLogin{
                                     const tipoAcao = sessionStorage.getItem("tipo_acao");
                                     
                                     if (tipoAcao === "cadastro") {
-                                        const dadosTemp = JSON.parse(sessionStorage.getItem("temp_user") as string);
+                                        const storedData = JSON.parse(sessionStorage.getItem("temp_user") as string);
+                                        const dadosTemp = storedData?.dadosUser || storedData;
                                         if(!dadosTemp) return this.exibirAlerta("Erro ao recuperar dados", "erro");
                                         
                                         const cadastroSucesso = await this.criarCadastro(dadosTemp.email, dadosTemp.senha, dadosTemp.nome, true);
@@ -406,7 +407,7 @@ interface dadosUserLogin{
 
                 if(!resposta.ok){
                     this.exibirAlerta("Erro ao criar cadastro","erro")
-                    return
+                    return false
                 }
 
                 const dados = await resposta.json();
