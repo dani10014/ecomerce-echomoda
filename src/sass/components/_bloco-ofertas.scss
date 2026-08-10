@@ -67,14 +67,14 @@
                 }
             }
             &__botao-explorar{
-                background-color: black;
+                background-color: #fff;
                 border: none;
                 border-radius: 10px;
                 font-size: variaveis.$font-sm;
                 padding: variaveis.$spacing-sm variaveis.$spacing-md;
                 width: 50%;
-                color: #fff;
-                box-shadow: 0 0 10px #fff;
+                color: black;
+                @include variaveis.sombraObj;
                 transition: all 0.3s ease-in-out;
                 cursor: pointer;
                 @media (min-width: 750px){

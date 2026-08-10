@@ -58,7 +58,9 @@
                 padding: variaveis.$spacing-md variaveis.$spacing-3xl;
                 border-radius: 10px;
                 border: none;
+                transition: all 0.3s ease-in-out;
                 @include variaveis.sombraObj;
+                @include variaveis.hover;
             }
         }
         .container-foto-catalogo{

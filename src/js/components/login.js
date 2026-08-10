@@ -1,7 +1,5 @@
 import {verificarUsuarioExiste} from "../main.js";
 
-
-
 export function login(){
     new userVerific()
 }

@@ -496,14 +496,14 @@ header .cabecalho__carrinho:hover {
   }
 }
 .descontos-e-ofertas .bloco-ofertas .text-oferta__botao-explorar {
-  background-color: black;
+  background-color: #fff;
   border: none;
   border-radius: 10px;
   font-size: 0.85rem;
   padding: 0.75rem 1rem;
   width: 50%;
-  color: #fff;
-  box-shadow: 0 0 10px #fff;
+  color: black;
+  box-shadow: 0 28px 60px rgba(22, 42, 79, 0.08);
   transition: all 0.3s ease-in-out;
   cursor: pointer;
 }
@@ -2217,7 +2217,12 @@ body {
   padding: 1rem 4rem;
   border-radius: 10px;
   border: none;
+  transition: all 0.3s ease-in-out;
   box-shadow: 0 28px 60px rgba(22, 42, 79, 0.08);
+}
+.secao-catalogo .container .container-texto-catalogo__botao:hover {
+  background-color: rgb(134, 134, 134);
+  color: #fff;
 }
 .secao-catalogo .container .container-foto-catalogo {
   width: 100%;
