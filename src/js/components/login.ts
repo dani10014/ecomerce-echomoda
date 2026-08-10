@@ -22,6 +22,7 @@ interface dadosUserLogin{
         loadingCadastrar:HTMLElement;
         btnEnviarCodigo:HTMLElement;
         loadingEnviarCodigo:HTMLElement;
+        cadastroTemporario: { nome:string; email:string; senha:string } | null;
 
         constructor(){
             this.alertaAdicao = document.querySelector(".confirmacao-adicao-carrinho") as HTMLElement;
@@ -37,6 +38,7 @@ interface dadosUserLogin{
             this.loadingCadastrar = document.querySelector("#spinner-loading-cadastro") as HTMLElement;
             this.btnEnviarCodigo = document.querySelector("#btn-verificar-codigo") as HTMLButtonElement;
             this.loadingEnviarCodigo = document.querySelector("#spinner-loading-verificar-codigo") as HTMLElement;
+            this.cadastroTemporario = null;
             
             this.ouvinteBotaoEntrar();
             this.ouvinteMudançaDeBotaoCadastrar();
@@ -68,8 +70,8 @@ interface dadosUserLogin{
                         headers: { "Content-Type": "application/json" },
                         credentials: "include",
                         body: JSON.stringify({
-                            email:email.value,
-                            senha:senha.value,
+                            email:email.value.trim().toLowerCase(),
+                            senha:senha.value.trim(),
                         })
                     });   
                 
@@ -137,10 +139,10 @@ interface dadosUserLogin{
                     }else{
                         let dadosUser = {
                             nome:nome.value,
-                            email:email.value.toLowerCase(),
+                            email:email.value.trim().toLowerCase(),
                             senha:senha.value
                         }
-                        sessionStorage.setItem("temp_user", JSON.stringify({ dadosUser }));
+                        this.cadastroTemporario = dadosUser;
                         try{
                             
                             const resposta = await fetch("https://ecomerce-echomoda.onrender.com/api/verificar-cadastro",{
@@ -170,7 +172,7 @@ interface dadosUserLogin{
                                 this.formularioCadastro.style.display ="none";
                                 this.btnLinkCadastrar.style.display = "none";
                                 this.textoLogin.style.display = "none";
-                                this.exibirVerificacaoEmail(email.value)
+                                this.exibirVerificacaoEmail(dadosUser.email)
                                 await this.enviarCodigoEmail();
                                 this.verificarCodigo6Digitos();
                             }
@@ -273,7 +275,7 @@ interface dadosUserLogin{
 
         async enviarCodigoEmail(){
             let email = document.querySelector("#email-cadastro") as HTMLInputElement ;
-            if(!email){
+            if(!email.value){
                 email = document.querySelector("#email") as HTMLInputElement;
             }
 
@@ -312,7 +314,7 @@ interface dadosUserLogin{
                     let emailUsuario = document.querySelector("#email-cadastro") as HTMLInputElement;
                     let todoOCodigo = "";
 
-                    if(!emailUsuario){
+                    if(!emailUsuario.value){
                         emailUsuario = document.querySelector("#email") as HTMLInputElement;
                     }
 
@@ -333,7 +335,7 @@ interface dadosUserLogin{
                                 headers:{"Content-Type":"application/json"},
                                 body:JSON.stringify({
                                     codigo:todoOCodigo,
-                                    email:emailUsuario.value.trim()
+                                    email:emailUsuario.value.trim().toLowerCase()
                                 })
                             })
                             
@@ -351,15 +353,15 @@ interface dadosUserLogin{
                                     const tipoAcao = sessionStorage.getItem("tipo_acao");
                                     
                                     if (tipoAcao === "cadastro") {
-                                        const storedData = JSON.parse(sessionStorage.getItem("temp_user") as string);
-                                        const dadosTemp = storedData?.dadosUser || storedData;
-                                        if(!dadosTemp) return this.exibirAlerta("Erro ao recuperar dados", "erro");
+                                        const dadosTemp = this.cadastroTemporario;
+                                        if (!dadosTemp) return this.exibirAlerta("Erro ao recuperar dados", "erro");
                                         
                                         const cadastroSucesso = await this.criarCadastro(dadosTemp.email, dadosTemp.senha, dadosTemp.nome, true);
                                         
                                         if(cadastroSucesso){
                                             const {senha,...usuarioSemSenha} = dadosTemp
                                             localStorage.setItem("Usuario", JSON.stringify(usuarioSemSenha));
+                                            this.cadastroTemporario = null;
                                             sessionStorage.removeItem("tipo_acao");
                                             verificarUsuarioExiste();
                                         }
@@ -415,7 +417,6 @@ interface dadosUserLogin{
                 if(resposta.status === 201){
                     this.exibirAlerta("Usuario cadastrado com sucesso","sucesso");
                     localStorage.setItem("idUser", dados.novo.id)
-                    sessionStorage.removeItem("temp_user");
                     return true;
                 } else {
                     this.exibirAlerta("Erro ao cadastrar no servidor", "erro");
