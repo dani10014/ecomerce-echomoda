@@ -3,22 +3,40 @@ import {verificarUsuarioExiste} from "../main.js";
 export function login(){
     new userVerific()
 }
+interface dadosUserLogin{
+    nome:string;
+    email:string;
+    senha:string;
+}
     class userVerific{
+        alertaAdicao:HTMLElement;
+        btnEntrar:HTMLButtonElement;
+        btnLinkCadastrar:HTMLButtonElement;
+        formularioLogin:HTMLElement;
+        formularioCadastro:HTMLElement;
+        textoLogin:HTMLElement;
+        textoJaPossuiCadastro:HTMLElement;
+        btnCadastrar:HTMLButtonElement;
+        formularioVerificarEmail:HTMLElement;
+        loadingLogin:HTMLElement;
+        loadingCadastrar:HTMLElement;
+        btnEnviarCodigo:HTMLElement;
+        loadingEnviarCodigo:HTMLElement;
+
         constructor(){
-            this.alertaAdicao = document.querySelector(".confirmacao-adicao-carrinho");
-            this.btnEntrar = document.querySelector("#btn-entrar");
-            this.btnLinkCadastrar = document.querySelector("#btn-link-cadastrar");
-            this.formularioLogin = document.querySelector(".formulario-entrar");
-            this.formularioCadastro = document.querySelector(".formulario-cadastrar");
-            this.textoLogin = document.querySelector(".texto-logar");
-            this.textoJaPossuiCadastro = document.querySelector("#texto-ja-possui-login");
-            this.btnCadastrar = document.querySelector("#btn-cadastrar");
-            this.formularioVerificarEmail = document.querySelector(".formulario-verificar-codigo");
-            this.loadingLogin = document.querySelector("#spinner-loading-login");
-            this.loadingCadastrar = document.querySelector("#spinner-loading-cadastro");
-            this.formularioVerificarEmail = document.querySelector(".formulario-verificar-codigo")
-            this.btnEnviarCodigo = document.querySelector("#btn-verificar-codigo");
-            this.loadingEnviarCodigo = document.querySelector("#spinner-loading-verificar-codigo");
+            this.alertaAdicao = document.querySelector(".confirmacao-adicao-carrinho") as HTMLElement;
+            this.btnEntrar = document.querySelector("#btn-entrar") as HTMLButtonElement;
+            this.btnLinkCadastrar = document.querySelector("#btn-link-cadastrar") as HTMLButtonElement;
+            this.formularioLogin = document.querySelector(".formulario-entrar") as HTMLElement;
+            this.formularioCadastro = document.querySelector(".formulario-cadastrar") as HTMLElement;
+            this.textoLogin = document.querySelector(".texto-logar") as HTMLElement;
+            this.textoJaPossuiCadastro = document.querySelector("#texto-ja-possui-login") as HTMLElement;
+            this.btnCadastrar = document.querySelector("#btn-cadastrar") as HTMLButtonElement;
+            this.formularioVerificarEmail = document.querySelector(".formulario-verificar-codigo") as HTMLElement;
+            this.loadingLogin = document.querySelector("#spinner-loading-login") as HTMLElement;
+            this.loadingCadastrar = document.querySelector("#spinner-loading-cadastro") as HTMLElement;
+            this.btnEnviarCodigo = document.querySelector("#btn-verificar-codigo") as HTMLButtonElement;
+            this.loadingEnviarCodigo = document.querySelector("#spinner-loading-verificar-codigo") as HTMLElement;
             
             this.ouvinteBotaoEntrar();
             this.ouvinteMudançaDeBotaoCadastrar();
@@ -29,32 +47,30 @@ export function login(){
             if(this.btnEntrar){
             this.btnEntrar.addEventListener("click",async (event) => {
                 event.preventDefault()
-                    let nome = document.querySelector("#nome").value.trim()
-                    let email = document.querySelector("#email").value.trim()
-                    let senha = document.querySelector("#senha").value.trim()
+                    let nome = document.querySelector("#nome")  as HTMLInputElement
+                    let email = document.querySelector("#email") as HTMLInputElement
+                    let senha = document.querySelector("#senha") as HTMLInputElement
                     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
                     this.exibirLoading("entrar")
 
-                if(nome === "" || !regexEmail.test(email) || email === "" || senha === ""){
+                if(nome.value.trim() === "" || !regexEmail.test(email.value.trim()) || email.value.trim() === "" || senha.value.trim() === ""){
                         this.exibirAlerta("Por favor preencha todos os campos","erro")
                         setTimeout(()=>{
                             this.exibirLoading("entrar")
                         },1000)
                     return
                 }else{
-                    let dadosUser = {
-                        nome:nome,
-                        email:email.toLowerCase(),
-                        senha:senha,
-                    }
                 try {
                     
                     const resposta = await fetch("https://ecomerce-echomoda.onrender.com/api/logar", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         credentials: "include",
-                        body: JSON.stringify({ email, senha })
+                        body: JSON.stringify({
+                            email:email.value,
+                            senha:senha.value,
+                        })
                     });   
                 
                     if(!resposta.ok){
@@ -70,8 +86,8 @@ export function login(){
                         sessionStorage.setItem("tipo_acao", "login");
 
                         sessionStorage.setItem("temp_user_login", JSON.stringify({
-                            email: email,
-                            nome: resultado.usuario.nome || nome,
+                            email: email.value,
+                            nome: resultado.usuario.nome || nome.value,
                             numero: resultado.usuario.numero || null,
                         }));
                     
@@ -80,7 +96,7 @@ export function login(){
                         this.formularioLogin.style.display = "none";
                         this.btnLinkCadastrar.style.display = "none";
                         this.textoLogin.style.display = "none";
-                        this.exibirVerificacaoEmail(email);
+                        this.exibirVerificacaoEmail(email.value);
                         await this.enviarCodigoEmail();
                         this.verificarCodigo6Digitos();
                     } 
@@ -105,26 +121,26 @@ export function login(){
             if(this.btnCadastrar){
                 this.btnCadastrar.addEventListener("click", async (event) => {
                     event.preventDefault()
-                    let nome = document.querySelector("#nome-cadastro").value.trim();
-                    let email = document.querySelector("#email-cadastro").value.trim();
-                    let senha = document.querySelector("#senha-cadastro").value.trim();
+                    let nome = document.querySelector("#nome-cadastro") as HTMLInputElement;
+                    let email = document.querySelector("#email-cadastro") as HTMLInputElement;
+                    let senha = document.querySelector("#senha-cadastro") as HTMLInputElement;
                     let regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
                     this.exibirLoading("cadastrar")
 
-                    if(nome === "" || !regexEmail.test(email) || email === "" || senha === ""){
+                    if(nome.value.trim() === "" || !regexEmail.test(email.value.trim()) || email.value.trim() === "" || senha.value.trim() === ""){
                         this.exibirAlerta("Por favor preencha todos os campos","erro")
                         setTimeout(()=>{
                             this.exibirLoading("cadastrar")
                         },1000)
                         return
                     }else{
-                        let dadosUser ={
-                            nome:nome,
-                            email:email.toLowerCase(),
-                            senha:senha
+                        let dadosUser = {
+                            nome:nome.value,
+                            email:email.value.toLowerCase(),
+                            senha:senha.value
                         }
-                        sessionStorage.setItem("temp_user", JSON.stringify({ nome, email, senha }));
+                        sessionStorage.setItem("temp_user", JSON.stringify({ dadosUser }));
                         try{
                             
                             const resposta = await fetch("https://ecomerce-echomoda.onrender.com/api/verificar-cadastro",{
@@ -154,7 +170,7 @@ export function login(){
                                 this.formularioCadastro.style.display ="none";
                                 this.btnLinkCadastrar.style.display = "none";
                                 this.textoLogin.style.display = "none";
-                                this.exibirVerificacaoEmail(email)
+                                this.exibirVerificacaoEmail(email.value)
                                 await this.enviarCodigoEmail();
                                 this.verificarCodigo6Digitos();
                             }
@@ -213,24 +229,26 @@ export function login(){
             })
         }
         /*Metodo que exibi um alerta se foi sucesso ou erro*/
-        exibirAlerta(mensagem,tipo){
+        exibirAlerta(mensagem:string,tipo:string){
             const icon = tipo === 'sucesso' ? "fa-check-circle" : "fa-times-circle";
             const cor = tipo === 'sucesso' ? "#28a745" : "#dc3545";
 
-            const h5 = this.alertaAdicao.querySelector(".container h5");
+            const h5 = this.alertaAdicao.querySelector(".container h5") as HTMLElement ;
+            const alertaAdicaoContainer = this.alertaAdicao.querySelector(".container") as HTMLElement;
+            
             h5.innerHTML = `<i class="fas ${icon} me-2" style="color: ${cor};"></i>`;
             h5.appendChild(document.createTextNode(mensagem));
     
             this.alertaAdicao.style.display = "flex";
-                setTimeout(() => this.alertaAdicao.querySelector(".container").style.transform = "translateY(0)", 200);
+                setTimeout(() => alertaAdicaoContainer.style.transform = "translateY(0)", 200);
     
                 setTimeout(() => {
-                    this.alertaAdicao.querySelector(".container").style.transform = "translateY(130%)";
+                    alertaAdicaoContainer.style.transform = "translateY(130%)";
                     setTimeout(() => this.alertaAdicao.style.display = "none", 400);
                 }, 2000);
         }
         /*Exibi loading nos botões*/
-        exibirLoading(botao){
+        exibirLoading(botao:string){
             if(botao === "entrar"){
                 this.loadingLogin.classList.toggle("spinner-loading-ativo")
                 this.btnEntrar.classList.toggle("esconder-botao-entrar-ou-cadastro")
@@ -244,18 +262,19 @@ export function login(){
             }
         }
         /*Exibi o card de verificação de email*/
-        exibirVerificacaoEmail(email){
+        exibirVerificacaoEmail(email:string){
             this.formularioVerificarEmail.style.display = "flex";
+            const mensagemEnvio =  this.formularioVerificarEmail.querySelector("h5") as HTMLElement
             setTimeout(()=>{
-                this.formularioVerificarEmail.querySelector("h5").textContent = `Codigo enviado para: ${email}`;
+                mensagemEnvio.textContent = `Codigo enviado para: ${email}`;
                 this.formularioVerificarEmail.classList.add("formulario-cadastrar-ativo")
             })
         }
 
         async enviarCodigoEmail(){
-            let email = document.querySelector("#email-cadastro").value.trim();
+            let email = document.querySelector("#email-cadastro") as HTMLInputElement ;
             if(!email){
-                email = document.querySelector("#email").value.trim()
+                email = document.querySelector("#email") as HTMLInputElement;
             }
 
             this.exibirLoading("verificar-codigo");
@@ -265,7 +284,9 @@ export function login(){
             const resultado = await fetch("https://ecomerce-echomoda.onrender.com/api/enviar-codigo", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email })
+                body: JSON.stringify({ 
+                    email:email.value.trim()
+                })
             });
         if (resultado.ok) {
             this.exibirAlerta("Código enviado com sucesso!", "sucesso");
@@ -287,12 +308,12 @@ export function login(){
                 this.btnEnviarCodigo.addEventListener("click",async (event) => {
                     event.preventDefault();
 
-                    const espacosCodigos = document.querySelectorAll(".codigo-6-digitos");
-                    let emailUsuario = document.querySelector("#email-cadastro").value.trim();
+                    const espacosCodigos = document.querySelectorAll(".codigo-6-digitos") as NodeListOf<HTMLInputElement>;
+                    let emailUsuario = document.querySelector("#email-cadastro") as HTMLInputElement;
                     let todoOCodigo = "";
 
                     if(!emailUsuario){
-                        emailUsuario = document.querySelector("#email").value
+                        emailUsuario = document.querySelector("#email") as HTMLInputElement;
                     }
 
                     this.exibirLoading("verificar-codigo")
@@ -312,7 +333,7 @@ export function login(){
                                 headers:{"Content-Type":"application/json"},
                                 body:JSON.stringify({
                                     codigo:todoOCodigo,
-                                    email:emailUsuario
+                                    email:emailUsuario.value.trim()
                                 })
                             })
                             
@@ -330,7 +351,7 @@ export function login(){
                                     const tipoAcao = sessionStorage.getItem("tipo_acao");
                                     
                                     if (tipoAcao === "cadastro") {
-                                        const dadosTemp = JSON.parse(sessionStorage.getItem("temp_user"));
+                                        const dadosTemp = JSON.parse(sessionStorage.getItem("temp_user") as string);
                                         if(!dadosTemp) return this.exibirAlerta("Erro ao recuperar dados", "erro");
                                         
                                         const cadastroSucesso = await this.criarCadastro(dadosTemp.email, dadosTemp.senha, dadosTemp.nome, true);
@@ -343,7 +364,7 @@ export function login(){
                                         }
                                     } 
                                     else if (tipoAcao === "login") {
-                                        const dadosLogin = JSON.parse(sessionStorage.getItem("temp_user_login"));
+                                        const dadosLogin = JSON.parse(sessionStorage.getItem("temp_user_login") as string);
                                         if(!dadosLogin) return this.exibirAlerta("Erro ao recuperar dados de login", "erro");
                                         
                                         localStorage.setItem("Usuario", JSON.stringify(dadosLogin));
@@ -371,7 +392,7 @@ export function login(){
                 })
             }
         }
-        async criarCadastro(email, senha, nome, emailVerificado){
+        async criarCadastro(email:string, senha:string, nome:string, emailVerificado:boolean){
             
             if(emailVerificado !== true) return false;
             
@@ -405,7 +426,7 @@ export function login(){
             }
         }
         reenvioCodigoEmail(){
-            const btnReenviarCodigo = document.querySelector("#btn-reenviar-codigo");
+            const btnReenviarCodigo = document.querySelector("#btn-reenviar-codigo") as HTMLButtonElement;
 
         if (!btnReenviarCodigo) {
             console.error("Botão de reenvio não encontrado");
