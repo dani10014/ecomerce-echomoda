@@ -1,4 +1,4 @@
-# [EchoModa 🛍️](https://projeto-e-comerce.vercel.app/) [Código descontinuado,nova versão aqui](https://lnkd.in/dDncNAjy)
+# [EchoModa 🛍️](https://projeto-e-comerce.vercel.app/)     🚧 [Código descontinuado.Nova versão aqui](https://lnkd.in/dDncNAjy)
 
 O **EchoModa** é um ecossistema de e-commerce completo,em desenvolvimento para escalar desde pequenos negócios locais até operações de alto capital no setor de moda. 
 
