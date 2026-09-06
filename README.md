@@ -1,4 +1,6 @@
-# [EchoModa 🛍️](https://projeto-e-comerce.vercel.app/)     🚧 [Código descontinuado.Nova versão aqui](https://lnkd.in/dDncNAjy)
+# [EchoModa 🛍️](https://projeto-e-comerce.vercel.app/)   
+
+🚧 [Código descontinuado,nova versão aqui](https://lnkd.in/dDncNAjy)
 
 O **EchoModa** é um ecossistema de e-commerce completo,em desenvolvimento para escalar desde pequenos negócios locais até operações de alto capital no setor de moda. 
 
@@ -26,3 +28,7 @@ O foco principal do projeto foi unir uma interface de alta conversão visual com
 ### Back-end (Estrutura Inicial)
 * **Express & Node.js:** Estruturação de rotas e backend para suporte à aplicação.
   
+Imagens do projeto
+
+<img width="417" height="588" alt="Captura de tela_2026-07-23_15-58-13" src="https://github.com/user-attachments/assets/119a79b9-89d7-48b3-8c8c-de84671eb8f3" />
+<img width="1363" height="624" alt="Captura de tela_2026-07-23_15-58-33" src="https://github.com/user-attachments/assets/b5f955d1-85e2-4ed6-85b0-26d416821798" />
